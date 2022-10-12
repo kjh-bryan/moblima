@@ -70,8 +70,7 @@ Required following functionalities:
 
 <!-- Contribution 
 ## Contribution
-Make sure to have GitBash installed --> https://git-scm.com/downloads
--->
+Make sure to have GitBash installed  https://git-scm.com/downloads -->
 
 
 
