@@ -67,6 +67,14 @@ Required following functionalities:
     - [ ] List the Top 5 ranking by ticket sales OR by overall reviewers’ ratings
 
 
+
+<!-- Contribution 
+## Contribution
+Make sure to have GitBash installed --> https://git-scm.com/downloads
+-->
+
+
+
 Repository Description
 ----------------------
 
