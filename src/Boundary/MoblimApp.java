@@ -25,7 +25,7 @@ public class MoblimApp {
 				choice = sc.nextInt();
 			}
 			
-			if(choice == 1) {}		// Search/List Movies
+			if(choice == 1) {SearchMovie.main(null)}		// Search/List Movies
 			else if(choice == 2) {}	// View Movie Details
 			else if(choice == 3) {}	// Check Seat Availability and Selection of Seats
 			else if(choice == 4) {}	// Book and Purchase Tickets
