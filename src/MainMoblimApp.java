@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+import Boundary.AdminView;
+import Boundary.MovieGoerView;
+import Controller.UserInputValidationController;
+import Global.Constants;
+
+public class MainMoblimApp {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Scanner sc = new Scanner(System.in);
+		
+		boolean selectedExit = false;
+		
+		while(!selectedExit)
+		{
+
+			System.out.println("\n------------------------------");
+			System.out.println("MOvie Booking and Listing Management Application - MOBLIMA");
+			System.out.println("------------------------------");
+			System.out.println("1: Movie-goer Module");
+			System.out.println("2: Admin Module");
+			System.out.println("3: Exit");
+			System.out.println();
+			System.out.print("Please select a module of choice: ");
+			
+			
+			switch(UserInputValidationController.validateNumberFromUser())
+			{
+				case 1: 
+					// Initiate Movie-goer Module
+					MovieGoerView.movie_goer_view();
+					break;
+				case 2:
+					// Initiate Admin Module
+					AdminView.admin_view(args);
+					break;
+				case 3:
+					selectedExit = true;
+					System.out.println("Exiting MOBLIMA, see you again soon");
+					break;
+				default:
+					System.out.println(Constants.INCORRECT_OPTION);
+					
+			}
+		}
+	}
+
+}
