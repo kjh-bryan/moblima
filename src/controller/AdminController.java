@@ -16,7 +16,7 @@ import entity.Admin;
 
 import java.io.FileWriter;
 
-public class AdminController {
+public class AdminController{
 	private static final String SEPARATOR = "|";
 	private static final String databaseTableName = "src/database/admin.txt";
 	
