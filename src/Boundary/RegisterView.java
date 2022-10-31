@@ -1,12 +1,12 @@
-package Boundary;
+package boundary;
 
 import java.util.Random;
 
-import Controller.AdminController;
-import Controller.MovieGoerController;
-import Controller.UserInputValidationController;
-import Model.Admin;
-import Model.MovieGoer;
+import controller.AdminController;
+import controller.MovieGoerController;
+import controller.UserInputValidationController;
+import entity.Admin;
+import entity.MovieGoer;
 
 public class RegisterView {
 
@@ -35,6 +35,7 @@ public class RegisterView {
 		String password = UserInputValidationController.validateStringFormUser();
 		System.out.println();
 		String name;
+		String email;
 		int phone;
 		boolean registerSuccessful;
 		
@@ -46,8 +47,12 @@ public class RegisterView {
 			System.out.print("Please enter your phone number: ");
 			phone = UserInputValidationController.validatePhoneNumberFromUser();
 			System.out.println();
+			System.out.print("Please enter your email address: ");
+			//Todo implement email validator
+			email = UserInputValidationController.validateStringFormUser();
+			System.out.println();
 			
-			registerSuccessful =  MovieGoerController.createMovieGoerAccount(new MovieGoer(id,username,password,name,phone));
+			registerSuccessful =  MovieGoerController.createMovieGoerAccount(new MovieGoer(id,username,password,name,phone,email));
 		}
 		else
 		{

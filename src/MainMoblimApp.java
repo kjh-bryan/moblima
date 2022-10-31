@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-import Boundary.AdminView;
-import Boundary.MovieGoerView;
-import Controller.UserInputValidationController;
-import Global.Constants;
+import boundary.AdminView;
+import boundary.MovieGoerView;
+import controller.UserInputValidationController;
+import global.Constants;
 
 public class MainMoblimApp {
 
@@ -35,7 +35,7 @@ public class MainMoblimApp {
 					break;
 				case 2:
 					// Initiate Admin Module
-					AdminView.admin_view(args);
+					AdminView.admin_view();
 					break;
 				case 3:
 					selectedExit = true;

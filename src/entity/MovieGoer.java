@@ -1,13 +1,17 @@
-package Model;
+package entity;
 
 public class MovieGoer extends User{
 	
 	String name;
+	String emailAddress;
 	int phone;
 	
-	public MovieGoer(int id, String username, String password, String name, int phone)
+	public MovieGoer(int id, String username, String password, String name, int phone, String emailAddress)
 	{
 		super(id, username, password, MOVIE_GOER);
+		this.name = name;
+		this.phone = phone;
+		this.emailAddress = emailAddress;
 	}
 	
 	public MovieGoer(String username,String password)
@@ -27,9 +31,11 @@ public class MovieGoer extends User{
 		return phone;
 	}
 
-	public void setPhone(int phone) {
-		this.phone = phone;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
+	
+	
 	
 	
 }

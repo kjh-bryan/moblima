@@ -1,12 +1,12 @@
-package Boundary;
+package boundary;
 
-import Controller.AdminController;
-import Controller.MovieGoerController;
-import Controller.UserInputValidationController;
-import Global.Constants;
-import Model.Admin;
-import Model.MovieGoer;
-import Model.User;
+import controller.AdminController;
+import controller.MovieGoerController;
+import controller.UserInputValidationController;
+import entity.Admin;
+import entity.MovieGoer;
+import entity.User;
+import global.Constants;
 
 import java.io.IOException;
 import java.util.Random;
@@ -47,10 +47,6 @@ public class LoginView {
 					if(user != null)
 					{
 						return user;
-					}
-					else
-					{
-						System.out.println("Incorrect credentials, please try again");
 					}
 					break;
 					
@@ -94,7 +90,15 @@ public class LoginView {
 				Admin adminUser = AdminController.loginAdminAccount(new Admin(username, password));
 				if(adminUser != null)
 				{
-					return adminUser;
+					if(adminUser.getPassword().equals(password))
+					{
+						return adminUser;
+					}
+					else
+					{
+						System.out.println("Incorrect password provided!");
+						return null;
+					}
 				}
 			}
 			catch(Exception e)

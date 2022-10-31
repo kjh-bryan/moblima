@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import Model.User;
+import entity.User;
 
 public class DatabaseController {
 

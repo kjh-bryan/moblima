@@ -1,12 +1,12 @@
-package Boundary;
+package boundary;
 
-import Controller.UserInputValidationController;
-import Global.Constants;
-import Model.Admin;
+import controller.UserInputValidationController;
+import entity.Admin;
+import global.Constants;
 
 
 public class AdminView {
-	public static void admin_view(String[] args)
+	public static void admin_view()
 	{
 		
 		Admin adminUser = (Admin) new LoginView(Constants.ADMIN).showLoginView();
@@ -17,6 +17,7 @@ public class AdminView {
 		{
 			System.out.println("\n------------------------------");
 			System.out.println("MOvie Booking and Listing Management Application - Admin Module");
+			System.out.println("Welcome, " + adminUser.getUsername());
 			System.out.println("------------------------------");
 			System.out.println("1: Create/Update/Remove movie listing");
 			System.out.println("2: Create/Update/Remove cinema showtimes and movies to be shown");
@@ -28,6 +29,7 @@ public class AdminView {
 			{
 				case 1:
 					// Create/Update/Remove movie listing
+					
 					break;
 				case 2:
 					// Create/Update/Remove cinema showtimes and movies to be shown

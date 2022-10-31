@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import Global.Constants;
-import Model.Admin;
-import Model.MovieGoer;
+import entity.Admin;
+import entity.MovieGoer;
+import global.Constants;
 
 public class MovieGoerController {
 	private static final String SEPARATOR = "|";
@@ -25,7 +25,7 @@ public class MovieGoerController {
 			
 		PrintWriter out = new PrintWriter(new FileWriter(databaseTableName));
 		
-			out.append("\n " + newMovieGoerAccount.getId() + SEPARATOR + newMovieGoerAccount.getUsername() + SEPARATOR + newMovieGoerAccount.getPassword() +SEPARATOR+ newMovieGoerAccount.getName() + SEPARATOR + newMovieGoerAccount.getPhone());
+			out.append("\n " + newMovieGoerAccount.getId() + SEPARATOR + newMovieGoerAccount.getUsername() + SEPARATOR + newMovieGoerAccount.getPassword() +SEPARATOR+ newMovieGoerAccount.getName() + SEPARATOR + newMovieGoerAccount.getPhone() + SEPARATOR + newMovieGoerAccount.getEmailAddress());
 			out.close();
 			return true;
 		}
@@ -67,8 +67,9 @@ public class MovieGoerController {
 				String username = stringTokenizer.nextToken().trim();
 				String password = stringTokenizer.nextToken().trim();
 				String name = stringTokenizer.nextToken().trim();
+				String email = stringTokenizer.nextToken().trim();
 				int phone = Integer.parseInt(stringTokenizer.nextToken().trim());
-				movieGoerAccountList.add(new MovieGoer(id, username, password,name,phone));
+				movieGoerAccountList.add(new MovieGoer(id, username, password,name,phone,email));
 			}
 		}
 		catch(Exception e)

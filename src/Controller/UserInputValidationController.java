@@ -1,15 +1,18 @@
-package Controller;
+package controller;
 
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import Global.Constants;
+import global.Constants;
 
 import java.io.File;
 
 
 public class UserInputValidationController {
 	private static Scanner scanner = new Scanner(System.in);
+	private final static Logger logger = Logger.getLogger(UserInputValidationController.class.getName());
 	
 	public static int validateNumberFromUser() {
 		int number = -1;
@@ -78,18 +81,19 @@ public class UserInputValidationController {
 			
 			if(databaseTableFile.exists())
 			{
-				System.out.println("DatabaseTableFile exist");
+				logger.log(Level.FINE, "DatabaseTableFile exist.");
 				return true;
 			}
 			else
 			{
-				System.out.println("DatabaseTableFile does not exist, create new file");
+				logger.log(Level.INFO, "DatabaseTableFile does not exist, create new file");
 				databaseTableFile.createNewFile();
 				return true;
 			}
 		}catch(Exception e)
 		{
-			System.out.println("UserInputValidationController -> Exception occured : " +e.getLocalizedMessage());
+			
+			logger.log(Level.SEVERE, "createDatabaseTableFile exception occured : " + e.getLocalizedMessage());
 		}
 		return false;
 		
