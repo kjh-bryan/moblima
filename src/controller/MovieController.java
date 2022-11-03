@@ -66,5 +66,23 @@ public class MovieController {
 		return moviesList;
 	}
 	
+	public static Movie getMovieByMovieId(int movieId)
+	{
+
+		ArrayList<Movie> moviesList = getAllMovies();
+		
+		Movie movie = null;
+		for(Movie m : moviesList)
+		{
+			if(m.getMovieId() == movieId)
+			{
+				movie = m;
+			}
+		}
+		
+		return movie;
+		
+	}
+	
 	
 }

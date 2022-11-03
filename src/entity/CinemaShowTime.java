@@ -4,22 +4,34 @@ import java.time.LocalDateTime;
 
 public class CinemaShowTime {
 	private int showTimeId;
-	private Movie movie;
+	private String cinemaCode;
+	private int movieId;
 	private LocalDateTime movieStartTime;
 	private LocalDateTime movieEndTime;
 	
 	
-	public CinemaShowTime(int showTimeId, Movie movie, LocalDateTime movieStartTime, LocalDateTime movieEndTime) {
+	public CinemaShowTime(int showTimeId, String cinemaCode,int movieId, LocalDateTime movieStartTime, LocalDateTime movieEndTime) {
 		this.showTimeId = showTimeId;
-		this.movie = movie;
+		this.movieId = movieId;
 		this.movieStartTime = movieStartTime;
 		this.movieEndTime = movieEndTime;
+		this.cinemaCode = cinemaCode;
 	}
 	
 	
-	public Movie getMovieDetails()
+	public int getShowTimeId() {
+		return showTimeId;
+	}
+
+
+	public String getCinemaCode() {
+		return cinemaCode;
+	}
+
+
+	public int getMovieId()
 	{
-		return movie;
+		return movieId;
 	}
 	
 	public LocalDateTime getShowStartTime()

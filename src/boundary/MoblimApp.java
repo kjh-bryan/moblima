@@ -1,6 +1,8 @@
 package boundary;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -12,31 +14,10 @@ public class MoblimApp {
 		Scanner sc = new Scanner(System.in);
 		
 		
-		int movieId = 001;
-		String title = "Black Adam";
-		String movieStartDate = "Sunday 20 Nov";
-		String movieGenre = "Action";
-		MovieClassifiedRating movieClassifiedRating = MovieClassifiedRating.PG13;
-		int movieDurationInMins = 125;
-		String movieLanguage = "English";
-		String topDivider = "------------------------";
-		String movieIdString = getMovieDescriptionString("Movie ID: " + movieId,topDivider);
-		String titleString = getMovieDescriptionString(title,topDivider);
-		String movieGenreString = getMovieDescriptionString(movieGenre,topDivider);
-		String emptySpace = getMovieDescriptionString("", topDivider);
-		String movieStartDateString = getMovieDescriptionString("Movie ID: " + movieId,topDivider);
-		String movieClassifiedRatingString = getMovieDescriptionString(movieClassifiedRating+"",topDivider);
-		String movieDurationInMinsString = getMovieDescriptionString(movieDurationInMins+"mins",topDivider);
-		String movieLanguageString = getMovieDescriptionString(movieLanguage,topDivider);
-		System.out.println(topDivider);
-		System.out.println(movieIdString);
-		System.out.println(emptySpace);
-		System.out.println(titleString);
-		System.out.println(emptySpace);
-		System.out.println(movieClassifiedRatingString);
-		System.out.println(movieGenreString);
-		System.out.println(movieDurationInMinsString);
-		System.out.println(topDivider);
+		LocalDate ld = LocalDate.parse("2022-10-31");
+		LocalTime lt = LocalTime.parse("17:20");
+		LocalDateTime ldt = LocalDateTime.parse("2022-10-31T17:20");
+		System.out.println(ldt.format(DateTimeFormatter.ofPattern("EEE yyyy-MM-dd HH:mm")));
 		
 		
 		

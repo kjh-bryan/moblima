@@ -11,7 +11,6 @@ public class AdminView {
 		
 		Admin adminUser = (Admin) new LoginView(Constants.ADMIN).showLoginView();
 		
-		boolean selectedExit = false;
 		
 		while(adminUser != null)
 		{

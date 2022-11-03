@@ -29,6 +29,7 @@ public class MovieGoerView {
 					break;
 				case 2:
 					// View Movie Details
+					
 					break;
 				case 3:
 					// Check Seat Availability and Selection of Seats
