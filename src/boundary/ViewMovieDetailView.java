@@ -74,7 +74,7 @@ public class ViewMovieDetailView {
 			System.out.println("======================================================");
 			System.out.println();
 
-			System.out.println("Would you like to make a booking? (1 for yes, 0 for no)");
+			System.out.println("Would you like to see the showtimes? (1 for yes, 0 for no)");
 			int choice = UserInputValidationController.validateNumberFromUser();
 			if(choice == 1)
 			{

@@ -31,18 +31,18 @@ public class SearchListMoviesView {
 				case 1:	// Search movie by ID
 					movie = search_movies_by_id();
 
+					System.out.println();
 					if(movie != null)
 					{
-						System.out.println("Search movie by id -> " + movie.getMovieTitle());
 						goBack = true;
 						ViewMovieDetailView.display_movie_detail(movie);
 					}
 					break;
 				case 2:	// Search movie by Title
 					movie = search_movies_by_title();
+					System.out.println();
 					if(movie != null)
 					{
-						System.out.println("Search movie by title -> " + movie.getMovieTitle());
 						goBack = true;
 						ViewMovieDetailView.display_movie_detail(movie);
 						return;
@@ -50,9 +50,9 @@ public class SearchListMoviesView {
 					break;
 				case 3:	// List all movies
 					movie = list_all_movies();
+					System.out.println();
 					if(movie != null)
 					{
-						System.out.println("Search movie by list all -> " + movie.getMovieTitle());
 						goBack = true;
 						ViewMovieDetailView.display_movie_detail(movie);
 						return;
