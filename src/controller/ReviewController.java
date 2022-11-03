@@ -49,17 +49,34 @@ public class ReviewController {
 		return allReviewList;
 	}
 	
-	public static ArrayList<Review> getReviewsByMovieId(int movieId) throws IOException
+	public static ArrayList<Review> getReviewsByMovieId(int movieId)
 	{
-		ArrayList<Review> allReviewList = getAllReviewList();
+		ArrayList<Review> allReviewList = null;
 		ArrayList<Review> reviewsByMovieIdList = new ArrayList<Review>();
-		
-		for(Review review : allReviewList)
+		try
 		{
-			if(review.getMovieReviewedId() == movieId )
+			
+		
+		allReviewList = getAllReviewList();
+		if(!allReviewList.isEmpty())
+		{
+			for(Review review : allReviewList)
 			{
-				reviewsByMovieIdList.add(review);
+				if(review.getMovieReviewedId() == movieId )
+				{
+					reviewsByMovieIdList.add(review);
+				}
 			}
+		}
+		else {
+
+			logger.log(Level.INFO, "getReviewsByMovieId() -> allReviewList is Empty");
+		}
+		}
+		catch(Exception e)
+		{
+
+			logger.log(Level.SEVERE, "getReviewsByMovieId() exception occured : " + e.getLocalizedMessage());
 		}
 		
 		

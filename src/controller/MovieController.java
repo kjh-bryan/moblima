@@ -55,7 +55,7 @@ public class MovieController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "getAdminAccountList() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "getAllMovies() exception occured : " + e.getLocalizedMessage());
 		}
 		finally {
 			if(sc!= null)
@@ -83,6 +83,25 @@ public class MovieController {
 		return movie;
 		
 	}
+	
+	public static ArrayList<Movie> getMoviesByMovieTitle(String movieTitle)
+	{
+
+		ArrayList<Movie> moviesList = getAllMovies();
+		
+		ArrayList<Movie> moviesByMovieTitleList = new ArrayList<Movie>();
+		
+		for(Movie m : moviesList)
+		{
+			if(m.getMovieTitle().contains(movieTitle.trim()))
+			{
+				moviesByMovieTitleList.add(m);
+			}
+		}
+		
+		return moviesByMovieTitleList;
+	}
+	
 	
 	
 }

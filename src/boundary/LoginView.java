@@ -78,10 +78,10 @@ public class LoginView {
 	public User loginUser()
 	{
 		System.out.print("Enter your username: ");
-		String username = UserInputValidationController.validateStringFormUser();
+		String username = UserInputValidationController.validateStringFromUser();
 		System.out.println();
 		System.out.print("Enter your password: ");
-		String password = UserInputValidationController.validateStringFormUser();
+		String password = UserInputValidationController.validateStringFromUser();
 		System.out.println();
 		
 		

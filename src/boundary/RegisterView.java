@@ -29,10 +29,10 @@ public class RegisterView {
 		int id = random.nextInt(1000);
 		
 		System.out.print("Please enter your username: ");
-		String username = UserInputValidationController.validateStringFormUser();
+		String username = UserInputValidationController.validateStringFromUser();
 		System.out.println();
 		System.out.print("Please enter your password: ");
-		String password = UserInputValidationController.validateStringFormUser();
+		String password = UserInputValidationController.validateStringFromUser();
 		System.out.println();
 		String name;
 		String email;
@@ -42,14 +42,14 @@ public class RegisterView {
 		if(role == 1)
 		{
 			System.out.print("Please enter your Full name: ");
-			name = UserInputValidationController.validateStringFormUser();
+			name = UserInputValidationController.validateStringFromUser();
 			System.out.println();
 			System.out.print("Please enter your phone number: ");
 			phone = UserInputValidationController.validatePhoneNumberFromUser();
 			System.out.println();
 			System.out.print("Please enter your email address: ");
 			//Todo implement email validator
-			email = UserInputValidationController.validateStringFormUser();
+			email = UserInputValidationController.validateStringFromUser();
 			System.out.println();
 			
 			registerSuccessful =  MovieGoerController.createMovieGoerAccount(new MovieGoer(id,username,password,name,phone,email));

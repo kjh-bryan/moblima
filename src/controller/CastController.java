@@ -45,10 +45,14 @@ public class CastController {
 		return allCastList;
 	}
 	
-	public static ArrayList<Cast> getCastsByMovieId(int movieId) throws IOException
+	public static ArrayList<Cast> getCastsByMovieId(int movieId) 
 	{
-		ArrayList<Cast> allCastList = getAllCastList();
+		ArrayList<Cast> allCastList = null;
+
 		ArrayList<Cast> castsByMovieIdList = new ArrayList<Cast>();
+		try {
+			
+		allCastList = getAllCastList();
 		
 		for(Cast cast : allCastList)
 		{
@@ -56,6 +60,12 @@ public class CastController {
 			{
 				castsByMovieIdList.add(cast);
 			}
+		}
+
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "getCastsByMovieId() exception occured : " + e.getLocalizedMessage());
 		}
 		
 		

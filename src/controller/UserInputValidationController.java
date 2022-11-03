@@ -53,7 +53,7 @@ public class UserInputValidationController {
 		return number;
 	}
 	
-	public static String validateStringFormUser() {
+	public static String validateStringFromUser() {
 		String input = "";
 		boolean isValid = false;
 		while(!isValid)

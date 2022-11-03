@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import entity.Admin;
 import entity.MovieGoer;
@@ -15,6 +17,8 @@ import global.Constants;
 public class MovieGoerController {
 	private static final String SEPARATOR = "|";
 	private static final String databaseTableName = "src/database/moviegoer.txt";
+	
+	private final static Logger logger = Logger.getLogger(MovieGoerController.class.getName());
 	
 	
 	public static boolean createMovieGoerAccount(MovieGoer newMovieGoerAccount)
@@ -31,24 +35,45 @@ public class MovieGoerController {
 		}
 		catch(Exception e)
 		{
-			System.out.println("MovieGoerController -> Exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "createMovieGoerAccount() exception occured : " + e.getLocalizedMessage());
 		}
 		
 		return false;
 	}
 	
 	
-	public static MovieGoer loginMovieGoerAccount(MovieGoer movieGoerAccount) throws IOException
+	public static MovieGoer loginMovieGoerAccount(MovieGoer movieGoerAccount)
 	{
 
-		ArrayList<MovieGoer> movieGoerAccountList = getMovieGoerAccountList();
-		for(MovieGoer mg : movieGoerAccountList)
-		{
-			if(mg.getUsername().equals(movieGoerAccount.getUsername()) && mg.getPassword().equals(movieGoerAccount.getPassword()))
+		ArrayList<MovieGoer> movieGoerAccountList = null;
+		
+		try {
+			movieGoerAccountList = getMovieGoerAccountList();
+			if(!movieGoerAccountList.isEmpty())
 			{
-				return mg;
+				for(MovieGoer mg : movieGoerAccountList)
+				{
+					if(mg.getUsername().equals(movieGoerAccount.getUsername()) && mg.getPassword().equals(movieGoerAccount.getPassword()))
+					{
+						return mg;
+					}
+				}
 			}
+			else
+			{
+
+
+				logger.log(Level.INFO, "loginMovieGoerAccount() -> movieGoerAccountList is empty ");
+			}
+			
 		}
+		catch(Exception e)
+		{
+
+			logger.log(Level.SEVERE, "loginMovieGoerAccount() exception occured : " + e.getLocalizedMessage());
+		}
+		
+		
 		
 		return null;
 		
@@ -74,7 +99,7 @@ public class MovieGoerController {
 		}
 		catch(Exception e)
 		{
-			System.out.println("MovieGoerController -> Exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "getMovieGoerAccountList() exception occured : " + e.getLocalizedMessage());
 		}
 		finally {
 			sc.close();

@@ -25,17 +25,38 @@ public class SearchListMoviesView {
 	        System.out.println("4. Go Back");
 			System.out.println();
 			System.out.print("Please select an option of choice: ");
-			
+			Movie movie;
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
 				case 1:	// Search movie by ID
-//					search_movies();
+					movie = search_movies_by_id();
+
+					if(movie != null)
+					{
+						System.out.println("Search movie by id -> " + movie.getMovieTitle());
+						goBack = true;
+						ViewMovieDetailView.display_movie_detail(movie);
+					}
 					break;
 				case 2:	// Search movie by Title
-//					search_movies();
+					movie = search_movies_by_title();
+					if(movie != null)
+					{
+						System.out.println("Search movie by title -> " + movie.getMovieTitle());
+						goBack = true;
+						ViewMovieDetailView.display_movie_detail(movie);
+						return;
+					}
 					break;
 				case 3:	// List all movies
-					list_all_movies();
+					movie = list_all_movies();
+					if(movie != null)
+					{
+						System.out.println("Search movie by list all -> " + movie.getMovieTitle());
+						goBack = true;
+						ViewMovieDetailView.display_movie_detail(movie);
+						return;
+					}
 					break;
 				case 4:	// Go Back
 					return;
@@ -46,10 +67,9 @@ public class SearchListMoviesView {
 		}
 	}
 	
-	
-	private static void list_all_movies()
-	{
-		ArrayList<Movie> movieList = MovieController.getAllMovies();
+	private static void display_movie_list(ArrayList<Movie> movieList) {
+
+		
 		if(!movieList.isEmpty())
 		{
 			for(Movie movie : movieList)
@@ -57,7 +77,13 @@ public class SearchListMoviesView {
 				printMovieBriefDescription(movie);
 			}
 		}
-		
+	}
+	
+	private static Movie list_all_movies()
+	{
+
+		ArrayList<Movie> movieList = MovieController.getAllMovies();
+		display_movie_list(movieList);
 		boolean goBack = false;
 		
 		while(!goBack)
@@ -65,7 +91,7 @@ public class SearchListMoviesView {
 			System.out.println("\n------------------------------");
 			System.out.println("MOBLIMA - List All Movies");
 			System.out.println("------------------------------");
-			System.out.println("Select a Movie by entering the Movie ID: ");
+			System.out.println("Select a Movie to view Movie Details by entering the Movie ID: ");
 			System.out.println("or  ");
 			System.out.println("Enter 0 to go back");
 			System.out.println("------------------------------");
@@ -76,14 +102,126 @@ public class SearchListMoviesView {
 			if(movieId == 0)
 			{
 				goBack = true;
+				return null;
 			}
 			else
 			{
-				
+				Movie movie = MovieController.getMovieByMovieId(movieId);
+				return movie;
 			}
 		}
+		return null;
 	}
 	
+	public static Movie search_movies_by_title() {
+		
+		boolean goBack = false;
+		
+		while(!goBack)
+		{
+			System.out.println("\n------------------------------");
+			System.out.println("MOBLIMA - Search Movie by Title");
+			System.out.println("------------------------------");
+			System.out.println("Enter Movie Title to view details");
+			System.out.println("or  ");
+			System.out.println("Enter 0 to go back");
+			System.out.println("------------------------------");
+			System.out.println();
+			
+			String movieTitle = UserInputValidationController.validateStringFromUser();
+			
+			if(movieTitle == "0")
+			{
+				goBack = true;
+				return null;
+			}
+			else
+			{
+				ArrayList<Movie> movieList = MovieController.getMoviesByMovieTitle(movieTitle);
+				return selectOneMovieFromMovieTitle(movieList);
+			}
+		}
+		return null;
+		
+	}
+	
+	public static Movie selectOneMovieFromMovieTitle(ArrayList<Movie> movieList)
+	{
+		display_movie_list(movieList);
+		boolean goBack = false;
+		while(!goBack)
+		{
+			System.out.println("\n------------------------------");
+			System.out.println("MOBLIMA - Search Movie by Movie Title");
+			System.out.println("------------------------------");
+			System.out.println("Enter Movie ID to view details");
+			System.out.println("or  ");
+			System.out.println("Enter 0 to go back");
+			System.out.println("------------------------------");
+			System.out.println();
+			
+			int movieId = UserInputValidationController.validateNumberFromUser();
+			
+			if(movieId == 0)
+			{
+				goBack = true;
+				return null;
+			}
+			else
+			{
+				Movie movie = null;
+				for(Movie m : movieList)
+				{
+					if(m.getMovieId() == movieId)
+					{
+						movie = m;
+					}
+				}
+				if(movie == null)
+				{
+					System.out.println("No Movie ID exist in the list");
+				}
+				else
+				{
+					return movie;
+					
+				}
+			}
+		}
+		return null;
+		
+	}
+	
+	public static Movie search_movies_by_id()
+	{
+		boolean goBack = false;
+		
+		while(!goBack)
+		{
+			System.out.println("\n------------------------------");
+			System.out.println("MOBLIMA - Search Movie by Movie ID");
+			System.out.println("------------------------------");
+			System.out.println("Enter Movie ID to view details");
+			System.out.println("or  ");
+			System.out.println("Enter 0 to go back");
+			System.out.println("------------------------------");
+			System.out.println();
+			
+			int movieId = UserInputValidationController.validateNumberFromUser();
+			
+			if(movieId == 0)
+			{
+				goBack = true;
+				return null;
+			}
+			else
+			{
+				Movie movie = MovieController.getMovieByMovieId(movieId);
+				return movie;
+			}
+		}
+		return null;
+	}
 	
 	
 	public static void printMovieBriefDescription(Movie movie)
