@@ -25,11 +25,16 @@ public class MoblimApp {
 				choice = sc.nextInt();
 			}
 			
-			if(choice == 1) {SearchMovie.main(null)}		// Search/List Movies
+			if(choice == 1) {SearchMovie.main(null);}		// Search/List Movies
 			else if(choice == 2) {}	// View Movie Details
 			else if(choice == 3) {}	// Check Seat Availability and Selection of Seats
-			else if(choice == 4) {}	// Book and Purchase Tickets
-			else if(choice == 5) {}	// View Booking History
+			else if(choice == 4) {
+				TicketBookingModule tbm = new TicketBookingModule();
+				tbm.module();}	// Book and Purchase Tickets
+			else if(choice == 5) {
+				BookingHistoryModule bhm = new BookingHistoryModule();
+				bhm.module();
+			}	// View Booking History
 			else if(choice == 6) {}	// List Top 5 Movies
 			else if(choice == 7) {}	// Admin Module
 			else{					// Exit
