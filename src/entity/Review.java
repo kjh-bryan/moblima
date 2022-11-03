@@ -1,39 +1,49 @@
 package entity;
 
+import java.time.LocalDate;
+
 public class Review {
-	private int id;
-	private Movie movieReviewed;
+	private int reviewId;
+//	private Movie movieReviewed;
+	private int movieId;
 	private int reviewRating;
-	private MovieGoer movieGoerReviewer;
+	private int movieGoerId;
+	private LocalDate reviewDate;
 	private String reviewDescription;
 	
-	public Review(int id, Movie movieReviewed, int reviewRating, MovieGoer movieGoerReviewer, String reviewDescription)
+	public Review(int reviewId, int movieId, int reviewRating, int movieGoerId, String reviewDescription,LocalDate reviewDate)
 	{
-		this.id = id;
-		this.movieReviewed = movieReviewed;
+		this.reviewId = reviewId;
+		this.movieId = movieId;
 		this.reviewRating = reviewRating;
-		this.movieGoerReviewer = movieGoerReviewer;
+		this.movieGoerId = movieGoerId;
 		this.reviewDescription = reviewDescription;
+		this.reviewDate = reviewDate;
 	}
 
-	public int getId() {
-		return id;
+	public int getReviewId() {
+		return reviewId;
 	}
 
-	public Movie getMovieReviewed() {
-		return movieReviewed;
+	public int getMovieReviewedId() {
+		return movieId;
 	}
 
 	public int getReviewRating() {
 		return reviewRating;
 	}
 
-	public MovieGoer getMovieGoerReviewer() {
-		return movieGoerReviewer;
+	public int getMovieGoerReviewerId() {
+		return movieGoerId;
 	}
 
 	public String getReviewDescription() {
 		return reviewDescription;
+	}
+	
+	public LocalDate getReviewDate()
+	{
+		return reviewDate;
 	}
 	
 	

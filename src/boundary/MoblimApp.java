@@ -1,10 +1,44 @@
 package boundary;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import entity.MovieClassifiedRating;
+import entity.MovieShowingStatus;
 public class MoblimApp {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		
+		
+		int movieId = 001;
+		String title = "Black Adam";
+		String movieStartDate = "Sunday 20 Nov";
+		String movieGenre = "Action";
+		MovieClassifiedRating movieClassifiedRating = MovieClassifiedRating.PG13;
+		int movieDurationInMins = 125;
+		String movieLanguage = "English";
+		String topDivider = "------------------------";
+		String movieIdString = getMovieDescriptionString("Movie ID: " + movieId,topDivider);
+		String titleString = getMovieDescriptionString(title,topDivider);
+		String movieGenreString = getMovieDescriptionString(movieGenre,topDivider);
+		String emptySpace = getMovieDescriptionString("", topDivider);
+		String movieStartDateString = getMovieDescriptionString("Movie ID: " + movieId,topDivider);
+		String movieClassifiedRatingString = getMovieDescriptionString(movieClassifiedRating+"",topDivider);
+		String movieDurationInMinsString = getMovieDescriptionString(movieDurationInMins+"mins",topDivider);
+		String movieLanguageString = getMovieDescriptionString(movieLanguage,topDivider);
+		System.out.println(topDivider);
+		System.out.println(movieIdString);
+		System.out.println(emptySpace);
+		System.out.println(titleString);
+		System.out.println(emptySpace);
+		System.out.println(movieClassifiedRatingString);
+		System.out.println(movieGenreString);
+		System.out.println(movieDurationInMinsString);
+		System.out.println(topDivider);
+		
+		
 		
 		while(true) {
 			int choice = -1;
@@ -41,5 +75,18 @@ public class MoblimApp {
 			}
 		}
 	}
-
+	
+	public static String getMovieDescriptionString(String details, String totalCharacters)
+	{
+		int totalLength = totalCharacters.length();
+		int detailsLength = details.length();
+		
+		String filledSpace = "| "+details;
+		
+		for(int i = detailsLength; i < totalLength-2; i++){
+			filledSpace += " ";
+		}
+		filledSpace += "|";
+		return filledSpace;
+	}
 }

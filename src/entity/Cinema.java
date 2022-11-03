@@ -9,4 +9,5 @@ public class Cinema {
 	private ArrayList<CinemaShowTime> cinemaShowTimes;
 	private SeatingCapacity seatingCapactities;
 	
+	
 }

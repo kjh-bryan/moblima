@@ -1,6 +1,7 @@
 package boundary;
 
 import controller.UserInputValidationController;
+import global.Constants;
 
 public class MovieGoerView {
 	public static void movie_goer_view()
@@ -24,6 +25,7 @@ public class MovieGoerView {
 			{
 				case 1:
 					// Search/ List movies
+					SearchListMoviesView.search_list_movies_view();
 					break;
 				case 2:
 					// View Movie Details
@@ -44,7 +46,7 @@ public class MovieGoerView {
 					// Exit
 					return;
 				default:
-					System.out.println("Incorrect options. Please try again.");
+					System.out.println(Constants.INCORRECT_OPTION);
 					break;
 			}
 		}
