@@ -1,4 +1,3 @@
-/controller/
 /boundary/
-/entity/
-/database/
+/global/
+/controller/

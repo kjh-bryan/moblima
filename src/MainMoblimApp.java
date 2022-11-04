@@ -8,8 +8,6 @@ import global.Constants;
 public class MainMoblimApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 		Scanner sc = new Scanner(System.in);
 		
 		boolean selectedExit = false;
@@ -22,9 +20,9 @@ public class MainMoblimApp {
 			System.out.println("------------------------------");
 			System.out.println("1: Movie-goer Module");
 			System.out.println("2: Admin Module");
-			System.out.println("3: Exit");
+			System.out.println("0: Exit");
 			System.out.println();
-			System.out.print("Please select a module of choice: ");
+			System.out.print("Please Select an Option: ");
 			
 			
 			switch(UserInputValidationController.validateNumberFromUser())
@@ -46,6 +44,7 @@ public class MainMoblimApp {
 					
 			}
 		}
+		sc.close();
 	}
 
 }

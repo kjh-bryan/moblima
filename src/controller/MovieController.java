@@ -84,7 +84,7 @@ public class MovieController {
 		
 	}
 	
-	public static ArrayList<Movie> getMoviesByMovieTitle(String movieTitle)
+	public static ArrayList<Movie> getMoviesByTitle(String movieTitle)
 	{
 
 		ArrayList<Movie> moviesList = getAllMovies();
@@ -93,7 +93,8 @@ public class MovieController {
 		
 		for(Movie m : moviesList)
 		{
-			if(m.getMovieTitle().contains(movieTitle.trim()))
+			String title = m.getMovieTitle().toLowerCase();
+			if(title.contains(movieTitle.trim().toLowerCase()))
 			{
 				moviesByMovieTitleList.add(m);
 			}
@@ -102,6 +103,105 @@ public class MovieController {
 		return moviesByMovieTitleList;
 	}
 	
+	public static void printMovie(Movie movie)
+	{
+		System.out.println("\n======================================================");
+		System.out.println(movie.getMovieTitle());
+		System.out.println(movie.getMovieClassifiedRating());
+		System.out.println("Cast");
+		String castsName = "";
+		for(Cast c: movie.getMovieCasts())
+		{
+			castsName +=c.getCastName() + ", ";
+		}
+		castsName = castsName.replaceAll(", $", "");
+		System.out.println("\t" + castsName);
+		System.out.println("Director");
+		System.out.println("\t" + movie.getMovieDirector());
+		System.out.println("Synopsis");
+		System.out.println("\t" + movie.getMovieSynopsis());
+		System.out.println("Genre");
+		System.out.println("\t" + movie.getMovieGenre());
+		System.out.println("Language");
+		System.out.println("\t" + movie.getMovieLanguage());
+		System.out.println("Rating");
+		System.out.println("\t" + movie.getMovieClassifiedRating().getMovieClassifiedRating());
+		System.out.println("Runtime");
+		System.out.println("\t" + movie.getMovieDurationInMins()+"mins");
+		System.out.println("Opening");
+		System.out.println("\t" + movie.getMovieStartDateToString());
+		System.out.println("======================================================");
+		System.out.println();
+		return;
+	}
 	
+	public static void printMovieBriefDescription(Movie movie)
+	{
+		int movieId = movie.getMovieId();
+		String title = movie.getMovieTitle();
+		String movieGenre = movie.getMovieGenre();
+		MovieClassifiedRating movieClassifiedRating = movie.getMovieClassifiedRating();
+		int movieDurationInMins = movie.getMovieDurationInMins();
+		String movieLanguage = movie.getMovieLanguage();
+		
+		String longestWord = "";
+		
+		if(title.length() > movieGenre.length() && title.length() > movieLanguage.length())
+		{
+			longestWord = title;
+		}
+		else if(title.length() < movieGenre.length() && movieGenre.length() > movieLanguage.length())
+		{
+			longestWord = movieGenre;
+		}
+		else
+		{
+			longestWord = movieLanguage;
+		}
+		
+		String divider = generateDivider(longestWord);
+		String movieIdString = getMovieDescriptionString("Movie ID: " + movieId,divider);
+		String titleString = getMovieDescriptionString(title,divider);
+		String movieGenreString = getMovieDescriptionString(movieGenre,divider);
+		String emptySpace = getMovieDescriptionString("", divider);
+		String movieClassifiedRatingString = getMovieDescriptionString(movieClassifiedRating+"",divider);
+		String movieDurationInMinsString = getMovieDescriptionString(movieDurationInMins+"mins",divider);
+		String movieLanguageString = getMovieDescriptionString(movieLanguage,divider);
+		System.out.println(divider);
+		System.out.println(movieIdString);
+		System.out.println(emptySpace);
+		System.out.println(titleString);
+		System.out.println(emptySpace);
+		System.out.println(movieClassifiedRatingString);
+		System.out.println(movieGenreString);
+		System.out.println(movieDurationInMinsString);
+		System.out.println(movieLanguageString);
+		System.out.println(divider);
+	}
 	
+	public static String getMovieDescriptionString(String details, String totalCharacters)
+	{
+		int totalLength = totalCharacters.length();
+		int detailsLength = details.length();
+		
+		String filledSpace = "| "+details;
+		
+		for(int i = detailsLength; i < totalLength-2; i++){
+			filledSpace += " ";
+		}
+		filledSpace += "|";
+		return filledSpace;
+	}
+	
+	public static String generateDivider(String movieTitle)
+	{
+		String divider = "";
+		
+		for(int i = 0; i < movieTitle.length()+5;i++)
+		{
+			divider += "=";
+		}
+		
+		return divider;
+	}
 }
