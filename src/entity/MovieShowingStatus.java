@@ -3,7 +3,8 @@ package entity;
 public enum MovieShowingStatus {
 	COMING_SOON("Coming soon"),
 	PREVIEW("Preview"),
-	NOW_SHOWING("Now Showing");
+	NOW_SHOWING("Now Showing"),
+	END_OF_SHOW("End of Showing");
 	
 	
 	private String movieShowingStatus;

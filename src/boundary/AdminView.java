@@ -28,7 +28,6 @@ public class AdminView {
 			{
 				case 1:
 					// Create/Update/Remove movie listing
-					
 					break;
 				case 2:
 					// Create/Update/Remove cinema showtimes and movies to be shown

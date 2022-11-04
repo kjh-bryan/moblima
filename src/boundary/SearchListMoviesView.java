@@ -23,6 +23,10 @@ public class SearchListMoviesView {
 			System.out.println("2. Search by Movie Title");
 	        System.out.println("3. List All Movies");
 	        System.out.println("4. Go Back");
+	        
+	        System.out.println("1: Create movie listing");
+			System.out.println("2: Update e cinema showtimes and movies to be shown");
+			System.out.println("3: Remove system settings");
 			System.out.println();
 			System.out.print("Please select an option of choice: ");
 			Movie movie;

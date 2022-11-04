@@ -1,24 +1,60 @@
 package boundary;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
 
+import controller.SeatingCapacityController;
+import entity.Admin;
 import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
+import entity.SeatingCapacity;
 public class MoblimApp {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		
 		
-		LocalDate ld = LocalDate.parse("2022-10-31");
-		LocalTime lt = LocalTime.parse("17:20");
-		LocalDateTime ldt = LocalDateTime.parse("2022-10-31T17:20");
-		System.out.println(ldt.format(DateTimeFormatter.ofPattern("EEE yyyy-MM-dd HH:mm")));
+//		LocalDate ld = LocalDate.parse("2022-10-31");
+//		LocalTime lt = LocalTime.parse("17:20");
+//		LocalDateTime ldt = LocalDateTime.parse("2022-10-31T17:20");
+//		System.out.println(ldt.format(DateTimeFormatter.ofPattern("EEE yyyy-MM-dd HH:mm")));
 		
+//		SeatingCapacity seatingC = SeatingCapacityController.getSeatingCapacityByCinemaCode("C1");
+		ArrayList<String> st = new ArrayList<String>();
+		Scanner sc = null;
+		try {
+		sc = new Scanner(new FileInputStream("src/database/showtime_seatingcapacity/seatingcapacity_2.txt"));
+			while(sc.hasNextLine()) {
+				st.add(sc.nextLine());
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("error : " + e.getLocalizedMessage());
+		}
+		finally {
+			if(sc!= null)
+				sc.close();
+		}
+		
+		System.out.println(st);
+//		int rows = 0;
+//		
+//		for(int i = 0; i < l1.length();i++)
+//		{
+//			if(Character.isDigit(l1.charAt(i))) {
+//				rows++;
+//			}
+//		}
+//		System.out.println(rows);
 		
 		
 		while(true) {

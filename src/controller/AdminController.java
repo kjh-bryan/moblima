@@ -30,6 +30,7 @@ public class AdminController{
 			UserInputValidationController.createDatabaseTableFile(databaseTableName);
 			
 			PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+			
 			Admin checkExistingAdminAccount = loginAdminAccount(newAdminAccount);
 			if(checkExistingAdminAccount != null)
 			{
@@ -39,7 +40,11 @@ public class AdminController{
 				return false;
 			}
 			out.append(newAdminAccount.getId() + SEPARATOR + newAdminAccount.getUsername() + SEPARATOR + newAdminAccount.getPassword() + "\n");
+			
+			
+			
 			out.close();
+			
 			return true;
 		}
 		catch(Exception e)

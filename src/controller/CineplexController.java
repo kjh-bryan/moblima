@@ -34,7 +34,6 @@ public class CineplexController {
 				String cineplexNearestMrtStation = stringTokenizer.nextToken().trim();
 				
 				
-				
 				cineplexList.add(new Cineplex(cineplexCode, cineplexName, cineplexLocatedMall, cineplexAddress, cineplexDistinctLocation, cineplexNearestMrtStation, null));
 			}
 		} catch (Exception e) {

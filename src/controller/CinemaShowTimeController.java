@@ -66,4 +66,11 @@ public class CinemaShowTimeController {
 		return cinemaShowTimeList;
 		
 	}
+
+	public static void create(CinemaShowTime cinemaShowTime)
+	{
+		
+	}
+	
+	
 }
