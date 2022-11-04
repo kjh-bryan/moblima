@@ -49,4 +49,30 @@ public class CinemaController {
 
 		return cinemaList;
 	}
+	public static ArrayList<Cinema> getCinemaByCineplexCode(String cineplexCode)
+	{
+		ArrayList<Cinema> cinemaByCineplexCode = new ArrayList<Cinema>();
+		ArrayList<Cinema> cinemaList = getAllCinemaList();
+		for(Cinema c : cinemaList)
+		{
+			if(c.getCineplexCode().equals(cineplexCode))
+			{
+				cinemaByCineplexCode.add(c);
+			}
+		}
+		return cinemaByCineplexCode;
+	}
+	public static Cinema getCinemaByCinemaCode(String cinemaCode)
+	{
+		Cinema cinema = null;
+		ArrayList<Cinema> cinemaList = getAllCinemaList();
+		for(Cinema c : cinemaList)
+		{
+			if(c.getCinemaCode().equals(cinemaCode))
+			{
+				cinema = c;
+			}
+		}
+		return cinema;
+	}
 }

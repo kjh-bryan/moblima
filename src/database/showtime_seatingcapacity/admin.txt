@@ -1,2 +1,0 @@
-59|admin|admin
-784|admin2|admin2

@@ -30,17 +30,20 @@ public class ViewMovieDetailView {
 			}
 			else
 			{
-				boolean makeBooking = display_movie_detail(MovieController.getMovieByMovieId(movieId));
-				if(makeBooking)
+				Movie choosenMovie = display_movie_detail(MovieController.getMovieByMovieId(movieId));
+				
+				if(choosenMovie != null)
 				{
 					goBack = true;
-					// Make Booking UI
+					// show time options
+					
+					MovieShowTimeView.show_times(choosenMovie);
 				}
 			}
 		}
 	}
 	
-	public static boolean display_movie_detail(Movie movie)
+	public static Movie display_movie_detail(Movie movie)
 	{
 		
 		if(movie != null)
@@ -78,18 +81,18 @@ public class ViewMovieDetailView {
 			int choice = UserInputValidationController.validateNumberFromUser();
 			if(choice == 1)
 			{
-				return true;
+				return movie;
 			}
 			else
 			{
-				return false;
+				return null;
 			}
 			
 		}
 		else
 		{
 			System.out.println("No such movie exists.");
-			return false;
+			return null;
 		}
 	}
 }

@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import entity.Cinema;
 import entity.Cineplex;
 
 public class CineplexController {
@@ -19,10 +20,11 @@ public class CineplexController {
 	private final static Logger logger = Logger.getLogger(CineplexController.class.getName());
 
 	
-	private static ArrayList<Cineplex> getAllCineplexList() throws IOException {
+	public static ArrayList<Cineplex> getAllCineplexList()  {
 		ArrayList<Cineplex> cineplexList = new ArrayList<Cineplex>();
-		Scanner sc = new Scanner(new FileInputStream(databaseTableName));
+		Scanner sc = null;
 		try {
+			sc = new Scanner(new FileInputStream(databaseTableName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -32,14 +34,15 @@ public class CineplexController {
 				String cineplexAddress = stringTokenizer.nextToken().trim();
 				String cineplexDistinctLocation = stringTokenizer.nextToken().trim();
 				String cineplexNearestMrtStation = stringTokenizer.nextToken().trim();
+				ArrayList<Cinema> cinemas = CinemaController.getCinemaByCineplexCode(cineplexCode);
 				
-				
-				cineplexList.add(new Cineplex(cineplexCode, cineplexName, cineplexLocatedMall, cineplexAddress, cineplexDistinctLocation, cineplexNearestMrtStation, null));
+				cineplexList.add(new Cineplex(cineplexCode, cineplexName, cineplexLocatedMall, cineplexAddress, cineplexDistinctLocation, cineplexNearestMrtStation, cinemas));
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "getAllCineplexList() exception occured : " + e.getLocalizedMessage());
 		} finally {
-			sc.close();
+			if(sc != null)
+				sc.close();
 		}
 
 		return cineplexList;
