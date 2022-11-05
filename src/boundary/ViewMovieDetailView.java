@@ -17,9 +17,7 @@ public class ViewMovieDetailView {
 			System.out.println("\n------------------------------");
 			System.out.println("MOBLIMA - View Movie Detail");
 			System.out.println("------------------------------");
-			System.out.println("Enter the movie ID to view detail");
-			System.out.println("or");
-			System.out.println("Enter 0 to exit");
+			System.out.println("Enter the movie ID to view detail (Enter 0 to Go Back) :");
 			System.out.println();
 			
 			int movieId = UserInputValidationController.validateNumberFromUser();

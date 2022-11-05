@@ -3,6 +3,8 @@ package controller;
 import java.io.FileInputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -63,7 +65,8 @@ public class CinemaShowTimeController {
 				cinemaShowTimeList.add(cst);
 			}
 		}
-		
+
+		orderCinemaShowTime(cinemaShowTimeList);
 		return cinemaShowTimeList;
 		
 	}
@@ -81,15 +84,47 @@ public class CinemaShowTimeController {
 				cinemaShowTimeByMovieIdList.add(cst);
 			}
 		}
-		
+		orderCinemaShowTime(cinemaShowTimeByMovieIdList);
 		return cinemaShowTimeByMovieIdList;
 		
 	}
 
-	public static void create(CinemaShowTime cinemaShowTime)
+	public static CinemaShowTime getCinemaShowTimeByShowTimeId(int showTimeId)
 	{
+
+		ArrayList<CinemaShowTime> allCinemaShowTimeList = getAllCinemaShowTimeList();
+		CinemaShowTime cinemaShowTime = null;
 		
+		for(CinemaShowTime cst : allCinemaShowTimeList)
+		{
+			if(cst.getShowTimeId() == showTimeId)
+			{
+				cinemaShowTime = cst;
+			}
+		}
+		return cinemaShowTime;
 	}
 	
+	
+	public static void orderCinemaShowTime(ArrayList<CinemaShowTime> cinemaShowTimeList)
+	{
+		Collections.sort(cinemaShowTimeList, new Comparator<Object>() {
+			@Override
+			public int compare(Object o1, Object o2)
+			{
+				String x1 = ((CinemaShowTime) o1).getCinemaCode();
+				String x2 = ((CinemaShowTime) o2).getCinemaCode();
+				int sComp = x1.compareTo(x2);
+				if(sComp!= 0)
+				{
+					return sComp;
+				}
+				
+				LocalDateTime ldt1 = ((CinemaShowTime) o1).getShowStartTime();
+				LocalDateTime ldt2 = ((CinemaShowTime) o2).getShowStartTime();
+				return ldt1.compareTo(ldt2);
+			}
+		});
+	}
 	
 }

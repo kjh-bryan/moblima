@@ -13,13 +13,10 @@ public class MovieGoerView {
 			System.out.println("\n------------------------------");
 			System.out.println("MOvie Booking and Listing Management Application - Movie Goer Module");
 			System.out.println("------------------------------");
-			System.out.println("1: Search/List Movies");
-			System.out.println("2: View Movie Details");
-			System.out.println("3: Check Seat Availability and Selection of Seats");
-			System.out.println("4: Book and Purchase Tickets");
-			System.out.println("5: View Booking History");
-			System.out.println("6: List Top 5 Movies");
-			System.out.println("7: Exit");
+			System.out.println("1: Explore Movies");
+			System.out.println("2: View Booking History");
+			System.out.println("0: Exit");
+			System.out.print("\nPlease Select an Option: ");
 			
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
@@ -30,19 +27,7 @@ public class MovieGoerView {
 				case 2:
 					// View Movie Details
 					break;
-				case 3:
-					// Check Seat Availability and Selection of Seats
-					break;
-				case 4:
-					// Book and Purchase Tickets
-					break;
-				case 5:
-					// View Booking History
-					break;
-				case 6:
-					// List Top 5 Movies
-					break;
-				case 7:
+				case 0:
 					// Exit
 					return;
 				default:

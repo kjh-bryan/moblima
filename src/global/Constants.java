@@ -1,5 +1,8 @@
 package global;
 
+import entity.Admin;
+import entity.User;
+
 public class Constants {
 	
 	
@@ -13,6 +16,8 @@ public class Constants {
 	
 	
 	// Input validation
-
 	public static final String INVALID_PHONE_NUMBER =  "Please enter a valid phone number!";
+	
+	
+	
 }

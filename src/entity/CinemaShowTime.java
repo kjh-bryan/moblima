@@ -24,6 +24,8 @@ public class CinemaShowTime {
 	}
 	
 	
+	
+	
 	public int getShowTimeId() {
 		return showTimeId;
 	}
@@ -57,6 +59,10 @@ public class CinemaShowTime {
 	public String getStartTimeToString()
 	{
 		return this.movieStartTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+	}
+	public String getFullStartDateTimeToString()
+	{
+		return this.movieStartTime.format(DateTimeFormatter.ofPattern("EEE dd MMM HH:mm"));
 	}
 	
 }

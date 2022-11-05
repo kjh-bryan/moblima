@@ -22,7 +22,7 @@ public class MainMoblimApp {
 			System.out.println("------------------------------");
 			System.out.println("1: Movie-goer Module");
 			System.out.println("2: Admin Module");
-			System.out.println("3: Exit");
+			System.out.println("0: Exit");
 			System.out.println();
 			System.out.print("Please select a module of choice: ");
 			
@@ -37,7 +37,7 @@ public class MainMoblimApp {
 					// Initiate Admin Module
 					AdminView.admin_view();
 					break;
-				case 3:
+				case 0:
 					selectedExit = true;
 					System.out.println("Exiting MOBLIMA, see you again soon");
 					break;

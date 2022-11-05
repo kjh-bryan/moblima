@@ -51,6 +51,12 @@ public class SeatingCapacity {
 			
 		}
 		
+		
+		
+		public Seat[][] getSeatingLayout() {
+			return seatingLayout;
+		}
+
 		public int getTotalNoOfSeat()
 		{
 			return totalNoOfSeats;
@@ -113,5 +119,18 @@ public class SeatingCapacity {
 				}
 				System.out.println();
 			}
+		}
+		
+		public String getColumnString()
+		{
+			String largestColumnString = "";
+			for(String s : layoutFromTextFile)
+			{
+				if(s.length() > largestColumnString.length())
+				{
+					largestColumnString = s;
+				}
+			}
+			return largestColumnString;
 		}
 }

@@ -47,4 +47,35 @@ public class CineplexController {
 
 		return cineplexList;
 	}
+	
+	public static Cineplex getCineplexByCinemaCode(String cinemaCode)
+	{
+		ArrayList<Cineplex> allCineplexList = getAllCineplexList();
+		Cineplex cineplex = null;
+		for(Cineplex c : allCineplexList)
+		{
+			for(Cinema cinema : c.getCinemas())
+			{
+				if(cinema.getCinemaCode().equals(cinemaCode))
+				{
+					cineplex = c;
+					break;
+				}
+			}
+		}
+		return cineplex;
+	}
+	
+	public static Cineplex getCineplexByCineplexCode(String cineplexCode) {
+		ArrayList<Cineplex> allCineplexList = getAllCineplexList();
+		Cineplex cineplex = null;
+		for(Cineplex c : allCineplexList)
+		{
+			if(c.getCineplexCode().equals(cineplexCode))
+			{
+				cineplex = c;
+			}
+		}
+		return cineplex;
+	}
 }

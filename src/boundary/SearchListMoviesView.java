@@ -17,24 +17,22 @@ public class SearchListMoviesView {
 		while(!goBack)
 		{
 			System.out.println("\n------------------------------");
-			System.out.println("MOBLIMA - Search/List Movies");
+			System.out.println("MOBLIMA - Explore Movies");
 			System.out.println("------------------------------");
-			System.out.println("1. Search by Movie ID");
-			System.out.println("2. Search by Movie Title");
-	        System.out.println("3. List All Movies");
-	        System.out.println("4. Go Back");
-	        
-	        System.out.println("1: Create movie listing");
-			System.out.println("2: Update e cinema showtimes and movies to be shown");
-			System.out.println("3: Remove system settings");
-			System.out.println();
-			System.out.print("Please select an option of choice: ");
+	        System.out.println("1: List All Movies");
+			System.out.println("2: Search by Movie ID");
+			System.out.println("3: Search by Movie Title");
+	        System.out.println("4: List Top 5 Movies");
+	        System.out.println("0: Go Back");
+	        System.out.println();
+			System.out.print("Please Select an Option: ");
+	        System.out.println();
 			Movie movie;
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
-				case 1:	// Search movie by ID
-					movie = search_movies_by_id();
-
+				case 1:	// List all movies
+					
+					movie = list_all_movies();
 					System.out.println();
 					if(movie != null)
 					{
@@ -47,8 +45,26 @@ public class SearchListMoviesView {
 						}
 						return;
 					}
+					
 					break;
-				case 2:	// Search movie by Title
+				case 2:	// Search movie by ID
+					movie = search_movies_by_id();
+
+					System.out.println();
+					
+					if(movie != null)
+					{
+						goBack = true;
+						Movie choosenMovie = ViewMovieDetailView.display_movie_detail(movie);
+						if(choosenMovie != null)
+						{
+							
+							MovieShowTimeView.show_times(choosenMovie);
+						}
+						return;
+					}
+					break;
+				case 3:	// Search movie by Title
 					movie = search_movies_by_title();
 					System.out.println();
 					if(movie != null)
@@ -63,22 +79,10 @@ public class SearchListMoviesView {
 						return;
 					}
 					break;
-				case 3:	// List all movies
-					movie = list_all_movies();
-					System.out.println();
-					if(movie != null)
-					{
-						goBack = true;
-						Movie choosenMovie = ViewMovieDetailView.display_movie_detail(movie);
-						if(choosenMovie != null)
-						{
-							
-							MovieShowTimeView.show_times(choosenMovie);
-						}
-						return;
-					}
-					break;
-				case 4:	// Go Back
+				case 4:	//List Top 5 Movies
+					return;	
+				
+				case 0:	// Go Back
 					return;
 				default:
 					System.out.println(Constants.INCORRECT_OPTION);
