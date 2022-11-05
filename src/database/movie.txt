@@ -1,3 +1,3 @@
-1|Black Adam|NOW_SHOWING|PG13|2022-10-20|2022-11-20|In ancient Kahndaq..|Jaume Collet-Serra|-1|Action,Adventure,Fantasy|125|English
+1|Black Adam|NOW_SHOWING|PG13|2022-10-20|2022-11-20|In ancient Kahndaq, Teth Adam was bestowed the almighty powers of the gods.\t\tAfter using these powers for vengeance, he was imprisoned, becoming Black Adam.\t\tNearly 5,000 years have passed, and Black Adam has gone from man to myth to legend.\t\tNow free, his unique form of justice, born out of rage,\t\tis challenged by modern-day heroes who form the Justice Society: Hawkman, Dr. Fate, Atom Smasher and Cyclone.|Jaume Collet-Serra|-1|Action,Adventure,Fantasy|125|English
 2|Hell hole|NOW_SHOWING|NC16|2022-10-27|2022-11-27|This is a tale about love, loss, suffering and karma...|Sam Loh|-1|Horror|92|Mandarin
 3|Ajoomma|NOW_SHOWING|NC16|2022-10-27|2022-11-27|Auntie(Hong Huifang) is a middle-aged Singaporean woman..|He Shuming|-1|Drama|92|Mandarin, Korean, English
