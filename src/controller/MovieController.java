@@ -20,7 +20,7 @@ import entity.Review;
 public class MovieController {
 
 	private static final String SEPARATOR = "|";
-	public final static String databaseTableName = "src/database/movie.txt";
+	public final static String databaseTableName = "database/movie.txt";
 	private final static Logger logger = Logger.getLogger(MovieController.class.getName());
 	
 	public static ArrayList<Movie> getAllMovies() 
@@ -84,7 +84,7 @@ public class MovieController {
 		
 	}
 	
-	public static ArrayList<Movie> getMoviesByTitle(String movieTitle)
+	public static ArrayList<Movie> getMoviesByMovieTitle(String movieTitle)
 	{
 
 		ArrayList<Movie> moviesList = getAllMovies();
@@ -93,8 +93,7 @@ public class MovieController {
 		
 		for(Movie m : moviesList)
 		{
-			String title = m.getMovieTitle().toLowerCase();
-			if(title.contains(movieTitle.trim().toLowerCase()))
+			if(m.getMovieTitle().contains(movieTitle.trim()))
 			{
 				moviesByMovieTitleList.add(m);
 			}
@@ -204,4 +203,5 @@ public class MovieController {
 		
 		return divider;
 	}
+	
 }

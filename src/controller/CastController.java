@@ -14,7 +14,7 @@ import entity.Review;
 
 public class CastController {
 	private static final String SEPARATOR = "|";
-	public final static String databaseTableName = "src/database/cast.txt";
+	public final static String databaseTableName = "database/cast.txt";
 	private final static Logger logger = Logger.getLogger(CastController.class.getName());
 	
 	

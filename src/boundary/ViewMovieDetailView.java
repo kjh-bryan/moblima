@@ -15,7 +15,7 @@ public class ViewMovieDetailView {
 			System.out.println("\n------------------------------");
 			System.out.println("MOBLIMA - View Movie Detail");
 			System.out.println("------------------------------");
-			System.out.print("Enter Movie ID to View Detail (Enter 0 to Go Back): ");
+			System.out.print("\nEnter Movie ID to View Detail (Enter 0 to Go Back): ");
 			
 			int movieId = UserInputValidationController.validateNumberFromUser();
 			if(movieId == 0) return;
@@ -29,7 +29,7 @@ public class ViewMovieDetailView {
 				System.out.print("Enter 1 to View Movie Show Times (Enter 0 to Go Back): ");
 				
 				if(UserInputValidationController.validateNumberFromUser() == 0) break;
-				//ViewShowTimes.view_show_times_view(movie);
+				MovieShowTimeView.show_times(movie);
 			}
 		}
 	}

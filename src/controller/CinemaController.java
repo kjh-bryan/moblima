@@ -15,7 +15,7 @@ import entity.SeatingCapacity;
 
 public class CinemaController {
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/cinema.txt";
+	private static final String databaseTableName = "database/cinema.txt";
 
 	private final static Logger logger = Logger.getLogger(CinemaController.class.getName());
 
@@ -49,4 +49,31 @@ public class CinemaController {
 
 		return cinemaList;
 	}
+	public static ArrayList<Cinema> getCinemaByCineplexCode(String cineplexCode)
+	{
+		ArrayList<Cinema> cinemaByCineplexCode = new ArrayList<Cinema>();
+		ArrayList<Cinema> cinemaList = getAllCinemaList();
+		for(Cinema c : cinemaList)
+		{
+			if(c.getCineplexCode().equals(cineplexCode))
+			{
+				cinemaByCineplexCode.add(c);
+			}
+		}
+		return cinemaByCineplexCode;
+	}
+	public static Cinema getCinemaByCinemaCode(String cinemaCode)
+	{
+		Cinema cinema = null;
+		ArrayList<Cinema> cinemaList = getAllCinemaList();
+		for(Cinema c : cinemaList)
+		{
+			if(c.getCinemaCode().equals(cinemaCode))
+			{
+				cinema = c;
+			}
+		}
+		return cinema;
+	}
+	
 }

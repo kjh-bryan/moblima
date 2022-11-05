@@ -75,7 +75,7 @@ public class SearchListMoviesView {
 			if(movieTitle.equals("0")) return;
 			else
 			{
-				ArrayList<Movie> movieList = MovieController.getMoviesByTitle(movieTitle);
+				ArrayList<Movie> movieList = MovieController.getMoviesByMovieTitle(movieTitle);
 				if(movieList.isEmpty()) {
 					System.out.println("Search Not Found. Try Again.");
 					continue;

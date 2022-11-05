@@ -36,9 +36,9 @@ public class LoginView {
 			System.out.println("------------------------------");
 			System.out.println("1: Enter Login Credentials");
 			System.out.println("2: Register a new account");
-			System.out.println("3: Exit");
+			System.out.println("0: Go Back");
 			System.out.println();
-			
+			System.out.print("Please Select an Option: ");
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
 				case 1: 
@@ -63,8 +63,7 @@ public class LoginView {
 					}
 					
 					break;
-				case 3:
-					System.out.println("Exiting Login UI");
+				case 0:
 					return null;
 				default:
 					System.out.println(Constants.INCORRECT_OPTION);

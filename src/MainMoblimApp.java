@@ -35,7 +35,7 @@ public class MainMoblimApp {
 					// Initiate Admin Module
 					AdminView.admin_view();
 					break;
-				case 3:
+				case 0:
 					selectedExit = true;
 					System.out.println("Exiting MOBLIMA, see you again soon");
 					break;
