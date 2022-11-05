@@ -60,6 +60,10 @@ public class CinemaShowTime {
 	{
 		return this.movieStartTime.format(DateTimeFormatter.ofPattern("HH:mm"));
 	}
+	public String getStartDateToString()
+	{
+		return this.movieStartTime.format(DateTimeFormatter.ofPattern("EEE dd MMM"));
+	}
 	public String getFullStartDateTimeToString()
 	{
 		return this.movieStartTime.format(DateTimeFormatter.ofPattern("EEE dd MMM HH:mm"));

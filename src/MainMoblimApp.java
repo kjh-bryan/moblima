@@ -24,7 +24,7 @@ public class MainMoblimApp {
 			System.out.println("2: Admin Module");
 			System.out.println("0: Exit");
 			System.out.println();
-			System.out.print("Please select a module of choice: ");
+			System.out.print("Please select an Option: ");
 			
 			
 			switch(UserInputValidationController.validateNumberFromUser())

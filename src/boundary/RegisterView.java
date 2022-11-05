@@ -37,6 +37,7 @@ public class RegisterView {
 		String name;
 		String email;
 		int phone;
+		int age;
 		boolean registerSuccessful;
 		
 		if(role == 1)
@@ -50,9 +51,12 @@ public class RegisterView {
 			System.out.print("Please enter your email address: ");
 			//Todo implement email validator
 			email = UserInputValidationController.validateStringFromUser();
+
+			System.out.print("Please enter your age: ");
+			age = UserInputValidationController.validateNumberFromUser();
 			System.out.println();
 			
-			registerSuccessful =  MovieGoerController.createMovieGoerAccount(new MovieGoer(id,username,password,name,phone,email));
+			registerSuccessful =  MovieGoerController.createMovieGoerAccount(new MovieGoer(id,username,password,name,phone,email,age));
 		}
 		else
 		{

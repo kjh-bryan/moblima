@@ -14,18 +14,23 @@ public class MovieGoerView {
 			System.out.println("MOvie Booking and Listing Management Application - Movie Goer Module");
 			System.out.println("------------------------------");
 			System.out.println("1: Explore Movies");
-			System.out.println("2: View Booking History");
-			System.out.println("0: Exit");
+			System.out.println("2: Explore Cineplexes");
+			System.out.println("3: View Booking History");
+			System.out.println("0: Go Back");
 			System.out.print("\nPlease Select an Option: ");
 			
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
 				case 1:
-					// Search/ List movies
+					// Explore Movies
 					SearchListMoviesView.search_list_movies_view();
 					break;
 				case 2:
-					// View Movie Details
+					// Explore Cineplexes
+					ExploreCineplexesView.explore_cineplexes_view();
+					break;
+				case 3:
+					// View Booking History
 					break;
 				case 0:
 					// Exit

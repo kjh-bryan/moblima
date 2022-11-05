@@ -61,7 +61,51 @@ public class UserInputValidationController {
 			if(scanner.hasNext())
 			{
 				input = scanner.next();
-				isValid = true;
+				if(input.length() > 1)
+				{
+					isValid = true;
+				}
+				else
+				{
+					System.out.println(Constants.INVALID_STRING);
+				}
+			}
+			else
+			{
+				System.out.println(Constants.INVALID_STRING);
+			}
+			scanner.nextLine();
+		}
+		return input;
+	}
+	
+	public static String validateSeatNumberFromUser() {
+		String input = "";
+		boolean isValid = false;
+		while(!isValid)
+		{
+			
+			if(scanner.hasNext())
+			{
+				input = scanner.next();
+				if(input.equals("0"))
+				{
+					isValid = true;
+					return input;
+				}
+				else if(Character.isLetter(input.charAt(0)))
+				{
+					String testInteger = input.substring(1, input.length());
+					if(testInteger.matches("[0-9]+"))
+					{	
+						isValid = true;
+					}
+					else
+					{
+						System.out.println(Constants.INVALID_SEATNUMBER);
+					}
+					
+				}
 			}
 			else
 			{

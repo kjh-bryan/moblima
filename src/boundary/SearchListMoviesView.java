@@ -107,18 +107,21 @@ public class SearchListMoviesView {
 	{
 
 		ArrayList<Movie> movieList = MovieController.getAllMovies();
+		if(movieList.isEmpty())
+		{
+			System.out.println("No movies available");
+			return null;
+		}
 		display_movie_list(movieList);
 		boolean goBack = false;
 		
 		while(!goBack)
 		{
-			System.out.println("\n------------------------------");
+			System.out.println("\n------------------------------------------");
 			System.out.println("MOBLIMA - List All Movies");
-			System.out.println("------------------------------");
-			System.out.println("Select a Movie to view Movie Details by entering the Movie ID: ");
-			System.out.println("or  ");
-			System.out.println("Enter 0 to go back");
-			System.out.println("------------------------------");
+			System.out.println("--------------------------------------------");
+			System.out.println("Select a Movie to view Movie Details by entering the Movie ID (Enter 0 to Go Back): ");
+			System.out.println("--------------------------------------------");
 			System.out.println();
 			
 			int movieId = UserInputValidationController.validateNumberFromUser();
@@ -143,18 +146,16 @@ public class SearchListMoviesView {
 		
 		while(!goBack)
 		{
-			System.out.println("\n------------------------------");
+			System.out.println("\n-------------------------------------------");
 			System.out.println("MOBLIMA - Search Movie by Title");
-			System.out.println("------------------------------");
-			System.out.println("Enter Movie Title to view details");
-			System.out.println("or  ");
-			System.out.println("Enter 0 to go back");
-			System.out.println("------------------------------");
+			System.out.println("--------------------------------------------");
+			System.out.println("Enter Movie Title to view details (Enter 0 to go back) :");
+			System.out.println("--------------------------------------------");
 			System.out.println();
 			
 			String movieTitle = UserInputValidationController.validateStringFromUser();
 			
-			if(movieTitle == "0")
+			if(movieTitle.equals("0"))
 			{
 				goBack = true;
 				return null;
@@ -162,6 +163,11 @@ public class SearchListMoviesView {
 			else
 			{
 				ArrayList<Movie> movieList = MovieController.getMoviesByMovieTitle(movieTitle);
+				if(movieList.isEmpty())
+				{
+					System.out.println("Movie Title does not exist. Try again");
+					continue;
+				}
 				return selectOneMovieFromMovieTitle(movieList);
 			}
 		}

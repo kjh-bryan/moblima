@@ -17,15 +17,11 @@ public class ViewMovieDetailView {
 			System.out.println("\n------------------------------");
 			System.out.println("MOBLIMA - View Movie Detail");
 			System.out.println("------------------------------");
-			System.out.println("Enter the movie ID to view detail (Enter 0 to Go Back) :");
+			System.out.println("\nEnter the Movie ID to View Movie Detail (Enter 0 to Go Back) :");
 			System.out.println();
 			
 			int movieId = UserInputValidationController.validateNumberFromUser();
-			if(movieId == 0)
-			{
-				goBack = true;
-				return;
-			}
+			if(movieId == 0)return;
 			else
 			{
 				Movie choosenMovie = display_movie_detail(MovieController.getMovieByMovieId(movieId));

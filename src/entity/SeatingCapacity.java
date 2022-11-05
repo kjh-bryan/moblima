@@ -33,7 +33,9 @@ public class SeatingCapacity {
 					{
 						boolean occupied = line.charAt(i) == '0' ? false : true;
 						char seatLetter = (char) ('A' + r-1);
-						Seat seat = new Seat(seatLetter+(c+1)+"", occupied, true);
+						String seatRow = (c+1)+"";
+						String seatId = seatLetter + seatRow + "";
+						Seat seat = new Seat(seatId, occupied, true);
 						this.totalNoOfSeats++;
 						this.noOfAvailableSeats++;
 						this.seatingLayout[r-1][c] = seat;
@@ -104,7 +106,10 @@ public class SeatingCapacity {
 				System.out.print(seatLetter + "  ");
 				for(int c = 0; c < this.numberOfColumns; c++)
 				{
-
+					if(seatingLayout[r][c] == null)
+					{
+						continue;
+					}
 					if(seatingLayout[r][c].getIsSeat())
 					{
 						int isOccupied = seatingLayout[r][c].getIsOccupied() ? 1 : 0;

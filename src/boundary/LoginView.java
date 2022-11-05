@@ -36,7 +36,7 @@ public class LoginView {
 			System.out.println("------------------------------");
 			System.out.println("1: Enter Login Credentials");
 			System.out.println("2: Register a new account");
-			System.out.println("3: Exit");
+			System.out.println("0: Go Back");
 			System.out.println();
 			
 			switch(UserInputValidationController.validateNumberFromUser())
@@ -63,8 +63,8 @@ public class LoginView {
 					}
 					
 					break;
-				case 3:
-					System.out.println("Exiting Login UI");
+				case 0:
+					
 					return null;
 				default:
 					System.out.println(Constants.INCORRECT_OPTION);
@@ -100,10 +100,14 @@ public class LoginView {
 						return null;
 					}
 				}
+				else
+				{
+					System.out.println("Username does not exist!");
+				}
 			}
 			catch(Exception e)
 			{
-				System.out.println("LoginUI : Exception occured : " + e.getLocalizedMessage());
+				System.out.println("LoginView : Exception occured : " + e.getLocalizedMessage());
 			}
 		}
 		else
@@ -112,12 +116,24 @@ public class LoginView {
 				MovieGoer movieGoerUser = MovieGoerController.loginMovieGoerAccount(new MovieGoer(username, password));
 				if(movieGoerUser != null)
 				{
-					return movieGoerUser;
+					if(movieGoerUser.getPassword().equals(password))
+					{
+						return movieGoerUser;
+					}
+					else
+					{
+						System.out.println("Incorrect password provided!");
+						return null;
+					}
+				}
+				else
+				{
+					System.out.println("Username does not exist!");
 				}
 			}
 			catch(Exception e)
 			{
-				System.out.println("LoginUI : Exception occured : " + e.getLocalizedMessage());
+				System.out.println("LoginView : Exception occured : " + e.getLocalizedMessage());
 			}
 		}
 		

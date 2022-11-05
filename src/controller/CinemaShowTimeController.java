@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import entity.Cinema;
 import entity.CinemaShowTime;
 import entity.SeatingCapacity;
 
@@ -51,6 +52,27 @@ public class CinemaShowTimeController {
 
 		return cinemaShowTimeList;
 	}
+	
+	public static ArrayList<CinemaShowTime> getCinemaShowTimeByCineplexCodeList(String cineplexCode)
+	{
+		ArrayList<CinemaShowTime> allCinemaShowTimeList = getAllCinemaShowTimeList();
+
+		ArrayList<CinemaShowTime> cinemaShowTimeList = new ArrayList<CinemaShowTime>();
+
+		for(CinemaShowTime cst : allCinemaShowTimeList)
+		{
+			Cinema cinema = CinemaController.getCinemaByCinemaCode(cst.getCinemaCode());
+			if(cinema.getCineplexCode().equals(cineplexCode))
+			{
+				cinemaShowTimeList.add(cst);
+			}
+		}
+
+		orderCinemaShowTime(cinemaShowTimeList);
+		return cinemaShowTimeList;
+
+	}
+
 	
 	public static ArrayList<CinemaShowTime> getCinemaShowTimeByCinemaCodeList(String cinemaCode)
 	{

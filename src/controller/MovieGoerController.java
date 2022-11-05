@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,12 +27,23 @@ public class MovieGoerController {
 
 		try {
 		UserInputValidationController.createDatabaseTableFile(databaseTableName);
-			
-		PrintWriter out = new PrintWriter(new FileWriter(databaseTableName));
+
+		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
 		
-			out.append("\n " + newMovieGoerAccount.getId() + SEPARATOR + newMovieGoerAccount.getUsername() + SEPARATOR + newMovieGoerAccount.getPassword() +SEPARATOR+ newMovieGoerAccount.getName() + SEPARATOR + newMovieGoerAccount.getPhone() + SEPARATOR + newMovieGoerAccount.getEmailAddress());
+		
+		MovieGoer checkExistingMovieGoerAccount = loginMovieGoerAccount(newMovieGoerAccount);
+		if(checkExistingMovieGoerAccount != null)
+		{
+			System.out.println("Username already exist, please try a new username");
+			System.out.println();
 			out.close();
-			return true;
+			return false;
+		}
+		out.append(newMovieGoerAccount.getId() + SEPARATOR + newMovieGoerAccount.getUsername() + SEPARATOR + newMovieGoerAccount.getPassword() +SEPARATOR+ newMovieGoerAccount.getName() + SEPARATOR + newMovieGoerAccount.getPhone() + SEPARATOR + newMovieGoerAccount.getEmailAddress() +"\n");
+		
+		
+		out.close();
+		return true;
 		}
 		catch(Exception e)
 		{
@@ -45,37 +57,25 @@ public class MovieGoerController {
 	public static MovieGoer loginMovieGoerAccount(MovieGoer movieGoerAccount)
 	{
 
-		ArrayList<MovieGoer> movieGoerAccountList = null;
-		
 		try {
-			movieGoerAccountList = getMovieGoerAccountList();
-			if(!movieGoerAccountList.isEmpty())
+			
+			ArrayList<MovieGoer> movieGoerAccountList = getMovieGoerAccountList();
+			for(MovieGoer mg : movieGoerAccountList)
 			{
-				for(MovieGoer mg : movieGoerAccountList)
+				if(mg.getUsername().equals(movieGoerAccount.getUsername()))
 				{
-					if(mg.getUsername().equals(movieGoerAccount.getUsername()) && mg.getPassword().equals(movieGoerAccount.getPassword()))
-					{
-						return mg;
-					}
+					return mg;
 				}
 			}
-			else
+
+			}
+			catch(Exception e)
 			{
 
-
-				logger.log(Level.INFO, "loginMovieGoerAccount() -> movieGoerAccountList is empty ");
+				logger.log(Level.SEVERE, "loginMovieGoerAccount exception occured : " + e.getLocalizedMessage());
+				
 			}
-			
-		}
-		catch(Exception e)
-		{
-
-			logger.log(Level.SEVERE, "loginMovieGoerAccount() exception occured : " + e.getLocalizedMessage());
-		}
-		
-		
-		
-		return null;
+			return null;
 		
 	}
 	
@@ -92,9 +92,10 @@ public class MovieGoerController {
 				String username = stringTokenizer.nextToken().trim();
 				String password = stringTokenizer.nextToken().trim();
 				String name = stringTokenizer.nextToken().trim();
-				String email = stringTokenizer.nextToken().trim();
 				int phone = Integer.parseInt(stringTokenizer.nextToken().trim());
-				movieGoerAccountList.add(new MovieGoer(id, username, password,name,phone,email));
+				String email = stringTokenizer.nextToken().trim();
+				int age = Integer.parseInt(stringTokenizer.nextToken().trim());
+				movieGoerAccountList.add(new MovieGoer(id, username, password,name,phone,email,age));
 			}
 		}
 		catch(Exception e)
