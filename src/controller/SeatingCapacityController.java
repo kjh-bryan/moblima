@@ -13,7 +13,7 @@ import entity.SeatingCapacity;
 
 public class SeatingCapacityController {
 	private static final String SEPARATOR = "|";
-	private static final String showTimeFolderLocation = "src/database/cinema_seatingcapacity/seatingcapacity_";
+	private static final String showTimeFolderLocation = "database/cinema_seatingcapacity/seatingcapacity_";
 
 	private final static Logger logger = Logger.getLogger(SeatingCapacityController.class.getName());
 
@@ -40,5 +40,6 @@ public class SeatingCapacityController {
 
 		return seatCapacity;
 	}
+	
 	
 }

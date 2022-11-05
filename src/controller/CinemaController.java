@@ -15,7 +15,7 @@ import entity.SeatingCapacity;
 
 public class CinemaController {
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/cinema.txt";
+	private static final String databaseTableName = "database/cinema.txt";
 
 	private final static Logger logger = Logger.getLogger(CinemaController.class.getName());
 

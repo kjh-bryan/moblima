@@ -41,7 +41,7 @@ public class CinemaShowTime {
 	
 	public LocalDateTime getShowEndTime()
 	{
-		return movieStartTime;
+		return movieEndTime;
 	}
 	
 	

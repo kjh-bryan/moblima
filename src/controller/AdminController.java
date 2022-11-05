@@ -18,7 +18,7 @@ import java.io.FileWriter;
 
 public class AdminController{
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/admin.txt";
+	private static final String databaseTableName = "database/admin.txt";
 	
 	private final static Logger logger = Logger.getLogger(AdminController.class.getName());
 	

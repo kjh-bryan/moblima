@@ -3,6 +3,8 @@ package boundary;
 import controller.UserInputValidationController;
 import entity.Admin;
 import global.Constants;
+import boundary.CRUDShowTimeView;
+import boundary.SystemSettingView;
 
 
 public class AdminView {
@@ -32,8 +34,10 @@ public class AdminView {
 					break;
 				case 2:
 					// Create/Update/Remove cinema showtimes and movies to be shown
+					 CRUDShowTimeView.crud_showtime_view();
 					break;
 				case 3:
+					SystemSettingView.system_setting_view();
 					// Configure system settings
 					break;
 				case 4:

@@ -16,7 +16,7 @@ import global.Constants;
 
 public class MovieGoerController {
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/moviegoer.txt";
+	private static final String databaseTableName = "database/moviegoer.txt";
 	
 	private final static Logger logger = Logger.getLogger(MovieGoerController.class.getName());
 	

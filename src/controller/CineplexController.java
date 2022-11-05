@@ -14,7 +14,7 @@ import entity.Cineplex;
 
 public class CineplexController {
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/cineplex.txt";
+	private static final String databaseTableName = "database/cineplex.txt";
 
 	private final static Logger logger = Logger.getLogger(CineplexController.class.getName());
 

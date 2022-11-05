@@ -15,7 +15,7 @@ import entity.Review;
 public class ReviewController {
 
 	private static final String SEPARATOR = "|";
-	public final static String databaseTableName = "src/database/review.txt";
+	public final static String databaseTableName = "database/review.txt";
 	private final static Logger logger = Logger.getLogger(ReviewController.class.getName());
 	
 	

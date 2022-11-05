@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,13 +15,13 @@ import entity.CinemaShowTime;
 
 public class CinemaShowTimeController {
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/showtime.txt";
-	private static final String showTimeFolderLocation = "src/database/showtime_seatingcapacity/seatingcapacity_";
+	private static final String databaseTableName = "database/showtime.txt";
+	private static final String showTimeFolderLocation = "database/showtime_seatingcapacity/seatingcapacity_";
 
 	private final static Logger logger = Logger.getLogger(CinemaShowTimeController.class.getName());
 
 	
-	private static ArrayList<CinemaShowTime> getAllCinemaShowTimeList() {
+	public static ArrayList<CinemaShowTime> getAllCinemaShowTimeList() {
 		ArrayList<CinemaShowTime> cinemaShowTimeList = new ArrayList<CinemaShowTime>();
 		Scanner sc = null;
 		try {
@@ -66,4 +69,115 @@ public class CinemaShowTimeController {
 		return cinemaShowTimeList;
 		
 	}
+
+	public static boolean createShowTime(CinemaShowTime showtime){
+		try {
+			UserInputValidationController.createDatabaseTableFile(databaseTableName);
+				
+			PrintWriter out = new PrintWriter(new FileWriter(databaseTableName, true));
+			
+				out.append(showtime.getShowTimeId() + SEPARATOR + showtime.getCinemaCode() + SEPARATOR +showtime.getMovieId() + SEPARATOR +  showtime.getShowStartTime() +SEPARATOR+ showtime.getShowEndTime() );
+				out.append("\n");
+				out.close();
+				System.out.println("Showtime added successfully");
+				return true;
+			}
+			catch(Exception e)
+			{
+				logger.log(Level.SEVERE, "createMovieGoerAccount() exception occured : " + e.getLocalizedMessage());
+			}
+			
+			return false;
+	}
+	public static void deleteByShowId(int showId){
+		try {
+			UserInputValidationController.createDatabaseTableFile(databaseTableName);
+			ArrayList<CinemaShowTime> listing = getAllCinemaShowTimeList();
+			deleteAll();
+			PrintWriter out = new PrintWriter(new FileWriter(databaseTableName, true));
+			for (int i = 0; i < listing.size(); i++){
+				CinemaShowTime showtime = listing.get(i);
+				if (!(showtime.getShowTimeId() == showId)){
+					out.append(showtime.getShowTimeId() + SEPARATOR + showtime.getCinemaCode() + SEPARATOR +showtime.getMovieId() + SEPARATOR +  showtime.getShowStartTime() +SEPARATOR+ showtime.getShowEndTime() );
+					out.append("\n");
+					out.close();
+				}
+			}
+			}
+			catch(Exception e)
+			{
+				logger.log(Level.SEVERE, "deleteAll() exception occured : " + e.getLocalizedMessage());
+			}
+	}
+
+
+
+	public static void deleteAll() {
+		try {
+			UserInputValidationController.createDatabaseTableFile(databaseTableName);
+				
+			new FileWriter(databaseTableName, false).close();
+				System.out.println("All Showtime deleted successfully");
+			}
+			catch(Exception e)
+			{
+				logger.log(Level.SEVERE, "deleteAll() exception occured : " + e.getLocalizedMessage());
+			}
+			
+	}
+	public static void updateMovie(int showId, int movId){
+		try {
+			UserInputValidationController.createDatabaseTableFile(databaseTableName);
+			ArrayList<CinemaShowTime> listing = getAllCinemaShowTimeList();
+			deleteAll();
+			PrintWriter out = new PrintWriter(new FileWriter(databaseTableName, true));
+			for (int i = 0; i < listing.size(); i++){
+				CinemaShowTime showtime = listing.get(i);
+				if ((showtime.getShowTimeId() == showId)){
+					out.append(showtime.getShowTimeId() + SEPARATOR + showtime.getCinemaCode() + SEPARATOR +movId + SEPARATOR +  showtime.getShowStartTime() +SEPARATOR+ showtime.getShowEndTime() + "\n" );
+					
+				
+				}
+				else{
+					out.append(showtime.getShowTimeId() + SEPARATOR + showtime.getCinemaCode() + SEPARATOR +showtime.getMovieId() + SEPARATOR +  showtime.getShowStartTime() +SEPARATOR+ showtime.getShowEndTime() + "\n" );
+				}
+				
+			}
+			out.close();
+			}
+			catch(Exception e)
+			{
+				logger.log(Level.SEVERE, "deleteAll() exception occured : " + e.getLocalizedMessage());
+			}
+	}
+	public static void updateStartTime(int showId, LocalDateTime newStart, LocalDateTime newEnd){
+		try {
+			UserInputValidationController.createDatabaseTableFile(databaseTableName);
+			ArrayList<CinemaShowTime> listing = getAllCinemaShowTimeList();
+			deleteAll();
+			PrintWriter out = new PrintWriter(new FileWriter(databaseTableName, true));
+			for (int i = 0; i < listing.size(); i++){
+				CinemaShowTime showtime = listing.get(i);
+				if ((showtime.getShowTimeId() == showId)){
+					out.append(showtime.getShowTimeId() + SEPARATOR + showtime.getCinemaCode() + SEPARATOR + showtime.getMovieId() + SEPARATOR +  newStart +SEPARATOR+ newEnd + "\n");
+				
+				}
+				else{
+					out.append(showtime.getShowTimeId() + SEPARATOR + showtime.getCinemaCode() + SEPARATOR +showtime.getMovieId() + SEPARATOR +  showtime.getShowStartTime() +SEPARATOR+ showtime.getShowEndTime() );
+				out.append("\n");
+				}
+				
+			}
+			out.close();
+			}
+			catch(Exception e)
+			{
+				logger.log(Level.SEVERE, "deleteAll() exception occured : " + e.getLocalizedMessage());
+			}
+	}
+
+	public static void readAllAndPrint(ArrayList<CinemaShowTime> showTimeListing){     
+        showTimeListing.forEach(n->System.out.println("Show ID: " + n.getShowTimeId() + " Cinema Code: " + n.getCinemaCode() + " Movie ID: "+n.getMovieId() + " Start Time: " + n.getShowStartTime() + " End Time "+ n.getShowEndTime()));
+    }
+
 }
