@@ -28,6 +28,7 @@ public class AdminView {
 			{
 				case 1:
 					// Create/Update/Remove movie listing
+					CUR_MovieListingView.cur_movie_listing_view();
 					break;
 				case 2:
 					// Create/Update/Remove cinema showtimes and movies to be shown
