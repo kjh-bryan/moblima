@@ -1,7 +1,7 @@
-package global;
+package Global;
 
-import entity.Admin;
-import entity.User;
+import Entity.Admin;
+import Entity.User;
 
 public class Constants {
 	

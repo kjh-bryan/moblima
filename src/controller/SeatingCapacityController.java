@@ -1,6 +1,8 @@
-package controller;
+package Controller;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,8 +10,9 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entity.CinemaShowTime;
-import entity.SeatingCapacity;
+import Entity.Admin;
+import Entity.CinemaShowTime;
+import Entity.SeatingCapacity;
 
 public class SeatingCapacityController {
 	private static final String SEPARATOR = "|";
@@ -21,14 +24,15 @@ public class SeatingCapacityController {
 	
 	public static SeatingCapacity getSeatingCapacityByCinemaCode(String cinemaCode) {
 		SeatingCapacity seatCapacity = null;
+		ArrayList<String> layoutFromTextFile = new ArrayList<String>();
 		Scanner sc = null;
 		try {
 			sc = new Scanner(new FileInputStream(cinemaSeatingCapacityFolderLocation+cinemaCode+".txt"));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
-				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
-				
+				layoutFromTextFile.add(line);
 			}
+			seatCapacity = new SeatingCapacity(cinemaCode,layoutFromTextFile);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "getAllCinemaShowTimeList() exception occured : " + e.getLocalizedMessage());
 		} finally {
@@ -52,7 +56,7 @@ public class SeatingCapacityController {
 				String line = sc.nextLine();
 				layoutFromTextFile.add(line);
 			}
-			seatCapacity = new SeatingCapacity(layoutFromTextFile);
+			seatCapacity = new SeatingCapacity(showTimeId+"",layoutFromTextFile);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "getSeatingCapacityByShowTimeId() exception occured : " + e.getLocalizedMessage());
 		} finally {
@@ -64,6 +68,25 @@ public class SeatingCapacityController {
 		}
 
 		return seatCapacity;
+	}
+	
+	public static void updateSeatingCapacityByShowTimeId(int showTimeId,ArrayList<String> seatLayout)
+	{
+		try {
+			PrintWriter out = new PrintWriter(new FileOutputStream(showTimeFolderLocation+showTimeId+".txt"));
+			for(String s : seatLayout)
+			{
+				out.append(s + "\n");
+			}
+			
+			out.close();
+			
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "updateSeatingCapacityByShowTimeId : " + e.getLocalizedMessage());
+		}
+		
 	}
 	
 }

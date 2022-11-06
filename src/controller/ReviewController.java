@@ -1,15 +1,15 @@
-package controller;
+package Controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entity.Review;
+import Entity.Review;
 
 
 public class ReviewController {
@@ -33,7 +33,7 @@ public class ReviewController {
 				int reviewRating = Integer.parseInt(stringTokenizer.nextToken().trim());
 				int movieGoerId = Integer.parseInt(stringTokenizer.nextToken().trim());
 				String reviewDescription = stringTokenizer.nextToken().trim();
-				LocalDate reviewDate = LocalDate.parse(stringTokenizer.nextToken().trim());
+				LocalDateTime reviewDate = LocalDateTime.parse(stringTokenizer.nextToken().trim());
 				
 				allReviewList.add(new Review(reviewId,movieId,reviewRating,movieGoerId,reviewDescription,reviewDate));
 			}

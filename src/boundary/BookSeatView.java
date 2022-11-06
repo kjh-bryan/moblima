@@ -1,25 +1,27 @@
-package boundary;
+package Boundary;
 
-import controller.CinemaController;
-import controller.CinemaShowTimeController;
-import controller.CineplexController;
-import controller.MovieController;
-import controller.TicketPriceController;
-import controller.UserInputValidationController;
-import entity.Admin;
-import entity.Cinema;
-import entity.CinemaShowTime;
-import entity.Cineplex;
-import entity.Movie;
-import entity.MovieGoer;
-import entity.Seat;
-import entity.Ticket;
-import global.Constants;
-import global.UserSession;
+import java.util.ArrayList;
+
+import Controller.CinemaController;
+import Controller.CinemaShowTimeController;
+import Controller.CineplexController;
+import Controller.MovieController;
+import Controller.TicketController;
+import Controller.UserInputValidationController;
+import Entity.Admin;
+import Entity.Cinema;
+import Entity.CinemaShowTime;
+import Entity.Cineplex;
+import Entity.Movie;
+import Entity.MovieGoer;
+import Entity.Seat;
+import Entity.Ticket;
+import Global.Constants;
+import Global.UserSession;
 
 public class BookSeatView {
 
-	public static void check_login_before_book_seat_view(int showTimeId, Seat selectedSeat) {
+	public static void check_login_before_book_seat_view(int showTimeId, ArrayList<Seat> selectedSeat) {
 		if (UserSession.movieGoer == null) {
 			System.out.println("Please login before booking a movie! Directing you to Login Screen..");
 			System.out.println();
@@ -34,9 +36,26 @@ public class BookSeatView {
 		}
 	}
 
-	public static void book_seat_view(int showTimeId, Seat selectedSeat) {
+	public static void book_seat_view(int showTimeId, ArrayList<Seat> selectedSeat) {
+		if(selectedSeat.isEmpty())
+		{
+			return;
+		}
 		System.out.println();
-		Ticket ticket = TicketPriceController.computePrice(showTimeId);
+		ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
+		String ticketType = "";
+		String ticketWeekdayOrWeekend = "";
+		Double ticketPrice = 0.0;
+		for(Seat s : selectedSeat)
+		{
+			Ticket ticket = TicketController.computePrice(showTimeId);
+			ticket.setSeatId(s.getSeatId());
+			ticketType = ticket.getTicketTypeToString();
+			ticketWeekdayOrWeekend = ticket.getTicketWeekdayOrWeekend();
+			ticketPrice = ticket.getTicketPrice();
+			ticketList.add(ticket);
+		}
+		
 		System.out.println("Your selected ticket:");
 		CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(showTimeId);
 		Cineplex cineplex = CineplexController.getCineplexByCinemaCode(cinemaShowTime.getCinemaCode());
@@ -47,11 +66,15 @@ public class BookSeatView {
 		System.out.println(
 				"Showing at " + cinemaShowTime.getFullStartDateTimeToString() + "," + cineplex.getCinemaLocatedMall());
 		System.out.println(cineplex.getCineplexName() + " - " + "HALL " + cinema.getHallNumber());
-		System.out.println(selectedSeat.getSeatId());
-		System.out.println("ITEM\t\t\tCOST\tQTY\tSUBTOTAL");
-		String ticketWeekdayOrWeekend = ticket.getTicketWeekdayOrWeekend();
+		StringBuilder sb = new StringBuilder();
 		
-		System.out.println(ticket.getTicketTypeToString() + " " + ticket.getTicketWeekdayOrWeekend() +"\t" + ticket.getTicketPrice() + "\t" + 1 + "\t" + ticket.getTicketPrice());
+		selectedSeat.forEach(t-> sb.append(t.getSeatId()).append(","));
+		System.out.println(sb.substring(0,sb.length()-1));
+		System.out.println();
+		
+		System.out.println("ITEM\t\tCOST\tQTY\tSUBTOTAL");
+		
+		System.out.println(ticketType + " " + ticketWeekdayOrWeekend+"\t" + ticketPrice + "\t" + ticketList.size() + "\t" + ticketPrice * ticketList.size());
 		System.out.println();
 		
 		System.out.println();
@@ -64,7 +87,8 @@ public class BookSeatView {
 			return;
 		else
 		{
-			
+			TransactionView.transaction_detail_view(ticketList);
+			return;
 		}
 		
 	}

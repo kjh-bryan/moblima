@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-import boundary.AdminView;
-import boundary.MovieGoerView;
-import controller.UserInputValidationController;
-import global.Constants;
+import Boundary.AdminView;
+import Boundary.MovieGoerView;
+import Controller.UserInputValidationController;
+import Global.Constants;
 
 public class MainMoblimApp {
 

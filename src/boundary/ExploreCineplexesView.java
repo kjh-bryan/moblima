@@ -1,16 +1,16 @@
-package boundary;
+package Boundary;
 
 import java.util.ArrayList;
 
-import controller.CinemaController;
-import controller.CinemaShowTimeController;
-import controller.CineplexController;
-import controller.MovieController;
-import controller.UserInputValidationController;
-import entity.Cinema;
-import entity.CinemaShowTime;
-import entity.Cineplex;
-import entity.Movie;
+import Controller.CinemaController;
+import Controller.CinemaShowTimeController;
+import Controller.CineplexController;
+import Controller.MovieController;
+import Controller.UserInputValidationController;
+import Entity.Cinema;
+import Entity.CinemaShowTime;
+import Entity.Cineplex;
+import Entity.Movie;
 
 public class ExploreCineplexesView {
 	public static void explore_cineplexes_view()

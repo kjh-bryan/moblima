@@ -1,12 +1,12 @@
-package boundary;
+package Boundary;
 
 import java.util.Random;
 
-import controller.AdminController;
-import controller.MovieGoerController;
-import controller.UserInputValidationController;
-import entity.Admin;
-import entity.MovieGoer;
+import Controller.AdminController;
+import Controller.MovieGoerController;
+import Controller.UserInputValidationController;
+import Entity.Admin;
+import Entity.MovieGoer;
 
 public class RegisterView {
 

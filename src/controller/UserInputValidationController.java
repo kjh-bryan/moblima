@@ -1,11 +1,11 @@
-package controller;
+package Controller;
 
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import global.Constants;
+import Global.Constants;
 
 import java.io.File;
 
@@ -88,7 +88,7 @@ public class UserInputValidationController {
 			if(scanner.hasNext())
 			{
 				input = scanner.next();
-				if(input.equals("0"))
+				if(input.equals("0") || input.equals("1"))
 				{
 					isValid = true;
 					return input;

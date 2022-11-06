@@ -1,7 +1,9 @@
-package controller;
+package Controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import Entity.Admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,10 +12,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
-
-import entity.Admin;
-
 import java.io.FileWriter;
 
 public class AdminController{

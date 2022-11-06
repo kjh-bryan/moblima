@@ -1,4 +1,4 @@
-package entity;
+package Entity;
 
 public enum SeatingRowLetter {
 	A(0),B(1),C(2);

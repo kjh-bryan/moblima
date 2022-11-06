@@ -1,16 +1,15 @@
-package boundary;
-
-import entity.Movie;
+package Boundary;
 
 import java.util.ArrayList;
 
-import entity.Cinema;
-import entity.CinemaShowTime;
-import entity.Cineplex;
-import controller.CinemaController;
-import controller.CinemaShowTimeController;
-import controller.CineplexController;
-import controller.UserInputValidationController;
+import Controller.CinemaController;
+import Controller.CinemaShowTimeController;
+import Controller.CineplexController;
+import Controller.UserInputValidationController;
+import Entity.Cinema;
+import Entity.CinemaShowTime;
+import Entity.Cineplex;
+import Entity.Movie;
 
 public class MovieShowTimeView {
 	public static void show_times(Movie movie) {
@@ -57,6 +56,7 @@ public class MovieShowTimeView {
 			} else {
 				// Go to Showing Seat UI
 				SeatSelectionView.seat_selection_view(showTimeId);
+				return;
 			}
 		}
 

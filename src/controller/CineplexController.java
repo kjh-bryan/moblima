@@ -1,4 +1,4 @@
-package controller;
+package Controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,8 +10,8 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entity.Cinema;
-import entity.Cineplex;
+import Entity.Cinema;
+import Entity.Cineplex;
 
 public class CineplexController {
 	private static final String SEPARATOR = "|";

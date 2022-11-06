@@ -1,24 +1,36 @@
-package entity;
+package Entity;
 
 import java.time.LocalDateTime;
 
 public class Ticket {
+	private int ticketId;
+	private String transactionId;
 	private TicketType ticketType;
 	private TicketDay ticketDay;
 	private LocalDateTime ticketDateTime;
 	private int cinemaShowTimeId;
+	private String seatId;
 	private CinemaClass cinemaClass;
 	private double ticketPrice;
 	private boolean isHoliday;
 	
-	public Ticket(CinemaClass cinemaClass,TicketType ticketType, TicketDay ticketDay, double ticketPrice,boolean isHoliday) {
-		super();
+	
+	public Ticket(int ticketId, String transactionId, TicketType ticketType, TicketDay ticketDay,
+			LocalDateTime ticketDateTime, int cinemaShowTimeId, String seatId, CinemaClass cinemaClass,
+			double ticketPrice, boolean isHoliday) {
+		this.ticketId = ticketId;
+		this.transactionId = transactionId;
 		this.ticketType = ticketType;
 		this.ticketDay = ticketDay;
+		this.ticketDateTime = ticketDateTime;
+		this.cinemaShowTimeId = cinemaShowTimeId;
+		this.seatId = seatId;
+		this.cinemaClass = cinemaClass;
 		this.ticketPrice = ticketPrice;
 		this.isHoliday = isHoliday;
-		this.cinemaClass = cinemaClass;
 	}
+
+
 	public Ticket(double ticketPrice,int cinemaShowTimeId,LocalDateTime ticketDateTime)
 	{
 		this.ticketPrice = ticketPrice;
@@ -26,6 +38,34 @@ public class Ticket {
 		this.ticketDateTime =ticketDateTime;
 	}
 	
+	
+	
+	public int getTicketId() {
+		return ticketId;
+	}
+
+
+	public void setTicketId(int ticketId) {
+		this.ticketId = ticketId;
+	}
+
+
+	public String getTransactionId() {
+		return transactionId;
+	}
+
+
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
+
+
+	public String getSeatId() {
+		return seatId;
+	}
+	public void setSeatId(String seatId) {
+		this.seatId = seatId;
+	}
 	public LocalDateTime getTicketDateTime() {
 		return ticketDateTime;
 	}
@@ -87,6 +127,10 @@ public class Ticket {
 		this.isHoliday = isHoliday;
 	}
 	
+	public TicketDay getTicketDay()
+	{
+		return ticketDay;
+	}
 	
 	public boolean isHoliday() {
 		return isHoliday;

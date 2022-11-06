@@ -1,7 +1,11 @@
-package controller;
+package Controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,13 +13,12 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-import controller.ReviewController;
-import entity.Cast;
-import entity.Movie;
-import entity.MovieClassifiedRating;
-import entity.MovieShowingStatus;
-import entity.Review;
+import Controller.ReviewController;
+import Entity.Cast;
+import Entity.Movie;
+import Entity.MovieClassifiedRating;
+import Entity.MovieShowingStatus;
+import Entity.Review;
 
 public class MovieController {
 
@@ -102,6 +105,66 @@ public class MovieController {
 		return moviesByMovieTitleList;
 	}
 	
-	
+	public static void updateMovieByMovie(Movie movie)
+	{
+		String tempFile = "temp.txt";
+		File oldFile = new File(databaseTableName);
+		File newFile = new File(tempFile);
+		Scanner sc = null;
+		
+		try {
+			FileWriter fw = new FileWriter(tempFile,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			sc = new Scanner(new File(databaseTableName));
+			sc.useDelimiter("[|\n]");
+			
+			while(sc.hasNext())
+			{
+				int movieId = Integer.parseInt(sc.next());
+				String movieTitle = sc.next();
+				MovieShowingStatus movieShowingStatus = MovieShowingStatus.valueOf(sc.next());
+				MovieClassifiedRating movieClassifiedRating = MovieClassifiedRating.valueOf(sc.next());
+				LocalDate movieStartDate = LocalDate.parse(sc.next());
+				LocalDate movieEndDate = LocalDate.parse(sc.next());
+				String movieSynopsis = sc.next();
+				String movieDirector = sc.next();
+				int movieOverallRating = Integer.parseInt(sc.next());
+				String movieGenre = sc.next();
+				int movieDurationInMins = Integer.parseInt(sc.next());
+				String movieLanguage = sc.next();
+				
+				if(movieId == movie.getMovieId())
+				{
+					pw.println(movie.getMovieId()+SEPARATOR+movie.getMovieTitle()+SEPARATOR+movie.getMovieShowingStatus()+SEPARATOR+movie.getMovieClassifiedRating()
+							+SEPARATOR+movie.getMovieStartDate().toString()+SEPARATOR+movie.getMovieEndDate().toString()+movie.getMovieSynopsis()+SEPARATOR
+							+movie.getMovieDirector()+SEPARATOR+movie.getMovieOverallRating()+""+SEPARATOR+movie.getMovieGenre()+SEPARATOR+movie.getMovieDurationInMins()
+							+""+SEPARATOR+movie.getMovieLanguage());
+				}
+				else
+				{
+					pw.println(movieId+SEPARATOR+movieTitle+SEPARATOR+movieShowingStatus+SEPARATOR+movieClassifiedRating
+							+SEPARATOR+movieStartDate.toString()+SEPARATOR+movieEndDate.toString()+movieSynopsis+SEPARATOR+movieDirector
+							+SEPARATOR+movieOverallRating+""+SEPARATOR+movieGenre+SEPARATOR+movieDurationInMins+""+SEPARATOR+movieLanguage);
+				
+				}
+				
+			}
+			
+			sc.close();
+			pw.flush();
+			pw.close();
+			oldFile.delete();
+			File dump = new File(databaseTableName);
+			newFile.renameTo(dump);
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "updateMovieByMovie() exception occured : " + e.getLocalizedMessage());
+			
+		}
+		
+	}
 	
 }

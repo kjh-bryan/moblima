@@ -1,9 +1,11 @@
-package boundary;
+package Boundary;
 
-import controller.SeatingCapacityController;
-import controller.UserInputValidationController;
-import entity.Seat;
-import entity.SeatingCapacity;
+import java.util.ArrayList;
+
+import Controller.SeatingCapacityController;
+import Controller.UserInputValidationController;
+import Entity.Seat;
+import Entity.SeatingCapacity;
 
 public class SeatSelectionView {
 	
@@ -13,31 +15,35 @@ public class SeatSelectionView {
 
 		
 		boolean goBack = false;
-		
+		ArrayList<Seat> selectedSeatList = new ArrayList<Seat>();
 		while(!goBack) {
 			
 			printScreenLayout(seatingCapacity.getColumnString());
-			seatingCapacity.printSeatingLayoutFromTextFile();
+			seatingCapacity.printSeatingLayout();
 			printEntranceLayout(seatingCapacity.getColumnString());
 			
 			System.out.println();
-			System.out.println("Enter the corresponding Row Letter and Column Number of your seat choice (Enter 0 to Go Back): ");
+			System.out.println("Enter the corresponding Row Letter and Column Number of your seat choice (Enter 1 to Confirm, 0 to Go Back): ");
 			
 			String seatId = UserInputValidationController.validateSeatNumberFromUser();
 			
 			if(seatId.equals("0"))
 				return;
-			
+			if(seatId.equals("1"))
+			{
+				BookSeatView.check_login_before_book_seat_view(showTimeId, selectedSeatList);
+				return;
+			}
 			int row = seatId.charAt(0) - 'A';
 			int column = Integer.parseInt(seatId.replaceAll("[\\D]", ""));
 			
 			Seat[][] seat = seatingCapacity.getSeatingLayout();
-			Seat selectedSeat = null;
-			if(seat[row][column-1].getIsSeat())
+			if(seat[row][column].getIsSeat())
 			{
-				if(!seat[row][column-1].getIsOccupied())
+				if(!seat[row][column].getIsOccupied())
 				{
-					selectedSeat = seat[row][column-1];
+					seat[row][column].assignSeat();
+					selectedSeatList.add(seat[row][column]);
 				}
 				else
 				{
@@ -47,12 +53,6 @@ public class SeatSelectionView {
 			else
 			{
 				System.out.println("This selection is not a seat!");
-			}
-			
-			if(selectedSeat != null)
-			{
-				BookSeatView.check_login_before_book_seat_view(showTimeId, selectedSeat);
-				goBack = true;
 			}
 		}
 	}

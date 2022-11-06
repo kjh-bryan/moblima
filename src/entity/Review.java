@@ -1,6 +1,6 @@
-package entity;
+package Entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Review {
 	private int reviewId;
@@ -8,10 +8,10 @@ public class Review {
 	private int movieId;
 	private int reviewRating;
 	private int movieGoerId;
-	private LocalDate reviewDate;
+	private LocalDateTime reviewDate;
 	private String reviewDescription;
 	
-	public Review(int reviewId, int movieId, int reviewRating, int movieGoerId, String reviewDescription,LocalDate reviewDate)
+	public Review(int reviewId, int movieId, int reviewRating, int movieGoerId, String reviewDescription,LocalDateTime reviewDate)
 	{
 		this.reviewId = reviewId;
 		this.movieId = movieId;
@@ -41,7 +41,7 @@ public class Review {
 		return reviewDescription;
 	}
 	
-	public LocalDate getReviewDate()
+	public LocalDateTime getReviewDate()
 	{
 		return reviewDate;
 	}

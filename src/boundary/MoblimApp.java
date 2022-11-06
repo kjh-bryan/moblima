@@ -1,7 +1,9 @@
-package boundary;
+package Boundary;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,11 +13,12 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
-import controller.SeatingCapacityController;
-import entity.Admin;
-import entity.MovieClassifiedRating;
-import entity.MovieShowingStatus;
-import entity.SeatingCapacity;
+import Controller.SeatingCapacityController;
+import Entity.Admin;
+import Entity.MovieClassifiedRating;
+import Entity.MovieShowingStatus;
+import Entity.Seat;
+import Entity.SeatingCapacity;
 public class MoblimApp {
 
 	public static void main(String[] args) {
@@ -27,10 +30,12 @@ public class MoblimApp {
 //		LocalDateTime ldt = LocalDateTime.parse("2022-10-31T17:20");
 //		System.out.println(ldt.format(DateTimeFormatter.ofPattern("EEE yyyy-MM-dd HH:mm")));
 		
+		String folderSrc = "src/database/showtime_seatingcapacity/seatingcapacity_";
+		int showTimeId = 2;
 		ArrayList<String> st = new ArrayList<String>();
 		Scanner sc = null;
 		try {
-		sc = new Scanner(new FileInputStream("src/database/showtime_seatingcapacity/seatingcapacity_2.txt"));
+		sc = new Scanner(new FileInputStream(folderSrc+showTimeId+".txt"));
 			while(sc.hasNextLine()) {
 				st.add(sc.nextLine());
 			}
@@ -44,36 +49,76 @@ public class MoblimApp {
 				sc.close();
 		}
 
-		SeatingCapacity seatingCapacity = new SeatingCapacity(st);
-		String column = seatingCapacity.getColumnString();
-		String screen = "SCREEN";
-		String spaceBeforeScreen = new String(new char[(column.length()/2) - 3]).replace("\0", " ");
-		String spaceAfterScreen = new String(new char[(column.length()/2) - 3]).replace("\0", " ");
-		String spaceBetweenScreenBar = new String(new char[(column.length()) ]).replace("\0", " ");
-		String screenBottomDivider = new String(new char[column.length()]).replace("\0", "_");
-		System.out.println("|" + spaceBeforeScreen + screen +spaceAfterScreen  + "|");
-		System.out.println("|" + spaceBetweenScreenBar + "|");
-		System.out.println("|" + screenBottomDivider + "|");
-		System.out.println();
-		seatingCapacity.printSeatingLayout();
-		System.out.println();
-		
-		String entrance = "ENTRANCE";
-		
-		String spaceBeforeEntranceDivider = new String(new char[column.length()/4]).replace("\0", " ");
+		SeatingCapacity seatingCapacity = new SeatingCapacity(showTimeId+"",st);
 
-		String spaceBeforeEntrance = new String(new char[entrance.length()/2]).replace("\0", " ");
-		String spaceAfterEntrance = new String(new char[entrance.length()/2]).replace("\0", " ");
-		String entranceWithBars = "|" +spaceBeforeEntrance +entrance+ spaceAfterEntrance+"|";
+		Seat[][] seat = seatingCapacity.getSeatingLayout();
+		boolean assigned = false;
+		for(int r = 0 ; r < seatingCapacity.getNumberOfRows(); r++)
+		{
+			for(int c = 0 ; c < seatingCapacity.getNumberOfColumns();c++)
+			{
 
-		String entranceTopDivider = new String(new char[entranceWithBars.length()]).replace("\0", "_");
-		String spaceBetweenEntranceBar = new String(new char[entranceWithBars.length()-2]).replace("\0", " ");
-		String spacesWithBar = "|" +spaceBetweenEntranceBar+ "|";
+				if(seat[r][c].getIsSeat())
+				{
+					seat[r][c].assignSeat();
+				}
+			}
+			
+		}
+		seatingCapacity.setSeatingLayout(seat);
+
+		ArrayList<String> seatLayout = seatingCapacity.outputToFile();
 		
+		
+		
+		String tempFile = "temp.txt";
+		File oldFile = new File(showTimeId+".txt");
+		File newFile = new File(tempFile);
+		
+		try
+		{
+			PrintWriter out = new PrintWriter(new FileOutputStream(folderSrc+oldFile));
+			for(String s : seatLayout)
+			{
+				out.append(s + "\n");
+			}
+			
+			out.close();
+		}
+		catch(Exception e)
+		{
+			
+		}
+//		String column = seatingCapacity.getColumnString();
+//		String screen = "SCREEN";
+//		String spaceBeforeScreen = new String(new char[(column.length()/2) - 3]).replace("\0", " ");
+//		String spaceAfterScreen = new String(new char[(column.length()/2) - 3]).replace("\0", " ");
+//		String spaceBetweenScreenBar = new String(new char[(column.length()) ]).replace("\0", " ");
+//		String screenBottomDivider = new String(new char[column.length()]).replace("\0", "_");
+//		System.out.println("|" + spaceBeforeScreen + screen +spaceAfterScreen  + "|");
+//		System.out.println("|" + spaceBetweenScreenBar + "|");
+//		System.out.println("|" + screenBottomDivider + "|");
+//		System.out.println();
 		System.out.println();
-		System.out.println(spaceBeforeEntranceDivider + entranceTopDivider + spaceBeforeEntranceDivider);
-		System.out.println(spaceBeforeEntranceDivider + spacesWithBar + spaceBeforeEntranceDivider);
-		System.out.println(spaceBeforeEntranceDivider + entranceWithBars + spaceBeforeEntranceDivider);
+		
+//		String entrance = "ENTRANCE";
+//		
+//		String spaceBeforeEntranceDivider = new String(new char[column.length()/4]).replace("\0", " ");
+//
+//		String spaceBeforeEntrance = new String(new char[entrance.length()/2]).replace("\0", " ");
+//		String spaceAfterEntrance = new String(new char[entrance.length()/2]).replace("\0", " ");
+//		String entranceWithBars = "|" +spaceBeforeEntrance +entrance+ spaceAfterEntrance+"|";
+//
+//		String entranceTopDivider = new String(new char[entranceWithBars.length()]).replace("\0", "_");
+//		String spaceBetweenEntranceBar = new String(new char[entranceWithBars.length()-2]).replace("\0", " ");
+//		String spacesWithBar = "|" +spaceBetweenEntranceBar+ "|";
+//		
+//		System.out.println();
+//		System.out.println(spaceBeforeEntranceDivider + entranceTopDivider + spaceBeforeEntranceDivider);
+//		System.out.println(spaceBeforeEntranceDivider + spacesWithBar + spaceBeforeEntranceDivider);
+//		System.out.println(spaceBeforeEntranceDivider + entranceWithBars + spaceBeforeEntranceDivider);
+//		
+//		
 		
 		
 //		while(true) {

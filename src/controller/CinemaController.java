@@ -1,4 +1,4 @@
-package controller;
+package Controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,10 +8,10 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entity.Cinema;
-import entity.CinemaClass;
-import entity.CinemaShowTime;
-import entity.SeatingCapacity;
+import Entity.Cinema;
+import Entity.CinemaClass;
+import Entity.CinemaShowTime;
+import Entity.SeatingCapacity;
 
 public class CinemaController {
 	private static final String SEPARATOR = "|";
@@ -32,13 +32,13 @@ public class CinemaController {
 				String cinemaCode = stringTokenizer.nextToken().trim();
 				String cineplexCode = stringTokenizer.nextToken().trim();
 				CinemaClass cinemaClass = CinemaClass.valueOf(stringTokenizer.nextToken().trim());
-				ArrayList<CinemaShowTime> cinemaShowTimes = CinemaShowTimeController.getCinemaShowTimeByCinemaCodeList(cineplexCode);
+				ArrayList<CinemaShowTime> cinemaShowTimes = CinemaShowTimeController.getCinemaShowTimeByCinemaCodeList(cinemaCode);
 				SeatingCapacity seatingCapacities = SeatingCapacityController.getSeatingCapacityByCinemaCode(cinemaCode);
 				
 				cinemaList.add(new Cinema(hallNumber,cinemaCode,cineplexCode, cinemaClass, cinemaShowTimes, seatingCapacities));
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getAllCinemaList() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "getAllCinemaList() exception occured : " + e.getLocalizedMessage() + " : " + e.getMessage());
 		} finally {
 			if(sc != null)
 			{

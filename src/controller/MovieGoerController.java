@@ -1,4 +1,4 @@
-package controller;
+package Controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,9 +11,9 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entity.Admin;
-import entity.MovieGoer;
-import global.Constants;
+import Entity.Admin;
+import Entity.MovieGoer;
+import Global.Constants;
 
 public class MovieGoerController {
 	private static final String SEPARATOR = "|";
@@ -79,12 +79,29 @@ public class MovieGoerController {
 		
 	}
 	
+	public static MovieGoer getMovieGoerByMovieGoerId(int movieGoerId)
+	{
+		ArrayList<MovieGoer> allMovieGoerList = getMovieGoerAccountList();
+		
+		MovieGoer movieGoer = null;
+		
+		for(MovieGoer mg : allMovieGoerList)
+		{
+			if(mg.getId() == movieGoerId)
+			{
+				movieGoer = mg; 
+			}
+		}
+		return movieGoer;
+	}
 	
-	private static ArrayList<MovieGoer> getMovieGoerAccountList() throws IOException
+	
+	private static ArrayList<MovieGoer> getMovieGoerAccountList()
 	{
 		ArrayList<MovieGoer> movieGoerAccountList = new ArrayList<MovieGoer>();
-		Scanner sc = new Scanner(new FileInputStream(databaseTableName));
+		Scanner sc = null;
 		try {
+			sc = new Scanner(new FileInputStream(databaseTableName));
 			while(sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -103,7 +120,8 @@ public class MovieGoerController {
 			logger.log(Level.SEVERE, "getMovieGoerAccountList() exception occured : " + e.getLocalizedMessage());
 		}
 		finally {
-			sc.close();
+			if(sc!= null)
+				sc.close();
 		}
 		
 		return movieGoerAccountList;

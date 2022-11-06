@@ -1,6 +1,8 @@
-package controller;
+package Controller;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,23 +16,60 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entity.Cinema;
-import entity.CinemaClass;
-import entity.CinemaShowTime;
-import entity.MovieGoer;
-import entity.SeatingCapacity;
-import entity.Ticket;
-import entity.TicketDay;
-import entity.TicketType;
-import global.UserSession;
+import Entity.Admin;
+import Entity.Cinema;
+import Entity.CinemaClass;
+import Entity.CinemaShowTime;
+import Entity.MovieGoer;
+import Entity.SeatingCapacity;
+import Entity.Ticket;
+import Entity.TicketDay;
+import Entity.TicketType;
+import Global.UserSession;
 
-public class TicketPriceController {
+public class TicketController {
 
 	private static final String SEPARATOR = "|";
-	
+	private static final String databaseTableName = "src/database/tickets.txt";
 	private static final String systemSettingFolder = "src/database/system_settings/";
-	private final static Logger logger = Logger.getLogger(TicketPriceController.class.getName());
-
+	private final static Logger logger = Logger.getLogger(TicketController.class.getName());
+	
+	
+	
+	
+	public static void createTicket(Ticket ticket)
+	{
+		
+		try {
+			UserInputValidationController.createDatabaseTableFile(databaseTableName);
+			
+			PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+			int generateId = DatabaseController.generateIntegerId(databaseTableName);
+			
+			
+			
+			out.append(generateId+ SEPARATOR + ticket.getTransactionId() + SEPARATOR + ticket.getTicketType() + SEPARATOR + 
+					ticket.getTicketType() + SEPARATOR +  
+					ticket.getTicketDay()  + SEPARATOR +
+					ticket.getTicketDateTime().toString()  + SEPARATOR +
+					ticket.getCinemaShowTimeId() + SEPARATOR +
+					ticket.getSeatId() + SEPARATOR +
+					ticket.getCinemaClass() + SEPARATOR +
+					ticket.getTicketPrice() + SEPARATOR +
+					ticket.isHoliday() +"\n");
+			
+			
+			
+			out.close();
+			
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "createAdminAccount exception occured : " + e.getLocalizedMessage());
+		}
+		
+	}
+	
 	public static Ticket computePrice(int showTimeId)
 	{
 		CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(showTimeId);

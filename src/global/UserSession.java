@@ -1,7 +1,7 @@
-package global;
+package Global;
 
-import entity.Admin;
-import entity.MovieGoer;
+import Entity.Admin;
+import Entity.MovieGoer;
 
 public class UserSession {
 	

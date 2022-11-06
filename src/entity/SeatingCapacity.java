@@ -1,8 +1,9 @@
-package entity;
+package Entity;
 
 import java.util.ArrayList;
 
 public class SeatingCapacity {
+		private String showTimeId;
 		private Seat[][] seatingLayout;
 		private ArrayList<String> layoutFromTextFile;
 		private int numberOfRows;
@@ -13,8 +14,9 @@ public class SeatingCapacity {
 		private int noOfAvailableSeats;
 		
 		
-		public SeatingCapacity(ArrayList<String> layoutFromTextFile)
+		public SeatingCapacity(String showTimeId,ArrayList<String> layoutFromTextFile)
 		{
+			this.showTimeId = showTimeId;
 			this.layoutFromTextFile = layoutFromTextFile;
 			this.numberOfColumns = getColumnFromTextFile(layoutFromTextFile.get(0))+1;
 			this.numberOfRows = layoutFromTextFile.size() - 1;
@@ -37,7 +39,14 @@ public class SeatingCapacity {
 						String seatId = seatLetter + seatRow + "";
 						Seat seat = new Seat(seatId, occupied, true);
 						this.totalNoOfSeats++;
-						this.noOfAvailableSeats++;
+						if(occupied)
+						{
+							this.noOfOccupiedSeats++;
+						}
+						else
+						{
+							this.noOfAvailableSeats++;
+						}
 						this.seatingLayout[r-1][c] = seat;
 						c++;
 					}
@@ -53,12 +62,46 @@ public class SeatingCapacity {
 			
 		}
 		
-		
+		public int getNumberOfRows() {
+			return numberOfRows;
+		}
+
+		public int getNumberOfColumns() {
+			return numberOfColumns;
+		}
+
+		public String getShowTimeId()
+		{
+			return showTimeId;
+		}
 		
 		public Seat[][] getSeatingLayout() {
 			return seatingLayout;
 		}
-
+		
+		public void updateSeatLayoutWithSeatId(String seatId)
+		{
+			for(int r = 0;r < numberOfRows; r++)
+			{
+				for(int c = 0; c < numberOfColumns; c++)
+				{
+					if(seatingLayout[r][c].getIsSeat())
+					{
+						if(seatingLayout[r][c].getSeatId().equals(seatId))
+						{
+							seatingLayout[r][c].assignSeat();
+							
+						}
+					}
+				}
+			}
+		}
+		
+		public void setSeatingLayout(Seat[][] seatingLayout)
+		{
+			this.seatingLayout = seatingLayout;
+		}
+		
 		public int getTotalNoOfSeat()
 		{
 			return totalNoOfSeats;
@@ -94,6 +137,38 @@ public class SeatingCapacity {
 			{
 				System.out.println(this.layoutFromTextFile.get(i));
 			}
+		}
+		
+		public ArrayList<String> outputToFile()
+		{
+			ArrayList<String> output = new ArrayList<String>();
+			output.add(layoutFromTextFile.get(0));
+			for(int r = 0; r < this.numberOfRows;r++)
+			{
+				String line = "";
+				char seatLetter = (char) ('A' + r);
+				line += seatLetter + " ";
+				for(int c = 0; c < this.numberOfColumns; c++)
+				{
+					if(seatingLayout[r][c] == null)
+					{
+						continue;
+					}
+					if(seatingLayout[r][c].getIsSeat())
+					{
+						int isOccupied = seatingLayout[r][c].getIsOccupied() ? 1 : 0;
+						
+						line+= "|"+isOccupied+"|";
+						
+					}
+					else if(!seatingLayout[r][c].getIsSeat())
+					{
+						line+= " - ";
+					}
+				}
+				output.add(line);
+			}
+			return output;
 		}
 		
 		public void printSeatingLayout()
