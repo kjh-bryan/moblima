@@ -188,7 +188,16 @@ public class SeatingCapacity {
 					}
 					else if(!seatingLayout[r][c].getIsSeat())
 					{
-						line+= " - ";
+						if(seatingLayout[r][c].getSeatId().equals(""))
+						{
+							line+= " x ";
+						}
+						else
+						{
+							line+= " - ";
+							
+						}
+						
 					}
 				}
 				output.add(line);
@@ -203,7 +212,7 @@ public class SeatingCapacity {
 			for(int r = 0; r < this.numberOfRows;r++)
 			{
 				char seatLetter = (char) ('A' + r);
-				System.out.print(seatLetter + "  ");
+				System.out.print(seatLetter + " ");
 				for(int c = 0; c < this.numberOfColumns; c++)
 				{
 					if(seatingLayout[r][c] == null)

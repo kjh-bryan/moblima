@@ -42,7 +42,8 @@ public class TransactionView {
 		CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(cinemaShowTimeId);
 		
 		// Generating the transaction date of now in the form of YYYYMMDDHHMM e.g. 202211060423
-		String transactionDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
+		LocalDateTime transactionDateTime = LocalDateTime.now();
+		String transactionDate = transactionDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
 		//Create the ticket and save to datebase, get the ticket id
 		
 		
@@ -50,7 +51,7 @@ public class TransactionView {
 		String transactionId = cinemaShowTime.getCinemaCode()+transactionDate;
 		
 		//Create the transaction detail with the transaction id, ticket id, showtime id, and moviegoer id
-		Transaction transaction = new Transaction(transactionId,totalTicketPrice,cinemaShowTimeId,UserSession.movieGoer.getId());
+		Transaction transaction = new Transaction(transactionId,totalTicketPrice,cinemaShowTimeId,UserSession.movieGoer.getId(),transactionDateTime);
 
 		TransactionController.createTransaction(transaction);
 		

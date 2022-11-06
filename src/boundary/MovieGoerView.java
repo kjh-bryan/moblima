@@ -15,7 +15,7 @@ public class MovieGoerView {
 			System.out.println("------------------------------");
 			System.out.println("1: Explore Movies");
 			System.out.println("2: Explore Cineplexes");
-			System.out.println("3: View Booking History");
+			System.out.println("3: View Transaction History");
 			System.out.println("0: Go Back");
 			System.out.print("\nPlease Select an Option: ");
 			
@@ -31,6 +31,7 @@ public class MovieGoerView {
 					break;
 				case 3:
 					// View Booking History
+					TransactionHistoryView.check_login_before_transaction_view();
 					break;
 				case 0:
 					// Exit

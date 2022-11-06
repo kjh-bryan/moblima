@@ -3,6 +3,7 @@ package controller;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -14,6 +15,7 @@ import entity.CinemaClass;
 import entity.CinemaShowTime;
 import entity.MovieGoer;
 import entity.SeatingCapacity;
+import entity.Ticket;
 import entity.Transaction;
 
 public class TransactionController {
@@ -28,7 +30,12 @@ public class TransactionController {
 
 		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
 		
-		out.append(transaction.getTransactionId() + SEPARATOR + transaction.getTotalPrice()+"" + SEPARATOR + transaction.getShowTimeId() +SEPARATOR+ transaction.getMovieGoerId() + "\n");
+		out.append(transaction.getTransactionId() + 
+				SEPARATOR + transaction.getTotalPrice()+"" + 
+				SEPARATOR + transaction.getShowTimeId() +
+				SEPARATOR+ transaction.getMovieGoerId() + 
+				SEPARATOR+ transaction.getTransactionDate() + 
+				"\n");
 		
 		
 		out.close();
@@ -52,8 +59,10 @@ public class TransactionController {
 				Double totalPrice = Double.parseDouble(stringTokenizer.nextToken().trim());
 				int showTimeId = Integer.parseInt(stringTokenizer.nextToken().trim());
 				int movieGoerId  = Integer.parseInt(stringTokenizer.nextToken().trim());
+				LocalDateTime transactionDateTime = LocalDateTime.parse(stringTokenizer.nextToken().trim());
 				
-				transactionList.add(new Transaction(transactionId,totalPrice,showTimeId, movieGoerId));
+				ArrayList<Ticket> ticketList = TicketController.getTicketsByTransactionId(transactionId);
+				transactionList.add(new Transaction(transactionId,totalPrice,showTimeId, movieGoerId,ticketList,transactionDateTime));
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "getAllTransactionList() exception occured : " + e.getLocalizedMessage() + " : " + e.getMessage());
@@ -66,6 +75,25 @@ public class TransactionController {
 		}
 
 		return transactionList;
+	}
+	
+	public static ArrayList<Transaction> getTransactionsByMovieGoerId(int movieGoerId)
+	{
+		ArrayList<Transaction> transactionList = getAllTransactionList();
+		ArrayList<Transaction> transactionsByMovieGoerIdList = new ArrayList<Transaction>();
+		
+		for(Transaction t: transactionList)
+		{
+			if(t.getMovieGoerId() == movieGoerId)
+			{
+				transactionsByMovieGoerIdList.add(t);
+			}
+		}
+		
+		return transactionsByMovieGoerIdList;
+		
+		
+		
 	}
 	
 }

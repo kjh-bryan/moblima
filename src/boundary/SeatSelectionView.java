@@ -31,8 +31,16 @@ public class SeatSelectionView {
 				return;
 			if(seatId.equals("1"))
 			{
-				BookSeatView.check_login_before_book_seat_view(showTimeId, selectedSeatList);
-				return;
+				if(selectedSeatList.isEmpty())
+				{
+					System.out.println("Please select at least 1 seat!");
+				}
+				else
+				{
+					BookSeatView.check_login_before_book_seat_view(showTimeId, selectedSeatList);
+					return;
+				}
+				
 			}
 			int row = seatId.charAt(0) - 'A';
 			int column = Integer.parseInt(seatId.replaceAll("[\\D]", ""));

@@ -6,9 +6,8 @@ import controller.CinemaController;
 import controller.CinemaShowTimeController;
 import controller.CineplexController;
 import controller.MovieController;
-import controller.TicketController;
+import controller.TicketPriceController;
 import controller.UserInputValidationController;
-import entity.Admin;
 import entity.Cinema;
 import entity.CinemaShowTime;
 import entity.Cineplex;
@@ -48,7 +47,7 @@ public class BookSeatView {
 		Double ticketPrice = 0.0;
 		for(Seat s : selectedSeat)
 		{
-			Ticket ticket = TicketController.computePrice(showTimeId);
+			Ticket ticket = TicketPriceController.computePrice(showTimeId);
 			ticket.setSeatId(s.getSeatId());
 			ticketType = ticket.getTicketTypeToString();
 			ticketWeekdayOrWeekend = ticket.getTicketWeekdayOrWeekend();
@@ -71,10 +70,13 @@ public class BookSeatView {
 		selectedSeat.forEach(t-> sb.append(t.getSeatId()).append(","));
 		System.out.println(sb.substring(0,sb.length()-1));
 		System.out.println();
+		String ticketTypeWeekDay = ticketType + " " + ticketWeekdayOrWeekend;
 		
-		System.out.println("ITEM\t\tCOST\tQTY\tSUBTOTAL");
 		
-		System.out.println(ticketType + " " + ticketWeekdayOrWeekend+"\t" + ticketPrice + "\t" + ticketList.size() + "\t" + ticketPrice * ticketList.size());
+		
+		System.out.println("ITEM\t\t\tCOST\tQTY\tSUBTOTAL");
+		
+		System.out.println(ticketType + " " + ticketWeekdayOrWeekend+" \t" + ticketPrice + "\t" + ticketList.size() + "\t" + ticketPrice * ticketList.size());
 		System.out.println();
 		
 		System.out.println();
