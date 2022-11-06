@@ -1,11 +1,11 @@
-package Controller;
+package controller;
 
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Global.Constants;
+import global.Constants;
 
 import java.io.File;
 

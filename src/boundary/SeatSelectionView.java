@@ -1,11 +1,11 @@
-package Boundary;
+package boundary;
 
 import java.util.ArrayList;
 
-import Controller.SeatingCapacityController;
-import Controller.UserInputValidationController;
-import Entity.Seat;
-import Entity.SeatingCapacity;
+import controller.SeatingCapacityController;
+import controller.UserInputValidationController;
+import entity.Seat;
+import entity.SeatingCapacity;
 
 public class SeatSelectionView {
 	

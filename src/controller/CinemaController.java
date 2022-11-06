@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,10 +8,10 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.Cinema;
-import Entity.CinemaClass;
-import Entity.CinemaShowTime;
-import Entity.SeatingCapacity;
+import entity.Cinema;
+import entity.CinemaClass;
+import entity.CinemaShowTime;
+import entity.SeatingCapacity;
 
 public class CinemaController {
 	private static final String SEPARATOR = "|";

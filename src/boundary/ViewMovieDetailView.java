@@ -1,10 +1,10 @@
-package Boundary;
+package boundary;
 
-import Controller.MovieController;
-import Controller.UserInputValidationController;
-import Entity.Cast;
-import Entity.Movie;
-import Global.Constants;
+import controller.MovieController;
+import controller.UserInputValidationController;
+import entity.Cast;
+import entity.Movie;
+import global.Constants;
 
 public class ViewMovieDetailView {
 	

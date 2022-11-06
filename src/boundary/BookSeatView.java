@@ -1,23 +1,23 @@
-package Boundary;
+package boundary;
 
 import java.util.ArrayList;
 
-import Controller.CinemaController;
-import Controller.CinemaShowTimeController;
-import Controller.CineplexController;
-import Controller.MovieController;
-import Controller.TicketController;
-import Controller.UserInputValidationController;
-import Entity.Admin;
-import Entity.Cinema;
-import Entity.CinemaShowTime;
-import Entity.Cineplex;
-import Entity.Movie;
-import Entity.MovieGoer;
-import Entity.Seat;
-import Entity.Ticket;
-import Global.Constants;
-import Global.UserSession;
+import controller.CinemaController;
+import controller.CinemaShowTimeController;
+import controller.CineplexController;
+import controller.MovieController;
+import controller.TicketController;
+import controller.UserInputValidationController;
+import entity.Admin;
+import entity.Cinema;
+import entity.CinemaShowTime;
+import entity.Cineplex;
+import entity.Movie;
+import entity.MovieGoer;
+import entity.Seat;
+import entity.Ticket;
+import global.Constants;
+import global.UserSession;
 
 public class BookSeatView {
 

@@ -1,7 +1,7 @@
-package Boundary;
+package boundary;
 
-import Controller.UserInputValidationController;
-import Global.Constants;
+import controller.UserInputValidationController;
+import global.Constants;
 
 public class MovieGoerView {
 	public static void movie_goer_view()

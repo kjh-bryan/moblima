@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,8 +9,8 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.Cast;
-import Entity.Review;
+import entity.Cast;
+import entity.Review;
 
 public class CastController {
 	private static final String SEPARATOR = "|";

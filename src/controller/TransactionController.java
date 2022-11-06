@@ -1,13 +1,13 @@
-package Controller;
+package controller;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.CinemaShowTime;
-import Entity.MovieGoer;
-import Entity.Transaction;
+import entity.CinemaShowTime;
+import entity.MovieGoer;
+import entity.Transaction;
 
 public class TransactionController {
 	private static final String SEPARATOR = "|";

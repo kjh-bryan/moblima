@@ -1,8 +1,8 @@
-package Boundary;
+package boundary;
 
-import Controller.UserInputValidationController;
-import Entity.Admin;
-import Global.Constants;
+import controller.UserInputValidationController;
+import entity.Admin;
+import global.Constants;
 
 
 public class AdminView {

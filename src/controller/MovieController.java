@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,12 +13,12 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Controller.ReviewController;
-import Entity.Cast;
-import Entity.Movie;
-import Entity.MovieClassifiedRating;
-import Entity.MovieShowingStatus;
-import Entity.Review;
+import controller.ReviewController;
+import entity.Cast;
+import entity.Movie;
+import entity.MovieClassifiedRating;
+import entity.MovieShowingStatus;
+import entity.Review;
 
 public class MovieController {
 

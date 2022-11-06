@@ -1,4 +1,4 @@
-package Boundary;
+package boundary;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,12 +13,12 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
-import Controller.SeatingCapacityController;
-import Entity.Admin;
-import Entity.MovieClassifiedRating;
-import Entity.MovieShowingStatus;
-import Entity.Seat;
-import Entity.SeatingCapacity;
+import controller.SeatingCapacityController;
+import entity.Admin;
+import entity.MovieClassifiedRating;
+import entity.MovieShowingStatus;
+import entity.Seat;
+import entity.SeatingCapacity;
 public class MoblimApp {
 
 	public static void main(String[] args) {

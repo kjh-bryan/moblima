@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 public enum MovieClassifiedRating {
 	G("General"), 

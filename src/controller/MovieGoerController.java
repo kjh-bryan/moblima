@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,9 +11,9 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.Admin;
-import Entity.MovieGoer;
-import Global.Constants;
+import entity.Admin;
+import entity.MovieGoer;
+import global.Constants;
 
 public class MovieGoerController {
 	private static final String SEPARATOR = "|";

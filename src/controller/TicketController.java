@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,16 +16,16 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.Admin;
-import Entity.Cinema;
-import Entity.CinemaClass;
-import Entity.CinemaShowTime;
-import Entity.MovieGoer;
-import Entity.SeatingCapacity;
-import Entity.Ticket;
-import Entity.TicketDay;
-import Entity.TicketType;
-import Global.UserSession;
+import entity.Admin;
+import entity.Cinema;
+import entity.CinemaClass;
+import entity.CinemaShowTime;
+import entity.MovieGoer;
+import entity.SeatingCapacity;
+import entity.Ticket;
+import entity.TicketDay;
+import entity.TicketType;
+import global.UserSession;
 
 public class TicketController {
 

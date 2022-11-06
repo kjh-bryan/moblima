@@ -1,12 +1,12 @@
-package Boundary;
+package boundary;
 
 import java.util.ArrayList;
 
-import Controller.MovieController;
-import Controller.UserInputValidationController;
-import Entity.Movie;
-import Entity.MovieClassifiedRating;
-import Global.Constants;
+import controller.MovieController;
+import controller.UserInputValidationController;
+import entity.Movie;
+import entity.MovieClassifiedRating;
+import global.Constants;
 
 public class SearchListMoviesView {
 	

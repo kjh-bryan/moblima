@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.FileInputStream;
 import java.util.Scanner;
@@ -6,8 +6,8 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.Admin;
-import Entity.User;
+import entity.Admin;
+import entity.User;
 
 public class DatabaseController {
 	

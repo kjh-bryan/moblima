@@ -1,9 +1,9 @@
-package Controller;
+package controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.Admin;
+import entity.Admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
