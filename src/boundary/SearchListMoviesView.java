@@ -22,7 +22,8 @@ public class SearchListMoviesView {
 	        System.out.println("1: List All Movies");
 			System.out.println("2: Search by Movie ID");
 			System.out.println("3: Search by Movie Title");
-	        System.out.println("4: List Top 5 Movies");
+	        System.out.println("4: List Top 5 Movies by review");
+	        System.out.println("5: List Top 5 Movies by ticket sales");
 	        System.out.println("0: Go Back");
 	        System.out.println();
 			System.out.print("Please Select an Option: ");
@@ -79,9 +80,18 @@ public class SearchListMoviesView {
 						return;
 					}
 					break;
-				case 4:	//List Top 5 Movies
-					return;	
-				
+				case 4:	try {
+					TopFiveView.main(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+					break;
+				case 5:try {
+					TopFiveSaleView.main(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+					break;
 				case 0:	// Go Back
 					return;
 				default:

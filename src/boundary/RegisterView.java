@@ -1,33 +1,47 @@
 package boundary;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import controller.AdminController;
+import controller.IDgeneratorController;
 import controller.MovieGoerController;
 import controller.UserInputValidationController;
+import controller.ticketsaleController;
 import entity.Admin;
 import entity.MovieGoer;
 
 public class RegisterView {
-
+	 
 	private int role;
 	String roleName;
-	
+	int id=-1;
 	public RegisterView(int role)
 	{
 		this.role = role;
 		roleName = (role == 0) ? "Admin" : "MovieGoer";
 	}
 	
-	public boolean showRegisterView()
+	
+	public boolean showRegisterView() 
 	{
+		ticketsaleController.calculatesale(1); 
 		System.out.println("\n------------------------------");
 		System.out.println("MOBLIMA - Register as " + roleName);
 		System.out.println("------------------------------");
-
-		Random random = new Random();
-		int id = random.nextInt(1000);
-		
+         
+       
+        
+       
+	    if (role==0) {
+		id = IDgeneratorController.idgeneration();}
+	    if (role==1) {
+	    id = IDgeneratorController.idgeneration2();}
+        
+        
 		System.out.print("Please enter your username: ");
 		String username = UserInputValidationController.validateStringFromUser();
 		System.out.println();
@@ -64,5 +78,9 @@ public class RegisterView {
 		}
 		
 		return registerSuccessful;
+        
+    
+
 	}
+	
 }
