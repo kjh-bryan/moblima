@@ -67,5 +67,45 @@ public class CinemaShowTime {
 	{
 		return this.movieStartTime.format(DateTimeFormatter.ofPattern("EEE dd MMM HH:mm"));
 	}
+
+
+
+
+
+
+	public void setMovieStartTime(LocalDateTime movieStartTime) {
+		this.movieStartTime = movieStartTime;
+	}
+
+
+
+
+
+	public void setMovieEndTime(LocalDateTime movieEndTime) {
+		this.movieEndTime = movieEndTime;
+	}
+
+
+
+
+	public void setCinemaCode(String cinemaCode) {
+		this.cinemaCode = cinemaCode;
+	}
+
+
+
+
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
+	}
+
+
+
+
+	public void setSeatingCapacity(SeatingCapacity seatingCapacity) {
+		this.seatingCapacity = seatingCapacity;
+	}
+	
+	
 	
 }

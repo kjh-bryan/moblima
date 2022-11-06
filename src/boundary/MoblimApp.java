@@ -8,13 +8,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
+import controller.CinemaController;
+import controller.CinemaShowTimeController;
+import controller.CineplexController;
 import controller.SeatingCapacityController;
+import controller.UserInputValidationController;
 import entity.Admin;
+import entity.Cinema;
+import entity.CinemaShowTime;
+import entity.Cineplex;
 import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
 import entity.Seat;
@@ -25,70 +33,108 @@ public class MoblimApp {
 //		Scanner sc = new Scanner(System.in);
 		
 		
+		CURShowTimeView.printAllCinemaShowTime();
+		
+//		ArrayList<CinemaShowTime> cinemaShowTimeList = CinemaShowTimeController.getAllCinemaShowTimeList();
+//		
+//		String printMovieTitle = "=============" + movie.getMovieTitle() + " Show Times=============";
+//		String divider = new String(new char[printMovieTitle.length()]).replace("\0", "=");
+//		System.out.println("\n"+divider);
+//		System.out.println(printMovieTitle);
+//		System.out.println(divider);
+//		System.out.println();
+//
+//		String titlePrinted = "";
+//		for (CinemaShowTime cinemaShowTime : cinemaShowTimeList) {
+//			Cinema cinema = CinemaController.getCinemaByCinemaCode(cinemaShowTime.getCinemaCode());
+//			Cineplex cineplex = CineplexController.getCineplexByCinemaCode(cinemaShowTime.getCinemaCode());
+//
+//			if (!titlePrinted.equals(cineplex.getCinemaLocatedMall())) {
+//				System.out.println("==== " + cineplex.getCinemaLocatedMall() + " ====");
+//				System.out.println("Show Time ID\tDate\t\tTime\tAvailable Seats");
+//				titlePrinted = cineplex.getCinemaLocatedMall();
+//			}
+//			System.out.println(cinemaShowTime.getShowTimeId() + "\t\t" + cinemaShowTime.getStartDateToString()+ "\t"+cinemaShowTime.getStartTimeToString() + "\t"
+//					+ cinemaShowTime.getSeatingCapacity().getNoOfAvailableSeats() + "/"
+//					+ cinemaShowTime.getSeatingCapacity().getTotalNoOfSeat());
+//		}
+//
+//		System.out.println();
+		
+		
 //		LocalDate ld = LocalDate.parse("2022-10-31");
 //		LocalTime lt = LocalTime.parse("17:20");
 //		LocalDateTime ldt = LocalDateTime.parse("2022-10-31T17:20");
 //		System.out.println(ldt.format(DateTimeFormatter.ofPattern("EEE yyyy-MM-dd HH:mm")));
-		
-		String folderSrc = "src/database/showtime_seatingcapacity/seatingcapacity_";
-		int showTimeId = 2;
-		ArrayList<String> st = new ArrayList<String>();
-		Scanner sc = null;
-		try {
-		sc = new Scanner(new FileInputStream(folderSrc+showTimeId+".txt"));
-			while(sc.hasNextLine()) {
-				st.add(sc.nextLine());
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("error : " + e.getLocalizedMessage());
-		}
-		finally {
-			if(sc!= null)
-				sc.close();
-		}
 
-		SeatingCapacity seatingCapacity = new SeatingCapacity(showTimeId+"",st);
-
-		Seat[][] seat = seatingCapacity.getSeatingLayout();
-		boolean assigned = false;
-		for(int r = 0 ; r < seatingCapacity.getNumberOfRows(); r++)
-		{
-			for(int c = 0 ; c < seatingCapacity.getNumberOfColumns();c++)
-			{
-
-				if(seat[r][c].getIsSeat())
-				{
-					seat[r][c].assignSeat();
-				}
-			}
-			
-		}
-		seatingCapacity.setSeatingLayout(seat);
-
-		ArrayList<String> seatLayout = seatingCapacity.outputToFile();
+//		String date = UserInputValidationController.validateLocalDateFromUser();
+//		String time = UserInputValidationController.validateLocalTimeFromUser();
+//		LocalTime lt = LocalTime.parse(time);
+//		LocalDate ld = LocalDate.parse(date);
+//		
+//		LocalDateTime localDateTime = LocalDateTime.of(ld,lt);
+//		System.out.println(localDateTime);
+//		
 		
-		
-		
-		String tempFile = "temp.txt";
-		File oldFile = new File(showTimeId+".txt");
-		File newFile = new File(tempFile);
-		
-		try
-		{
-			PrintWriter out = new PrintWriter(new FileOutputStream(folderSrc+oldFile));
-			for(String s : seatLayout)
-			{
-				out.append(s + "\n");
-			}
-			
-			out.close();
-		}
-		catch(Exception e)
-		{
-			
-		}
+//		String folderSrc = "src/database/showtime_seatingcapacity/seatingcapacity_";
+//		int showTimeId = 2;
+//		ArrayList<String> st = new ArrayList<String>();
+//		Scanner sc = null;
+//		try {
+//		sc = new Scanner(new FileInputStream(folderSrc+showTimeId+".txt"));
+//			while(sc.hasNextLine()) {
+//				st.add(sc.nextLine());
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("error : " + e.getLocalizedMessage());
+//		}
+//		finally {
+//			if(sc!= null)
+//				sc.close();
+//		}
+//
+//		SeatingCapacity seatingCapacity = new SeatingCapacity(showTimeId+"",st);
+//
+//		Seat[][] seat = seatingCapacity.getSeatingLayout();
+//		boolean assigned = false;
+//		for(int r = 0 ; r < seatingCapacity.getNumberOfRows(); r++)
+//		{
+//			for(int c = 0 ; c < seatingCapacity.getNumberOfColumns();c++)
+//			{
+//
+//				if(seat[r][c].getIsSeat())
+//				{
+//					seat[r][c].assignSeat();
+//				}
+//			}
+//			
+//		}
+//		seatingCapacity.setSeatingLayout(seat);
+//
+//		ArrayList<String> seatLayout = seatingCapacity.outputToFile();
+//		
+//		
+//		
+//		String tempFile = "temp.txt";
+//		File oldFile = new File(showTimeId+".txt");
+//		File newFile = new File(tempFile);
+//		
+//		try
+//		{
+//			PrintWriter out = new PrintWriter(new FileOutputStream(folderSrc+oldFile));
+//			for(String s : seatLayout)
+//			{
+//				out.append(s + "\n");
+//			}
+//			
+//			out.close();
+//		}
+//		catch(Exception e)
+//		{
+//			
+//		}
 //		String column = seatingCapacity.getColumnString();
 //		String screen = "SCREEN";
 //		String spaceBeforeScreen = new String(new char[(column.length()/2) - 3]).replace("\0", " ");

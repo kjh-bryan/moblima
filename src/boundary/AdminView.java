@@ -28,12 +28,14 @@ public class AdminView {
 			{
 				case 1:
 					// Create/Update/Remove movie listing
-					CUR_MovieListingView.cur_movie_listing_view();
+					CURMovieListingView.cur_movie_listing_view();
 					break;
 				case 2:
 					// Create/Update/Remove cinema showtimes and movies to be shown
+					CURShowTimeView.cur_show_time_view();
 					break;
 				case 3:
+					ConfigureSystemSettingView.configure_system_setting_view();
 					// Configure system settings
 					break;
 				case 4:

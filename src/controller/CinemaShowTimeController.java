@@ -1,6 +1,12 @@
 package controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,8 +16,13 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import entity.Cast;
 import entity.Cinema;
 import entity.CinemaShowTime;
+import entity.Movie;
+import entity.MovieClassifiedRating;
+import entity.MovieShowingStatus;
+import entity.MovieType;
 import entity.SeatingCapacity;
 
 public class CinemaShowTimeController {
@@ -21,8 +32,148 @@ public class CinemaShowTimeController {
 
 	private final static Logger logger = Logger.getLogger(CinemaShowTimeController.class.getName());
 
+	public static boolean createCinemaShowTime(CinemaShowTime newCinemaShowTime)
+	{
+		
+		boolean createdSuccessful = false;
+		
+		try {
+		UserInputValidationController.createDatabaseTableFile(databaseTableName);
+
+		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+		int generateId = DatabaseController.generateIntegerId(databaseTableName);
+		SeatingCapacityController.createSeatingCapacityWithShowTimeId(generateId, newCinemaShowTime.getSeatingCapacity().outputToFile());
+		
+		out.append(generateId + 
+				SEPARATOR + newCinemaShowTime.getCinemaCode()+"" + 
+				SEPARATOR + newCinemaShowTime.getMovieId() +
+				SEPARATOR+ newCinemaShowTime.getShowStartTime() + 
+				SEPARATOR+ newCinemaShowTime.getShowEndTime() + 
+				"\n");
+		
+		
+		
+		createdSuccessful = true;
+		out.close();
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "createCinemaShowTime() exception occured : " + e.getLocalizedMessage());
+		}
+		return createdSuccessful;
+		
+	}
 	
-	private static ArrayList<CinemaShowTime> getAllCinemaShowTimeList() {
+	public static void updateCinemaShowTime(CinemaShowTime updatedShowTime)
+	{
+		String tempFile = "temp.txt";
+		File oldFile = new File(databaseTableName);
+		File newFile = new File(tempFile);
+		Scanner sc = null;
+		
+		try {
+			FileWriter fw = new FileWriter(tempFile,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			sc = new Scanner(new File(databaseTableName));
+			sc.useDelimiter("[|\n]");
+			
+			while(sc.hasNext())
+			{
+				int showTimeId = Integer.parseInt(sc.next());
+				String cinemaCode = sc.next();
+				int movieId = Integer.parseInt(sc.next());
+				LocalDateTime movieStartTime = LocalDateTime.parse(sc.next());
+				LocalDateTime movieEndTime = LocalDateTime.parse(sc.next());
+				
+				if(showTimeId == updatedShowTime.getShowTimeId())
+				{
+					pw.println(updatedShowTime.getShowTimeId()+SEPARATOR+updatedShowTime.getCinemaCode()
+							+SEPARATOR+updatedShowTime.getMovieId()+SEPARATOR+updatedShowTime.getShowStartTime()
+							+SEPARATOR+updatedShowTime.getShowEndTime());
+				
+					SeatingCapacityController.updateSeatingCapacityByShowTimeId(showTimeId, updatedShowTime.getSeatingCapacity().outputToFile());
+				}
+				else
+				{
+					pw.println(showTimeId+SEPARATOR+cinemaCode
+							+SEPARATOR+movieId+SEPARATOR+movieStartTime
+							+SEPARATOR+movieEndTime);
+				
+				}
+				
+			}
+			
+			sc.close();
+			pw.flush();
+			pw.close();
+			oldFile.delete();
+			File dump = new File(databaseTableName);
+			newFile.renameTo(dump);
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "updateCinemaShowTime() exception occured : " + e.getLocalizedMessage());
+			
+		}
+		
+	}
+	
+	public static void deleteCinemaShowTimeById(int deletedShowTimeId)
+	{
+		String tempFile = "temp.txt";
+		File oldFile = new File(databaseTableName);
+		File newFile = new File(tempFile);
+		Scanner sc = null;
+		
+		try {
+			FileWriter fw = new FileWriter(tempFile,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			sc = new Scanner(new File(databaseTableName));
+			sc.useDelimiter("[|\n]");
+			
+			while(sc.hasNext())
+			{
+				int showTimeId = Integer.parseInt(sc.next());
+				String cinemaCode = sc.next();
+				int movieId = Integer.parseInt(sc.next());
+				LocalDateTime movieStartTime = LocalDateTime.parse(sc.next());
+				LocalDateTime movieEndTime = LocalDateTime.parse(sc.next());
+				
+				if(showTimeId == deletedShowTimeId)
+				{
+					SeatingCapacityController.deleteSeatingCapacityByShowTimeId(showTimeId);
+				}
+				else
+				{
+					pw.println(showTimeId+SEPARATOR+cinemaCode
+							+SEPARATOR+movieId+SEPARATOR+movieStartTime
+							+SEPARATOR+movieEndTime);
+				
+				}
+				
+			}
+			
+			sc.close();
+			pw.flush();
+			pw.close();
+			oldFile.delete();
+			File dump = new File(databaseTableName);
+			newFile.renameTo(dump);
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "deleteCinemaShowTimeById() exception occured : " + e.getLocalizedMessage());
+			
+		}
+		
+	}
+	
+	
+	public static ArrayList<CinemaShowTime> getAllCinemaShowTimeList() {
 		ArrayList<CinemaShowTime> cinemaShowTimeList = new ArrayList<CinemaShowTime>();
 		Scanner sc = null;
 		try {

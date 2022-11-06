@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -34,7 +35,7 @@ public class SeatingCapacityController {
 			}
 			seatCapacity = new SeatingCapacity(cinemaCode,layoutFromTextFile);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getAllCinemaShowTimeList() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "getSeatingCapacityByCinemaCode() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -68,6 +69,44 @@ public class SeatingCapacityController {
 		}
 
 		return seatCapacity;
+	}
+	
+	public static void createSeatingCapacityWithShowTimeId(int showTimeId, ArrayList<String>seatLayout)
+	{
+		try {
+			
+			UserInputValidationController.createDatabaseTableFile(showTimeFolderLocation+showTimeId+".txt");
+
+			PrintWriter out = new PrintWriter(new FileOutputStream(showTimeFolderLocation+showTimeId+".txt"));
+			for(String s : seatLayout)
+			{
+				out.append(s + "\n");
+			}
+			
+			out.close();
+			
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "createSeatingCapacityWithShowTimeId : " + e.getLocalizedMessage());
+		}
+	}
+	
+	public static void deleteSeatingCapacityByShowTimeId(int showTimeId)
+	{
+		
+		File oldFile = new File(showTimeFolderLocation+showTimeId+".txt");
+		
+		try {
+
+			oldFile.delete();
+			
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "deleteSeatingCapacityByShowTimeId : " + e.getLocalizedMessage());
+		}
+		
 	}
 	
 	public static void updateSeatingCapacityByShowTimeId(int showTimeId,ArrayList<String> seatLayout)

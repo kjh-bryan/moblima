@@ -12,7 +12,7 @@ import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
 import entity.MovieType;
 
-public class CUR_MovieListingView {
+public class CURMovieListingView {
 	
 	public static void cur_movie_listing_view()
 	{
@@ -26,7 +26,7 @@ public class CUR_MovieListingView {
 			System.out.println("1: Create Movie Listing");
 			System.out.println("2: Update Movie Listing");
 			System.out.println("3: Remove Movie Listing");
-			System.out.println("4: Exit");
+			System.out.println("0: Exit");
 			
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
@@ -41,7 +41,7 @@ public class CUR_MovieListingView {
 					
 
 					break;
-				case 4:
+				case 0:
 					
 					return;
 				
@@ -87,11 +87,11 @@ public class CUR_MovieListingView {
 		System.out.println("Enter Movie duration in mins: ");
 		int movieDuration = UserInputValidationController.validateNumberFromUser();
 		
-		System.out.println( "Enter Start Date: ");
-		String startDate = UserInputValidationController.validateDateFromUser();
+		System.out.println( "Enter Start Date (yyyy-MM-dd): ");
+		String startDate = UserInputValidationController.validateLocalDateFromUser();
 		
-		System.out.println( "Enter End Date: ");
-		String endDate = UserInputValidationController.validateDateFromUser();
+		System.out.println( "Enter End Date (yyyy-MM-dd): ");
+		String endDate = UserInputValidationController.validateLocalDateFromUser();
 		
 		LocalDate movieStartDate = LocalDate.parse(startDate);
 		LocalDate movieEndDate = LocalDate.parse(endDate);
@@ -185,7 +185,8 @@ public class CUR_MovieListingView {
 	public static void update_movie_listing_view()
 	{
 		printAllMovies();
-		
+
+		System.out.println();
 		
 		System.out.println("============================");
 		System.out.println("=== Update Movie Listing===");
@@ -260,16 +261,16 @@ public class CUR_MovieListingView {
 			case 4:
 				// Start Date
 				
-				System.out.println( "Enter new Start Date: ");
-				String startDate = UserInputValidationController.validateDateFromUser();
+				System.out.println( "Enter new Start Date (yyyy-MM-dd): ");
+				String startDate = UserInputValidationController.validateLocalDateFromUser();
 				LocalDate movieStartDate = LocalDate.parse(startDate);
 				movie.setMovieStartDate(movieStartDate);
 				break;
 
 			case 5:
 				// End Date
-				System.out.println( "Enter new End Date: ");
-				String endDate = UserInputValidationController.validateDateFromUser();
+				System.out.println( "Enter new End Date (yyyy-MM-dd): ");
+				String endDate = UserInputValidationController.validateLocalDateFromUser();
 				LocalDate movieEndDate = LocalDate.parse(endDate);
 				movie.setMovieEndDate(movieEndDate);
 				break;

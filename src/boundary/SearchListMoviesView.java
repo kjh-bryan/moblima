@@ -41,7 +41,7 @@ public class SearchListMoviesView {
 						if(choosenMovie != null)
 						{
 							
-							MovieShowTimeView.show_times(choosenMovie);
+							MovieShowTimeView.show_time_view(choosenMovie);
 						}
 						return;
 					}
@@ -59,7 +59,7 @@ public class SearchListMoviesView {
 						if(choosenMovie != null)
 						{
 							
-							MovieShowTimeView.show_times(choosenMovie);
+							MovieShowTimeView.show_time_view(choosenMovie);
 						}
 						return;
 					}
@@ -74,7 +74,7 @@ public class SearchListMoviesView {
 						if(choosenMovie != null)
 						{
 							
-							MovieShowTimeView.show_times(choosenMovie);
+							MovieShowTimeView.show_time_view(choosenMovie);
 						}
 						return;
 					}

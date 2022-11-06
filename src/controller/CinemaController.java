@@ -20,7 +20,7 @@ public class CinemaController {
 	private final static Logger logger = Logger.getLogger(CinemaController.class.getName());
 
 	
-	private static ArrayList<Cinema> getAllCinemaList() {
+	public static ArrayList<Cinema> getAllCinemaList() {
 		ArrayList<Cinema> cinemaList = new ArrayList<Cinema>();
 		Scanner sc = null;
 		try {

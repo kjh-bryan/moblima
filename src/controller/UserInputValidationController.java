@@ -5,10 +5,14 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import entity.Cinema;
+import entity.CinemaShowTime;
+import entity.Movie;
 import global.Constants;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 
@@ -36,7 +40,7 @@ public class UserInputValidationController {
 		return rating;
 	}
 	
-	public static String validateDateFromUser()
+	public static String validateLocalDateFromUser()
 	{
 		String date = "";
 		boolean isValid = false;
@@ -48,10 +52,32 @@ public class UserInputValidationController {
 			}
 			catch(DateTimeParseException e)
 			{
-				System.out.println("Please enter a valid date (yyyyMMdd)");
+				System.out.println("Please enter a valid date (yyyy-MM-dd)");
+				continue;
 			}
+			isValid = true;
 		}
 		return date;
+	}
+	
+	public static String validateLocalTimeFromUser()
+	{
+		String time = "";
+		boolean isValid = false;
+		while(!isValid)
+		{
+			time = validateStringFromUser();
+			try {
+				LocalTime.parse(time);
+			}
+			catch(DateTimeParseException e)
+			{
+				System.out.println("Please enter a valid time (HH:mm)");
+				continue;
+			}
+			isValid = true;
+		}
+		return time;
 	}
 	
 	public static int validateNumberFromUser() {
@@ -154,6 +180,69 @@ public class UserInputValidationController {
 			scanner.nextLine();
 		}
 		return input;
+	}
+	
+	public static String validateCinemaCodeFromUser()
+	{
+		String cinemaCode = "";
+		Cinema cinema = null;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			cinemaCode = validateStringFromUser();
+			cinema = CinemaController.getCinemaByCinemaCode(cinemaCode);
+			if(cinema == null)
+			{
+				System.out.println("Cinema code is invalid");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return cinemaCode;
+	}
+	
+	public static int validateMovieIdFromUser()
+	{
+		int movieId = 0;
+		Movie movie = null;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			movieId = validateNumberFromUser();
+			movie = MovieController.getMovieByMovieId(movieId);
+			if(movie == null)
+			{
+				System.out.println("Movie ID is invalid");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return movieId;
+	}
+	
+	public static int validateShowTimeIdFromUser()
+	{
+		int showTimeId = -1;
+		CinemaShowTime cinemaShowTime = null;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			showTimeId = validateNumberFromUser();
+			cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(showTimeId);
+			if(cinemaShowTime == null)
+			{
+				System.out.println("ShowTime ID is invalid");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return showTimeId;
 	}
 	
 	public static boolean createDatabaseTableFile(String fileName)

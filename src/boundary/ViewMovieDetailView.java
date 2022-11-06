@@ -40,7 +40,7 @@ public class ViewMovieDetailView {
 							goBack = true;
 							// show time options
 							
-							MovieShowTimeView.show_times(choosenMovie);
+							MovieShowTimeView.show_time_view(choosenMovie);
 					}
 					else if(choice == 2)
 					{
