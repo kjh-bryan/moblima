@@ -1,7 +1,12 @@
 package controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import entity.Cast;
+import entity.Movie;
+import entity.MovieClassifiedRating;
+import entity.MovieShowingStatus;
+import entity.MovieType;
 import entity.Review;
 
 public class CastController {
@@ -71,4 +80,74 @@ public class CastController {
 		
 		return castsByMovieIdList;
 	}
+	
+	
+	public static void createCasts( Cast newCast)
+	{
+		try {
+		UserInputValidationController.createDatabaseTableFile(databaseTableName);
+
+		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+		int generateId = DatabaseController.generateIntegerId(databaseTableName);
+		
+		
+		out.append(generateId + 
+				SEPARATOR + newCast.getMovieId()+"" + 
+				SEPARATOR + newCast.getCastName() +
+				"\n");
+		
+		out.close();
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
+		}
+		
+	}
+	
+	public static void deleteCastsByMovieId(int deletedMovieId)
+	{
+		String tempFile = "temp.txt";
+		File oldFile = new File(databaseTableName);
+		File newFile = new File(tempFile);
+		Scanner sc = null;
+		
+		try {
+			FileWriter fw = new FileWriter(tempFile,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			sc = new Scanner(new File(databaseTableName));
+			sc.useDelimiter("[|\n]");
+			
+			while(sc.hasNext())
+			{
+				int castId = Integer.parseInt(sc.next());
+				int movieId = Integer.parseInt(sc.next());
+				String castName = sc.next();
+				
+				if(movieId != deletedMovieId)
+				{
+					pw.println(castId+SEPARATOR+movieId+SEPARATOR+castName);
+				
+				}
+				
+			}
+			
+			sc.close();
+			pw.flush();
+			pw.close();
+			oldFile.delete();
+			File dump = new File(databaseTableName);
+			newFile.renameTo(dump);
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "updateMovieByMovie() exception occured : " + e.getLocalizedMessage());
+			
+		}
+		
+	}
+	
+	
 }

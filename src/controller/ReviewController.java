@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import entity.Review;
+import entity.Transaction;
 
 
 public class ReviewController {
@@ -81,6 +84,32 @@ public class ReviewController {
 		
 		
 		return reviewsByMovieIdList;
+	}
+	
+	public static void createReview(Review newReview)
+	{
+		try {
+		UserInputValidationController.createDatabaseTableFile(databaseTableName);
+
+		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+		int generateId = DatabaseController.generateIntegerId(databaseTableName);
+		
+		out.append(generateId + 
+				SEPARATOR + newReview.getMovieReviewedId()+"" + 
+				SEPARATOR + newReview.getMovieGoerReviewerId() +
+				SEPARATOR+ newReview.getReviewRating() + 
+				SEPARATOR+ newReview.getReviewDescription() + 
+				SEPARATOR+ newReview.getReviewDate() + 
+				"\n");
+		
+		
+		out.close();
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
+		}
+		
 	}
 	
 }

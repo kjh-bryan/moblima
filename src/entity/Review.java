@@ -4,12 +4,11 @@ import java.time.LocalDateTime;
 
 public class Review {
 	private int reviewId;
-//	private Movie movieReviewed;
 	private int movieId;
-	private int reviewRating;
 	private int movieGoerId;
-	private LocalDateTime reviewDate;
+	private int reviewRating;
 	private String reviewDescription;
+	private LocalDateTime reviewDate;
 	
 	public Review(int reviewId, int movieId, int reviewRating, int movieGoerId, String reviewDescription,LocalDateTime reviewDate)
 	{
@@ -43,6 +42,8 @@ public class Review {
 	
 	public LocalDateTime getReviewDate()
 	{
+		
+		
 		return reviewDate;
 	}
 	

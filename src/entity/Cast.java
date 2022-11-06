@@ -10,6 +10,20 @@ public class Cast {
 		this.castName = castName;
 		this.movieId = movieId;
 	}
+	
+	public Cast(String castName)
+	{
+		this.castName = castName;
+	}
+	
+	
+	public void setCastId(int castId) {
+		this.castId = castId;
+	}
+
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
+	}
 
 	public int getCastId() {
 		return castId;

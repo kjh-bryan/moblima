@@ -62,6 +62,7 @@ public class TransactionHistoryView {
 			System.out.println("Cineplex : " + cineplex.getCineplexName());
 			System.out.println("Cinema Class: " +cinema.getCinemaClass());
 			System.out.println("Movie :" + movie.getMovieTitle());
+			System.out.println("Type :" + movie.getMovieType());
 			System.out.println("Hall " + cinema.getHallNumber());
 			System.out.println("Date/Time : " + t.getTransactionDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 			

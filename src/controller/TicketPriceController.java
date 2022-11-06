@@ -16,7 +16,9 @@ import java.util.logging.Logger;
 import entity.Cinema;
 import entity.CinemaClass;
 import entity.CinemaShowTime;
+import entity.Movie;
 import entity.MovieGoer;
+import entity.MovieType;
 import entity.Ticket;
 import entity.TicketDay;
 import entity.TicketType;
@@ -33,18 +35,22 @@ public class TicketPriceController {
 	public static Ticket computePrice(int showTimeId)
 	{
 		CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(showTimeId);
-
-		Cinema cinema = CinemaController.getCinemaByCinemaCode(cinemaShowTime.getCinemaCode());
 		
+		Cinema cinema = CinemaController.getCinemaByCinemaCode(cinemaShowTime.getCinemaCode());
+		Movie movie = MovieController.getMovieByMovieId(cinemaShowTime.getMovieId());
 		MovieGoer movieGoer = UserSession.movieGoer;
 		
 		Ticket ticket = new Ticket(0,showTimeId,cinemaShowTime.getShowStartTime());
+		
 		// Check whether cinema is of class Platinum or Standard
 		setTicketClass(ticket,cinema.getCinemaClass());
 		//Set ticket price according to day or if holiday
 		setTicketPriceOfDay(ticket,cinemaShowTime);
 		// Check Ticket type according to user's age, skip if Cinema Class is Platinum
 		setTicketType(ticket,movieGoer);
+		// Update ticket based on movie type
+		ticket.updateTicketPrice(getMovieTypePrice(movie));
+		
 		return ticket;
 	}
 	
@@ -266,6 +272,34 @@ public class TicketPriceController {
 		}
 		return false;
 		
+	}
+	
+	public static double getMovieTypePrice(Movie movie)
+	{
+		String databaseTableName = "movie_type.txt";
+		
+		Map<MovieType,Double> movieTypeMap = new HashMap<MovieType,Double>();
+		Scanner sc = null;
+		try {
+			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
+				MovieType movieType = MovieType.valueOf(stringTokenizer.nextToken());
+				Double movieTypePrice = Double.parseDouble(stringTokenizer.nextToken());
+				movieTypeMap.put(movieType,movieTypePrice);
+			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "getTicketType() exception occured : " + e.getLocalizedMessage());
+		} finally {
+			if(sc != null)
+			{
+				sc.close();
+				
+			}
+		}
+		
+		return movieTypeMap.get(movie.getMovieType());
 	}
 	
 	public static double getBaseTicketPrice()

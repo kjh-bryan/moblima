@@ -2,6 +2,7 @@ package boundary;
 
 import controller.UserInputValidationController;
 import global.Constants;
+import global.UserSession;
 
 public class MovieGoerView {
 	public static void movie_goer_view()
@@ -16,6 +17,10 @@ public class MovieGoerView {
 			System.out.println("1: Explore Movies");
 			System.out.println("2: Explore Cineplexes");
 			System.out.println("3: View Transaction History");
+			if(UserSession.movieGoer != null)
+			{
+				System.out.println("4: Sign Out");
+			}
 			System.out.println("0: Go Back");
 			System.out.print("\nPlease Select an Option: ");
 			
@@ -33,6 +38,19 @@ public class MovieGoerView {
 					// View Booking History
 					TransactionHistoryView.check_login_before_transaction_view();
 					break;
+				case 4:
+					if(UserSession.movieGoer != null)
+					{
+						UserSession.movieGoer = null;
+						break;
+					}
+					else
+					{
+
+						System.out.println(Constants.INCORRECT_OPTION);
+						break;
+					}
+					
 				case 0:
 					// Exit
 					return;

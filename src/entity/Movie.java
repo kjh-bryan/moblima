@@ -1,8 +1,11 @@
 package entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Movie {
 	private int movieId;
@@ -19,10 +22,11 @@ public class Movie {
 	private MovieClassifiedRating movieClassifiedRating;
 	private String movieGenre;
 	private String movieLanguage;
+	private MovieType movieType;
 	
 	public Movie(int movieId, String movieTitle, MovieShowingStatus movieShowingStatus,LocalDate movieStartDate,LocalDate movieEndDate, String movieSynopsis,
 			String movieDirector, int movieOverallRating, ArrayList<Cast> movieCasts,
-			ArrayList<Review> movieReviews,MovieClassifiedRating movieClassifiedRating,String movieGenre,int movieDurationInMins,String movieLanguage) {
+			ArrayList<Review> movieReviews,MovieClassifiedRating movieClassifiedRating,String movieGenre,int movieDurationInMins,String movieLanguage,MovieType movieType) {
 		this.movieId = movieId;
 		this.movieTitle = movieTitle;
 		this.movieShowingStatus = movieShowingStatus;
@@ -37,7 +41,16 @@ public class Movie {
 		this.movieGenre = movieGenre;
 		this.movieDurationInMins = movieDurationInMins;
 		this.movieLanguage = movieLanguage;
+		this.movieType = movieType;
+		
+		
 	}
+	
+	
+	public MovieType getMovieType() {
+		return movieType;
+	}
+
 
 	public int getMovieId() {
 		return movieId;
@@ -82,9 +95,27 @@ public class Movie {
 	public String getMovieDirector() {
 		return movieDirector;
 	}
+	
+	public void setMovieOverallRating(int movieOverallRating) {
+		this.movieOverallRating = movieOverallRating;
+	}
 
-	public int getMovieOverallRating() {
-		return movieOverallRating;
+
+	public String getMovieOverallRating() {
+		int rating = 0;
+		if(movieReviews.size() > 1) {
+			for(Review r : movieReviews)
+			{
+				rating += r.getReviewRating();
+			}
+			rating = rating / movieReviews.size();
+			setMovieOverallRating(rating);
+			return rating+"";
+		}
+		else
+		{
+			return "NA";
+		}
 	}
 
 	public ArrayList<Cast> getMovieCasts() {
@@ -92,6 +123,7 @@ public class Movie {
 	}
 
 	public ArrayList<Review> getMovieReviews() {
+		orderReviewsDateTime();
 		return movieReviews;
 	}
 	
@@ -109,5 +141,89 @@ public class Movie {
 	{
 		return movieLanguage;
 	}
+	
+	public void orderReviewsDateTime()
+	{
+		Collections.sort(movieReviews, new Comparator<Object>() {
+			@Override
+			public int compare(Object o1, Object o2)
+			{
+				LocalDateTime ldt1 = ((Review) o1).getReviewDate();
+				LocalDateTime ldt2 = ((Review) o2).getReviewDate();
+				return ldt1.compareTo(ldt2);
+			}
+		});
+	}
+
+
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
+	}
+
+
+	public void setMovieTitle(String movieTitle) {
+		this.movieTitle = movieTitle;
+	}
+
+
+	public void setMovieShowingStatus(MovieShowingStatus movieShowingStatus) {
+		this.movieShowingStatus = movieShowingStatus;
+	}
+
+
+	public void setMovieDurationInMins(int movieDurationInMins) {
+		this.movieDurationInMins = movieDurationInMins;
+	}
+
+
+	public void setMovieStartDate(LocalDate movieStartDate) {
+		this.movieStartDate = movieStartDate;
+	}
+
+
+	public void setMovieEndDate(LocalDate movieEndDate) {
+		this.movieEndDate = movieEndDate;
+	}
+
+
+	public void setMovieSynopsis(String movieSynopsis) {
+		this.movieSynopsis = movieSynopsis;
+	}
+
+
+	public void setMovieDirector(String movieDirector) {
+		this.movieDirector = movieDirector;
+	}
+
+
+	public void setMovieCasts(ArrayList<Cast> movieCasts) {
+		this.movieCasts = movieCasts;
+	}
+
+
+	public void setMovieReviews(ArrayList<Review> movieReviews) {
+		this.movieReviews = movieReviews;
+	}
+
+
+	public void setMovieClassifiedRating(MovieClassifiedRating movieClassifiedRating) {
+		this.movieClassifiedRating = movieClassifiedRating;
+	}
+
+
+	public void setMovieGenre(String movieGenre) {
+		this.movieGenre = movieGenre;
+	}
+
+
+	public void setMovieLanguage(String movieLanguage) {
+		this.movieLanguage = movieLanguage;
+	}
+
+
+	public void setMovieType(MovieType movieType) {
+		this.movieType = movieType;
+	}
+	
 	
 }

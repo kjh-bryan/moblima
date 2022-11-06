@@ -3,6 +3,7 @@ package controller;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import entity.Cast;
 import entity.Movie;
 import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
+import entity.MovieType;
 import entity.Review;
 
 public class MovieController {
@@ -49,11 +51,12 @@ public class MovieController {
 				String movieGenre = stringTokenizer.nextToken().trim();
 				int movieDurationInMins = Integer.parseInt(stringTokenizer.nextToken().trim());
 				String movieLanguage = stringTokenizer.nextToken().trim();
+				MovieType movieType = MovieType.valueOf(stringTokenizer.nextToken().trim());
 				
 				moviesList.add(new Movie(movieId,movieTitle,movieShowingStatus,movieStartDate,
 						movieEndDate,movieSynopsis,movieDirector,movieOverallRating,castsByMovieIdList,
 						reviewsByMovieIdList,movieClassifiedRating,movieGenre,movieDurationInMins,
-						movieLanguage));
+						movieLanguage,movieType));
 			}
 		}
 		catch(Exception e)
@@ -105,7 +108,51 @@ public class MovieController {
 		return moviesByMovieTitleList;
 	}
 	
-	public static void updateMovieByMovie(Movie movie)
+	
+	public static boolean createMovie(Movie newMovie)
+	{
+		
+		boolean createdSuccessful = false;
+		
+		try {
+		UserInputValidationController.createDatabaseTableFile(databaseTableName);
+
+		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+		int generateId = DatabaseController.generateIntegerId(databaseTableName);
+		
+		for(Cast c : newMovie.getMovieCasts())
+		{
+			c.setMovieId(generateId);
+			CastController.createCasts(c);
+		}
+		
+		out.append(generateId + 
+				SEPARATOR + newMovie.getMovieTitle()+"" + 
+				SEPARATOR + newMovie.getMovieShowingStatus() +
+				SEPARATOR+ newMovie.getMovieClassifiedRating() + 
+				SEPARATOR+ newMovie.getMovieStartDate() + 
+				SEPARATOR+ newMovie.getMovieEndDate() + 
+				SEPARATOR+ newMovie.getMovieSynopsis() + 
+				SEPARATOR+ newMovie.getMovieDirector() + 
+				SEPARATOR+ newMovie.getMovieOverallRating() + 
+				SEPARATOR+ newMovie.getMovieGenre() + 
+				SEPARATOR+ newMovie.getMovieDurationInMins() + 
+				SEPARATOR+ newMovie.getMovieLanguage() + 
+				SEPARATOR+ newMovie.getMovieType() + 
+				"\n");
+		
+		createdSuccessful = true;
+		out.close();
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
+		}
+		return createdSuccessful;
+		
+	}
+	
+	public static void updateMovieByMovie(Movie updatedMovie)
 	{
 		String tempFile = "temp.txt";
 		File oldFile = new File(databaseTableName);
@@ -134,19 +181,19 @@ public class MovieController {
 				String movieGenre = sc.next();
 				int movieDurationInMins = Integer.parseInt(sc.next());
 				String movieLanguage = sc.next();
-				
-				if(movieId == movie.getMovieId())
+				MovieType movieType = MovieType.valueOf(sc.next());
+				if(movieId == updatedMovie.getMovieId())
 				{
-					pw.println(movie.getMovieId()+SEPARATOR+movie.getMovieTitle()+SEPARATOR+movie.getMovieShowingStatus()+SEPARATOR+movie.getMovieClassifiedRating()
-							+SEPARATOR+movie.getMovieStartDate().toString()+SEPARATOR+movie.getMovieEndDate().toString()+movie.getMovieSynopsis()+SEPARATOR
-							+movie.getMovieDirector()+SEPARATOR+movie.getMovieOverallRating()+""+SEPARATOR+movie.getMovieGenre()+SEPARATOR+movie.getMovieDurationInMins()
-							+""+SEPARATOR+movie.getMovieLanguage());
+					pw.println(updatedMovie.getMovieId()+SEPARATOR+updatedMovie.getMovieTitle()+SEPARATOR+updatedMovie.getMovieShowingStatus()+SEPARATOR+updatedMovie.getMovieClassifiedRating()
+							+SEPARATOR+updatedMovie.getMovieStartDate().toString()+SEPARATOR+updatedMovie.getMovieEndDate().toString()+updatedMovie.getMovieSynopsis()+SEPARATOR
+							+updatedMovie.getMovieDirector()+SEPARATOR+updatedMovie.getMovieOverallRating()+""+SEPARATOR+updatedMovie.getMovieGenre()+SEPARATOR+updatedMovie.getMovieDurationInMins()
+							+""+SEPARATOR+updatedMovie.getMovieLanguage()+SEPARATOR+updatedMovie.getMovieType());
 				}
 				else
 				{
 					pw.println(movieId+SEPARATOR+movieTitle+SEPARATOR+movieShowingStatus+SEPARATOR+movieClassifiedRating
 							+SEPARATOR+movieStartDate.toString()+SEPARATOR+movieEndDate.toString()+movieSynopsis+SEPARATOR+movieDirector
-							+SEPARATOR+movieOverallRating+""+SEPARATOR+movieGenre+SEPARATOR+movieDurationInMins+""+SEPARATOR+movieLanguage);
+							+SEPARATOR+movieOverallRating+""+SEPARATOR+movieGenre+SEPARATOR+movieDurationInMins+""+SEPARATOR+movieLanguage+SEPARATOR+movieType);
 				
 				}
 				
@@ -166,5 +213,66 @@ public class MovieController {
 		}
 		
 	}
+	
+	public static void deleteMovieByMovieId(int deletedMovieId)
+	{
+		String tempFile = "temp.txt";
+		File oldFile = new File(databaseTableName);
+		File newFile = new File(tempFile);
+		Scanner sc = null;
+		
+		try {
+			FileWriter fw = new FileWriter(tempFile,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			sc = new Scanner(new File(databaseTableName));
+			sc.useDelimiter("[|\n]");
+			
+			while(sc.hasNext())
+			{
+				int movieId = Integer.parseInt(sc.next());
+				String movieTitle = sc.next();
+				MovieShowingStatus movieShowingStatus = MovieShowingStatus.valueOf(sc.next());
+				MovieClassifiedRating movieClassifiedRating = MovieClassifiedRating.valueOf(sc.next());
+				LocalDate movieStartDate = LocalDate.parse(sc.next());
+				LocalDate movieEndDate = LocalDate.parse(sc.next());
+				String movieSynopsis = sc.next();
+				String movieDirector = sc.next();
+				int movieOverallRating = Integer.parseInt(sc.next());
+				String movieGenre = sc.next();
+				int movieDurationInMins = Integer.parseInt(sc.next());
+				String movieLanguage = sc.next();
+				MovieType movieType = MovieType.valueOf(sc.next());
+				
+				if(movieId != deletedMovieId)
+				{
+					pw.println(movieId+SEPARATOR+movieTitle+SEPARATOR+movieShowingStatus+SEPARATOR+movieClassifiedRating
+							+SEPARATOR+movieStartDate.toString()+SEPARATOR+movieEndDate.toString()+movieSynopsis+SEPARATOR+movieDirector
+							+SEPARATOR+movieOverallRating+""+SEPARATOR+movieGenre+SEPARATOR+movieDurationInMins+""+SEPARATOR+movieLanguage+SEPARATOR+movieType);
+		
+				}
+				else
+				{
+					CastController.deleteCastsByMovieId(deletedMovieId);
+				}
+				
+			}
+			
+			sc.close();
+			pw.flush();
+			pw.close();
+			oldFile.delete();
+			File dump = new File(databaseTableName);
+			newFile.renameTo(dump);
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "updateMovieByMovie() exception occured : " + e.getLocalizedMessage());
+			
+		}
+		
+	}
+	
 	
 }

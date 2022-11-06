@@ -91,7 +91,7 @@ public class SearchListMoviesView {
 		}
 	}
 	
-	private static void display_movie_list(ArrayList<Movie> movieList) {
+	protected static void display_movie_list(ArrayList<Movie> movieList) {
 
 		
 		if(!movieList.isEmpty())
@@ -184,9 +184,7 @@ public class SearchListMoviesView {
 			System.out.println("\n------------------------------");
 			System.out.println("MOBLIMA - Search Movie by Movie Title");
 			System.out.println("------------------------------");
-			System.out.println("Enter Movie ID to view details");
-			System.out.println("or  ");
-			System.out.println("Enter 0 to go back");
+			System.out.println("Enter Movie ID to view details (Enter 0 to go back)");
 			System.out.println("------------------------------");
 			System.out.println();
 			

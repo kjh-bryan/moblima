@@ -8,11 +8,51 @@ import java.util.logging.Logger;
 import global.Constants;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 
 public class UserInputValidationController {
 	private static Scanner scanner = new Scanner(System.in);
 	private final static Logger logger = Logger.getLogger(UserInputValidationController.class.getName());
+	
+	
+	public static int validateRatingFromUser()
+	{
+		int rating = 0;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			rating = validateNumberFromUser();
+			if(rating < 1 || rating > 5)
+			{
+				System.out.println("Please enter a rating from 1 to 5");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return rating;
+	}
+	
+	public static String validateDateFromUser()
+	{
+		String date = "";
+		boolean isValid = false;
+		while(!isValid)
+		{
+			date = validateStringFromUser();
+			try {
+				LocalDate.parse(date);
+			}
+			catch(DateTimeParseException e)
+			{
+				System.out.println("Please enter a valid date (yyyyMMdd)");
+			}
+		}
+		return date;
+	}
 	
 	public static int validateNumberFromUser() {
 		int number = -1;

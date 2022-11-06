@@ -11,6 +11,7 @@ import entity.Admin;
 import entity.MovieGoer;
 import entity.User;
 import global.Constants;
+import global.UserSession;
 
 public class LoginView {
 	
@@ -21,6 +22,8 @@ public class LoginView {
 	
 	public LoginView(int role)
 	{
+		UserSession.admin = null;
+		UserSession.movieGoer = null;
 		this.role = role;
 		roleName = (role == 0) ? "Admin" : "MovieGoer";
 	}
