@@ -10,14 +10,16 @@ public class Ticket {
 	private CinemaClass cinemaClass;
 	private double ticketPrice;
 	private boolean isHoliday;
+	private int movieGoerId;
 	
-	public Ticket(CinemaClass cinemaClass,TicketType ticketType, TicketDay ticketDay, double ticketPrice,boolean isHoliday) {
+	public Ticket(CinemaClass cinemaClass,TicketType ticketType, TicketDay ticketDay, double ticketPrice,boolean isHoliday, int movieGoerId) {
 		super();
 		this.ticketType = ticketType;
 		this.ticketDay = ticketDay;
 		this.ticketPrice = ticketPrice;
 		this.isHoliday = isHoliday;
 		this.cinemaClass = cinemaClass;
+		this.movieGoerId = movieGoerId;
 	}
 	public Ticket(double ticketPrice,int cinemaShowTimeId,LocalDateTime ticketDateTime)
 	{
@@ -51,6 +53,14 @@ public class Ticket {
 	public String getTicketTypeToString()
 	{
 		return ticketType.getTicketType();
+	}
+
+	public TicketDay getTicketDay(){
+		return ticketDay;
+	}
+
+	public String getTicketDayToString(){
+		return ticketDay.getTicketDay();
 	}
 	
 	
@@ -118,5 +128,12 @@ public class Ticket {
 		
 		return weekdayWeekend;
 	}
+
+	public int getMovieGoerId(){
+		return this.movieGoerId;
+	}
 	
+	public void setMovieGoerId(MovieGoer movieGoer){
+		this.movieGoerId = movieGoer.getId();
+	}
 }
