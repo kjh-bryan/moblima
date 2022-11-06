@@ -85,7 +85,7 @@ public class TicketPriceController {
 				cinemaClassPrice.put(cinemaClass,classPrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getTicketClass() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "setTicketClass() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -113,7 +113,7 @@ public class TicketPriceController {
 				ticketDayMap.put(day,dayPrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getTicketType() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "getDayPrice() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -141,7 +141,7 @@ public class TicketPriceController {
 				holidayPrice = Double.parseDouble(stringTokenizer.nextToken().trim());
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "isHoliday() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "getHolidayTicketPrice() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -203,7 +203,7 @@ public class TicketPriceController {
 				ticketTypeMap.put(type,typePrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getTicketType() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "setTicketType() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -290,7 +290,7 @@ public class TicketPriceController {
 				movieTypeMap.put(movieType,movieTypePrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getTicketType() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "getMovieTypePrice() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{

@@ -100,7 +100,7 @@ public class CastController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "createCasts() exception occured : " + e.getLocalizedMessage());
 		}
 		
 	}
@@ -143,7 +143,7 @@ public class CastController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateMovieByMovie() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "deleteCastsByMovieId() exception occured : " + e.getLocalizedMessage());
 			
 		}
 		

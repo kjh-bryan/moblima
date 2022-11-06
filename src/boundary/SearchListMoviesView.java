@@ -80,6 +80,7 @@ public class SearchListMoviesView {
 					}
 					break;
 				case 4:	//List Top 5 Movies
+					ListTop5View.list_top_5_view();
 					return;	
 				
 				case 0:	// Go Back
@@ -106,7 +107,7 @@ public class SearchListMoviesView {
 	private static Movie list_all_movies()
 	{
 
-		ArrayList<Movie> movieList = MovieController.getAllMovies();
+		ArrayList<Movie> movieList = MovieController.getAllShowingMovie();
 		if(movieList.isEmpty())
 		{
 			System.out.println("No movies available");
@@ -244,7 +245,7 @@ public class SearchListMoviesView {
 			}
 			else
 			{
-				Movie movie = MovieController.getMovieByMovieId(movieId);
+				Movie movie = MovieController.getShowingMovieByMovieId(movieId);
 				return movie;
 			}
 		}

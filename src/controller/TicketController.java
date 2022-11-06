@@ -90,7 +90,7 @@ public class TicketController {
 			
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getAllCinemaList() exception occured : " + e.getLocalizedMessage() + " : " + e.getMessage());
+			logger.log(Level.SEVERE, "getAllTicketList() exception occured : " + e.getLocalizedMessage() + " : " + e.getMessage());
 		} finally {
 			if(sc != null)
 			{

@@ -10,6 +10,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -21,6 +24,7 @@ import controller.SeatingCapacityController;
 import controller.UserInputValidationController;
 import entity.Admin;
 import entity.Cinema;
+import entity.CinemaClass;
 import entity.CinemaShowTime;
 import entity.Cineplex;
 import entity.MovieClassifiedRating;
@@ -32,8 +36,7 @@ public class MoblimApp {
 	public static void main(String[] args) {
 //		Scanner sc = new Scanner(System.in);
 		
-		
-		CURShowTimeView.printAllCinemaShowTime();
+
 		
 //		ArrayList<CinemaShowTime> cinemaShowTimeList = CinemaShowTimeController.getAllCinemaShowTimeList();
 //		

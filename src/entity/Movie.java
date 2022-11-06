@@ -43,10 +43,18 @@ public class Movie {
 		this.movieLanguage = movieLanguage;
 		this.movieType = movieType;
 		
-		
+		checkIfEndOfShow();
 	}
 	
-	
+	public void checkIfEndOfShow()
+	{
+		LocalDate now = LocalDate.now();
+		
+		if(now.compareTo(this.movieEndDate) > 0)
+		{
+			this.setMovieShowingStatus(MovieShowingStatus.END_OF_SHOW);
+		}
+	}
 	public MovieType getMovieType() {
 		return movieType;
 	}

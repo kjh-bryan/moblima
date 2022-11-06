@@ -107,7 +107,7 @@ public class ReviewController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "createReview() exception occured : " + e.getLocalizedMessage());
 		}
 		
 	}

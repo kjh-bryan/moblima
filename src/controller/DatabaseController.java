@@ -33,7 +33,7 @@ public class DatabaseController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "getAdminAccountList() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "generateIntegerId() exception occured : " + e.getLocalizedMessage());
 		}
 		finally {
 			if(sc != null)

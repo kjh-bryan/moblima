@@ -6,8 +6,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import entity.Cinema;
+import entity.CinemaClass;
 import entity.CinemaShowTime;
 import entity.Movie;
+import entity.MovieType;
+import entity.TicketDay;
+import entity.TicketType;
 import global.Constants;
 
 import java.io.File;
@@ -243,6 +247,106 @@ public class UserInputValidationController {
 			}
 		}
 		return showTimeId;
+	}
+	
+	public static CinemaClass validateCinemaClassFromUser()
+	{
+		String cinemaClass = "";
+		CinemaClass c = null;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			cinemaClass = validateStringFromUser().toUpperCase();
+			c = CinemaClass.valueOf(cinemaClass);
+			if(cinemaClass == "0")
+			{
+				isValid = true;
+			}
+			else if(c == null)
+			{
+				System.out.println("Cinema Class is invalid");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return c;
+	}
+	
+	public static MovieType validateMovieTypeFromUser()
+	{
+		String movieType = "";
+		MovieType m = null;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			movieType = validateStringFromUser().toUpperCase();
+			m = MovieType.valueOf(movieType);
+			if(movieType == "0")
+			{
+				isValid = true;
+			}
+			else if(m == null)
+			{
+				System.out.println("Movie Type is invalid");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return m;
+	}
+	
+	public static TicketType validateTicketTypeFromUser()
+	{
+		String ticketType = "";
+		TicketType t = null;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			ticketType = validateStringFromUser().toUpperCase();
+			t = TicketType.valueOf(ticketType);
+			if(ticketType == "0")
+			{
+				isValid = true;
+			}
+			else if(t == null)
+			{
+				System.out.println("Ticket Type is invalid");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return t;
+	}
+	
+	public static TicketDay validateTicketDayFromUser()
+	{
+		String ticketDay = "";
+		TicketDay t = null;
+		boolean isValid = false;
+		while(!isValid)
+		{
+			ticketDay = validateStringFromUser().toUpperCase();
+			t = TicketDay.valueOf(ticketDay);
+			if(ticketDay == "0")
+			{
+				isValid = true;
+			}
+			else if(t == null)
+			{
+				System.out.println("Ticket Day is invalid");
+			}
+			else
+			{
+				isValid = true;
+			}
+		}
+		return t;
 	}
 	
 	public static boolean createDatabaseTableFile(String fileName)

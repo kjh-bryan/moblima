@@ -29,7 +29,7 @@ public class ViewMovieDetailView {
 			if(movieId == 0)return;
 			else
 			{
-				Movie choosenMovie = display_movie_detail(MovieController.getMovieByMovieId(movieId));
+				Movie choosenMovie = display_movie_detail(MovieController.getShowingMovieByMovieId(movieId));
 
 				if(choosenMovie != null)
 				{

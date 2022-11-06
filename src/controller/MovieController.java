@@ -53,6 +53,7 @@ public class MovieController {
 				String movieLanguage = stringTokenizer.nextToken().trim();
 				MovieType movieType = MovieType.valueOf(stringTokenizer.nextToken().trim());
 				
+				
 				moviesList.add(new Movie(movieId,movieTitle,movieShowingStatus,movieStartDate,
 						movieEndDate,movieSynopsis,movieDirector,movieOverallRating,castsByMovieIdList,
 						reviewsByMovieIdList,movieClassifiedRating,movieGenre,movieDurationInMins,
@@ -62,6 +63,54 @@ public class MovieController {
 		catch(Exception e)
 		{
 			logger.log(Level.SEVERE, "getAllMovies() exception occured : " + e.getLocalizedMessage());
+		}
+		finally {
+			if(sc!= null)
+			{
+				sc.close();
+			}
+		}
+		return moviesList;
+	}
+	
+	public static ArrayList<Movie> getAllShowingMovie() 
+	{
+		ArrayList<Movie> moviesList = new ArrayList<Movie>();
+		Scanner sc = null;
+		try {
+			 sc = new Scanner(new FileInputStream(databaseTableName));
+			while(sc.hasNextLine()) {
+				String line = sc.nextLine();
+				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
+				int movieId = Integer.parseInt(stringTokenizer.nextToken().trim());
+				String movieTitle = stringTokenizer.nextToken().trim();
+				MovieShowingStatus movieShowingStatus = MovieShowingStatus.valueOf(stringTokenizer.nextToken().trim());
+				MovieClassifiedRating movieClassifiedRating = MovieClassifiedRating.valueOf(stringTokenizer.nextToken().trim());
+				LocalDate movieStartDate = LocalDate.parse(stringTokenizer.nextToken().trim());
+				LocalDate movieEndDate = LocalDate.parse(stringTokenizer.nextToken().trim());
+				String movieSynopsis = stringTokenizer.nextToken().trim();
+				String movieDirector = stringTokenizer.nextToken().trim();
+				int movieOverallRating = Integer.parseInt(stringTokenizer.nextToken().trim());
+				ArrayList<Cast> castsByMovieIdList = CastController.getCastsByMovieId(movieId);
+				ArrayList<Review> reviewsByMovieIdList = ReviewController.getReviewsByMovieId(movieId);
+				String movieGenre = stringTokenizer.nextToken().trim();
+				int movieDurationInMins = Integer.parseInt(stringTokenizer.nextToken().trim());
+				String movieLanguage = stringTokenizer.nextToken().trim();
+				MovieType movieType = MovieType.valueOf(stringTokenizer.nextToken().trim());
+				
+				if(movieShowingStatus == MovieShowingStatus.END_OF_SHOW)
+				{
+					continue;
+				}
+				moviesList.add(new Movie(movieId,movieTitle,movieShowingStatus,movieStartDate,
+						movieEndDate,movieSynopsis,movieDirector,movieOverallRating,castsByMovieIdList,
+						reviewsByMovieIdList,movieClassifiedRating,movieGenre,movieDurationInMins,
+						movieLanguage,movieType));
+			}
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE, "getAllShowingMovie() exception occured : " + e.getLocalizedMessage());
 		}
 		finally {
 			if(sc!= null)
@@ -87,13 +136,29 @@ public class MovieController {
 		}
 		
 		return movie;
+	}
+	
+	public static Movie getShowingMovieByMovieId(int movieId)
+	{
+
+		ArrayList<Movie> moviesList = getAllShowingMovie();
 		
+		Movie movie = null;
+		for(Movie m : moviesList)
+		{
+			if(m.getMovieId() == movieId)
+			{
+				movie = m;
+			}
+		}
+		
+		return movie;
 	}
 	
 	public static ArrayList<Movie> getMoviesByMovieTitle(String movieTitle)
 	{
 
-		ArrayList<Movie> moviesList = getAllMovies();
+		ArrayList<Movie> moviesList = getAllShowingMovie();
 		
 		ArrayList<Movie> moviesByMovieTitleList = new ArrayList<Movie>();
 		
@@ -146,7 +211,7 @@ public class MovieController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "createMovie() exception occured : " + e.getLocalizedMessage());
 		}
 		return createdSuccessful;
 		
@@ -268,7 +333,7 @@ public class MovieController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateMovieByMovie() exception occured : " + e.getLocalizedMessage());
+			logger.log(Level.SEVERE, "deleteMovieByMovieId() exception occured : " + e.getLocalizedMessage());
 			
 		}
 		
