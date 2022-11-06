@@ -37,22 +37,29 @@ public class SeatSelectionView {
 			int row = seatId.charAt(0) - 'A';
 			int column = Integer.parseInt(seatId.replaceAll("[\\D]", ""));
 			
-			Seat[][] seat = seatingCapacity.getSeatingLayout();
-			if(seat[row][column].getIsSeat())
+			Seat seat = seatingCapacity.getSeatWithSeatId(seatId);
+			if(seat == null)
 			{
-				if(!seat[row][column].getIsOccupied())
-				{
-					seat[row][column].assignSeat();
-					selectedSeatList.add(seat[row][column]);
-				}
-				else
-				{
-					System.out.println("Seat is already occupied!");
-				}
+				System.out.println("Invalid seat selected");
 			}
 			else
 			{
-				System.out.println("This selection is not a seat!");
+				if(!seat.getIsSeat())
+				{
+					System.out.println("This selection is not a seat!");
+				}
+				else
+				{
+					if(seat.getIsOccupied())
+					{
+						System.out.println("Seat is already occupied!");
+					}
+					else
+					{
+						seatingCapacity.updateSeatLayoutWithSeatId(seatId);
+						selectedSeatList.add(seat);
+					}
+				}
 			}
 		}
 	}

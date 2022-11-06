@@ -28,6 +28,7 @@ public class SeatingCapacity {
 			{
 				String line = layoutFromTextFile.get(r);
 				int c = 0;
+				int seatIdColumn = 0;
 				for(int i = 0; i < line.length();i++)
 				{
 					
@@ -35,7 +36,7 @@ public class SeatingCapacity {
 					{
 						boolean occupied = line.charAt(i) == '0' ? false : true;
 						char seatLetter = (char) ('A' + r-1);
-						String seatRow = (c+1)+"";
+						String seatRow = (seatIdColumn+1)+"";
 						String seatId = seatLetter + seatRow + "";
 						Seat seat = new Seat(seatId, occupied, true);
 						this.totalNoOfSeats++;
@@ -48,12 +49,20 @@ public class SeatingCapacity {
 							this.noOfAvailableSeats++;
 						}
 						this.seatingLayout[r-1][c] = seat;
+						seatIdColumn++;
 						c++;
 					}
 					else if(line.charAt(i) == '-')
 					{
 						char seatLetter = (char) ('A' + r-1);
-						Seat seat = new Seat(seatLetter+(c+1)+"", true, false);
+						Seat seat = new Seat(seatLetter+(seatIdColumn+1)+"", true, false);
+						this.seatingLayout[r-1][c] = seat;
+						seatIdColumn++;
+						c++;
+					}
+					else if(line.charAt(i) == 'x')
+					{
+						Seat seat = new Seat("", false, false);
 						this.seatingLayout[r-1][c] = seat;
 						c++;
 					}
@@ -95,6 +104,22 @@ public class SeatingCapacity {
 					}
 				}
 			}
+		}
+		
+		public Seat getSeatWithSeatId(String seatId)
+		{
+			Seat seat = null;
+			for(int r = 0;r < numberOfRows; r++)
+			{
+				for(int c = 0; c < numberOfColumns; c++)
+				{
+					if(seatingLayout[r][c].getSeatId().equals(seatId))
+					{
+						seat = seatingLayout[r][c];
+					}
+				}
+			}
+			return seat;
 		}
 		
 		public void setSeatingLayout(Seat[][] seatingLayout)
