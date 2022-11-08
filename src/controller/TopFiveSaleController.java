@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import entity.Review;
 import entity.TicketSale;
 public class TopFiveSaleController {
 
@@ -16,7 +18,6 @@ public class TopFiveSaleController {
 		
 	    String fileName = "src/database/ticketsale.txt";
 	 
-	       
 	    class ticketsaleCompare implements Comparator<TicketSale>
 	    {
 	        @Override
@@ -25,6 +26,7 @@ public class TopFiveSaleController {
 	            return s2.getSale() - s1.getSale();
 	        }
 	    }
+	   
 	    try {
 	        BufferedReader br = new BufferedReader(new FileReader(fileName));
 	        ArrayList<TicketSale> saleRecords = new ArrayList<TicketSale>();
@@ -45,7 +47,7 @@ public class TopFiveSaleController {
 	            currentLine = br.readLine();
 	        }
 
-	            Collections.sort(saleRecords, new ticketsaleCompare());
+	        Collections.sort(saleRecords, new ticketsaleCompare());
 	     
 	            BufferedWriter writer = new BufferedWriter(new FileWriter("src/database/sortTicketSale.txt"));
 	 
@@ -62,7 +64,7 @@ public class TopFiveSaleController {
 	            br.close();
 	     
 	            writer.close();
-	            System.out.println("done"); 
+	            
 	        
 	    }
 	        catch(FileNotFoundException ex) {

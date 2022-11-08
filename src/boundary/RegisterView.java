@@ -10,6 +10,7 @@ import controller.AdminController;
 import controller.IDgeneratorController;
 import controller.MovieGoerController;
 import controller.UserInputValidationController;
+import controller.saleController;
 import controller.ticketsaleController;
 import entity.Admin;
 import entity.MovieGoer;
@@ -28,7 +29,7 @@ public class RegisterView {
 	
 	public boolean showRegisterView() 
 	{
-		ticketsaleController.calculatesale(1); 
+		ticketsaleController.calculatesale(2);
 		System.out.println("\n------------------------------");
 		System.out.println("MOBLIMA - Register as " + roleName);
 		System.out.println("------------------------------");

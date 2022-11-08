@@ -8,7 +8,7 @@ public class Constants {
 	
 	public static final int ADMIN = 0;
 	public static final int MOVIE_GOER = 1;
-	
+
 	
 	public static final String INCORRECT_OPTION = "Incorrect option, Please select again.";
 	public static final String INVALID_NUMBER =  "Please enter a valid number!";

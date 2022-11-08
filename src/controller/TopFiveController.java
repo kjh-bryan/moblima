@@ -72,7 +72,7 @@ public class TopFiveController {
             br.close();
      
             writer.close();
-            System.out.println("done"); 
+             
         
     }
         catch(FileNotFoundException ex) {

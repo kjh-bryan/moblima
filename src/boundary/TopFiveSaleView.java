@@ -5,10 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import controller.TopFiveController;
+import controller.TopFiveSaleController;
+
 public class TopFiveSaleView {
 	
 
 		public static void main(String[] args) throws IOException, Exception {
+			 TopFiveSaleController.main(null);
 	    String fileName = "src/database/sortTicketSale.txt";
 	    Scanner in = new Scanner (System.in);
 	    int count = 0;
@@ -52,7 +56,7 @@ public class TopFiveSaleView {
 	        System.out.println("-----------------------------------");
 	        int choice = in.nextInt();
 	        if (choice == 0)
-	        	SearchListMoviesView.search_list_movies_view();
+	        	ListTopFiveView.main(null);
 	    }
 	    
 	    catch(FileNotFoundException ex) {

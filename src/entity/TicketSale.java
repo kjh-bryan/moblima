@@ -1,14 +1,13 @@
 package entity;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class TicketSale {
 private int movieid; 
@@ -31,40 +30,52 @@ public int getSale() {
 
 
 public void indicatesale(int movieid) {
-	   int sale;
+	int sale;
 	   int num = 0; 
+	   ArrayList<String[]> entries = new ArrayList<>();
 	  
 		try {
-		
-			BufferedReader salebr = new BufferedReader(new FileReader("src/database/ticketsale.txt"));
-	        String saleline = salebr.readLine();
-	        BufferedWriter writer = new BufferedWriter(new FileWriter("src/database/ticketsale.txt"));
-	        PrintWriter pr = new PrintWriter(writer);
-	        if (saleline == null )
-	        {    
-	        	sale = 1;
-	        	writer.write(movieid+"|"+sale);
-	        }
-	        else 
-	        {   
-	        	while(saleline!=null) {
-	        	String []x = saleline.split("\\|");
-	            int xid = Integer.valueOf(x[0]); 
-	        	if(xid==movieid)
-	        	{
-	        		num=num+Integer.valueOf(x[1]); 
-	        		saleline=salebr.readLine();
-	        		continue; 
-	        	}
-	               saleline=salebr.readLine();
-	        	
-	        }   
-	        	
-	        	pr.println(movieid+"|"+(num+1));
-          }
-	        salebr.close();
-	        writer.close(); 
-}
+			String line;
+			int updatedSales;
+			boolean found = false;
+			Scanner sc = new Scanner(new FileInputStream("src/database/ticketsale.txt"));
+			while(sc.hasNextLine()){
+				line = sc.nextLine();
+				String[] values = new String[2];
+				StringTokenizer st = new StringTokenizer(line, "|");
+				values[0] = st.nextToken().trim();
+				values[1] = st.nextToken().trim();
+				if(Integer.parseInt(values[0]) == movieid){
+					updatedSales = Integer.parseInt(values[1]);
+					updatedSales = updatedSales+1;
+					values[1] = Integer.toString(updatedSales);
+					System.out.println(values[1]);
+					found = true;
+				}
+
+				entries.add(values);
+			}
+
+			if(found == false){
+				sale = 1;
+				String[] newEntry = {Integer.toString(movieid), Integer.toString(sale)};
+				entries.add(newEntry);
+			}
+			PrintWriter pr = new PrintWriter(new FileOutputStream("src/database/ticketsale.txt"));
+			PrintWriter pr2 = new PrintWriter(new FileOutputStream("src/database/ticketsale.txt", true));
+			int append = 0;
+			for(String[] i : entries){
+				if(append == 0){
+					pr.println(i[0]+ "|" + i[1]);
+					append++;
+				}else{
+					pr2.println(i[0]+ "|" + i[1]);
+				}
+			}
+	        pr.close();
+			pr2.close();
+			sc.close();
+		}
 		 
 	    catch(FileNotFoundException ex) {
 	        System.out.println(
@@ -74,5 +85,5 @@ public void indicatesale(int movieid) {
 	    catch(IOException ex) {
 	        ex.printStackTrace();
 	    }
-  }
+}
 }

@@ -10,9 +10,9 @@ import controller.TopFiveController;
 
 public class TopFiveView  {
 	public static void main(String[] args) throws IOException, Exception {
+		 TopFiveController.main(null);
     String fileName = "src/database/sortReview.txt";
     Scanner in = new Scanner (System.in);
-    TopFiveController.main(null);
     int count = 0;
     int i = 1; 
     try {
@@ -54,7 +54,7 @@ public class TopFiveView  {
         System.out.println("----------------------------------------");
         int choice = in.nextInt();
         if (choice == 0)
-        	SearchListMoviesView.search_list_movies_view();
+        	ListTopFiveView.main(null);
     }
     
     catch(FileNotFoundException ex) {
