@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 
 import controller.SystemSettingController;
 import controller.UserInputValidationController;
@@ -13,10 +14,19 @@ import entity.MovieType;
 import entity.TicketDay;
 import entity.TicketType;
 
+/**
+ * This class represents Configure System Setting View which
+ * is used by an Admin to change the ticket prices or adding a Holidayv
+*/
+
 public class ConfigureSystemSettingView {
 	
-	
-	public static void configure_system_setting_view()
+	/**
+	 * Display the choice for Admin
+	 * Updates which corresponding category of ticket prices
+	 * or Adding a holiday
+	*/
+	public static void configureSystemSettingView()
 	{
 		boolean selectedExit = false;
 		while(!selectedExit)
@@ -31,38 +41,42 @@ public class ConfigureSystemSettingView {
 			System.out.println("5: Update Weekend/Weekday Ticket Price");
 			System.out.println("6: Update Ticket Type Price");
 			System.out.println("7: Add Holiday");
+			System.out.println("8: Enable/Disable Top 5 Movie Filter");
 			System.out.println("0: Exit");
 			
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
 				case 1:
 					// Update Base Ticket Price
-					update_base_ticket_price_view();
+					updateBaseTicketPriceView();
 					break;
 				case 2:
-					update_cinema_class_price_view();
+					updateCinemaClassPriceView();
 					//Update Cinema Class Price
 					break;
 				case 3:
 					//Update Holiday Price
-					update_holiday_price_view();
+					updateHolidayPriceView();
 					break;
 				case 4:
 					// Update Movie Type Price
-					update_movie_type_price_view();
+					updateMovieTypePriceView();
 					break;
 				case 5:
 					// Update Weekend/Weekday Ticket Price
-					update_ticket_day_price_view();
+					updateTicketDayPriceView();
 					break;
 				case 6:
 					// Update Ticket Type Price
-					update_ticket_type_price_view();
+					updateTicketTypePriceView();
 					break;
 				case 7:
 					// Add Holiday
-					add_holiday_view();
+					addHolidayView();
 					break;
+				case 8:
+					// Enable/ Disable 
+					updateTop5FilterSystem();
 					
 				case 0:
 					return;
@@ -74,8 +88,10 @@ public class ConfigureSystemSettingView {
 		}
 	}
 	
-	
-	public static void update_base_ticket_price_view()
+	/**
+	 * Updates the new base ticket price
+	*/
+	public static void updateBaseTicketPriceView()
 	{
 		System.out.println("====================================");
 		System.out.println("===== Update Base Ticket Price =====");
@@ -98,7 +114,10 @@ public class ConfigureSystemSettingView {
 		
 	}
 	
-	public static void update_cinema_class_price_view()
+	/**
+	 * Updates the new CinemaClass price
+	*/
+	public static void updateCinemaClassPriceView()
 	{
 		System.out.println("===================================");
 		System.out.println("==== Update Cinema Class Price ====");
@@ -135,8 +154,10 @@ public class ConfigureSystemSettingView {
 		
 	}
 	
-	
-	public static void update_holiday_price_view()
+	/**
+	 * Updates the new Holiday Price
+	*/
+	public static void updateHolidayPriceView()
 	{
 		System.out.println("==============================");
 		System.out.println("==== Update Holiday Price ====");
@@ -159,8 +180,11 @@ public class ConfigureSystemSettingView {
 		
 	}
 	
+	/**
+	 * Updates the new Movie Type price
+	*/
 	
-	public static void update_movie_type_price_view()
+	public static void updateMovieTypePriceView()
 	{
 		System.out.println("=================================");
 		System.out.println("==== Update Movie Type Price ====");
@@ -197,7 +221,10 @@ public class ConfigureSystemSettingView {
 		
 	}
 	
-	public static void update_ticket_type_price_view()
+	/**
+	 * Updates the new Ticket Type Price
+	*/
+	public static void updateTicketTypePriceView()
 	{
 		System.out.println("==================================");
 		System.out.println("==== Update Ticket Type Price ====");
@@ -233,8 +260,10 @@ public class ConfigureSystemSettingView {
 		
 	}
 	
-	
-	public static void update_ticket_day_price_view()
+	/**
+	 * Updates the new Ticket Day Price
+	*/
+	public static void updateTicketDayPriceView()
 	{
 		System.out.println("==================================");
 		System.out.println("==== Update Ticket Day Price ====");
@@ -271,7 +300,10 @@ public class ConfigureSystemSettingView {
 		
 	}
 	
-	public static void add_holiday_view()
+	/**
+	 * Adds a new Holiday to the database
+	*/
+	public static void addHolidayView()
 	{
 		System.out.println("===========================");
 		System.out.println("======= Add Holiday =======");
@@ -285,6 +317,45 @@ public class ConfigureSystemSettingView {
 		String holiday = UserInputValidationController.validateStringFromUser();
 		
 		SystemSettingController.addHoliday(holiday, holidayDate);
+		
+	}
+	
+	/**
+	 * Update the top 5 movies filter system
+	*/
+	public static void updateTop5FilterSystem()
+	{
+		System.out.println("=========================================");
+		System.out.println("======= Update Top 5 Movie Filter =======");
+		System.out.println("=========================================");
+		
+		Map<String,Boolean> filterSettings = SystemSettingController.getFilterSettings();
+		
+		System.out.println("Current Settings: ");
+		List<String> filterList = new ArrayList<String>();
+		for (Map.Entry<String,Boolean> entry : filterSettings.entrySet()) 
+		{
+			String enableDisable = entry.getValue() ? "Enabled" : "Disabled";
+			System.out.println(filterList.size()+1 + ": " +entry.getKey()  + " : " +enableDisable);
+			filterList.add(entry.getKey());
+		}
+		System.out.println("0: Go Back");
+		
+		System.out.println("Which filter do you want to enable?");
+		int choice = UserInputValidationController.validateNumberFromUser();
+		
+		if(choice == 0)
+		{
+			return;
+		}
+		else if(choice > 0 && choice < filterList.size()+1)
+		{
+			SystemSettingController.updateFilterSystem(filterList.get(choice-1));
+		}
+		else
+		{
+			System.out.println("Invalid options!");
+		}
 		
 	}
 }

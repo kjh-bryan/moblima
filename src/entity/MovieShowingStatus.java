@@ -1,5 +1,11 @@
 package entity;
 
+/**
+ * Enum MovieShowingStatus to represent the status of the Movie
+ * End of Show means that MovieGoer won't be able to view or book that
+ * movie
+ */
+
 public enum MovieShowingStatus {
 	COMING_SOON("Coming soon"),
 	PREVIEW("Preview"),

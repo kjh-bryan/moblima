@@ -13,13 +13,26 @@ import entity.User;
 import global.Constants;
 import global.UserSession;
 
+/**
+ * This class represents the view for User
+ * to Login, which is used when authenticated
+ * an Admin or a MovieGoer
+*/
 public class LoginView {
-	
+	/**
+	 * The role of the User currently logging in
+	*/
 	private int role;
 	
-
+	/**
+	 * The role name of the User currently loggin in
+	*/
 	String roleName;
 	
+	/**
+	 * Create the LoginView with the role
+	 * @param role					User's role
+	*/
 	public LoginView(int role)
 	{
 		UserSession.admin = null;
@@ -28,6 +41,11 @@ public class LoginView {
 		roleName = (role == 0) ? "Admin" : "MovieGoer";
 	}
 	
+	
+	/**
+	 * Shows the view for the User to login or register
+	 * @return The user object if successfully login
+	*/
 	public User showLoginView()
 	{
 		boolean selectedExit = false;
@@ -77,7 +95,10 @@ public class LoginView {
 		return null;
 	}
 	
-	
+	/**
+	 * Shows the view for the User to login
+	 * @return The user object if successfully login
+	*/
 	public User loginUser()
 	{
 		System.out.print("Enter your username: ");

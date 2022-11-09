@@ -25,13 +25,27 @@ import entity.TicketType;
 import global.UserSession;
 
 public class TicketPriceController {
-	
+	/**
+	 * Separator used as String Token to separate data in text file
+	 */
 	private static final String SEPARATOR = "|";
+	/**
+	 * Database File directory consist of system settings which is required to compute the price of ticket
+	 */
+	private static final String SYSTEM_SETTING_FOLDER = "src/database/system_settings/";
+	/**
+	 * Logger for debugging purposes
+	 */
+	private final static Logger LOGGER = Logger.getLogger(TicketPriceController.class.getName());
 	
-	private static final String systemSettingFolder = "src/database/system_settings/";
-	private final static Logger logger = Logger.getLogger(TicketPriceController.class.getName());
 	
-	
+	/**
+	 * Main function to compute the price of the ticket
+	 * Updating it's value along the way
+	 * Setting the Ticket CinemaClass, Ticket Day, Ticket Type
+	 * @return Ticket with its updated details
+	 * @param showTimeId			Ticket's cinema show time
+	 */
 	public static Ticket computePrice(int showTimeId)
 	{
 		CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(showTimeId);
@@ -44,16 +58,25 @@ public class TicketPriceController {
 		
 		// Check whether cinema is of class Platinum or Standard
 		setTicketClass(ticket,cinema.getCinemaClass());
+		
+		
 		//Set ticket price according to day or if holiday
 		setTicketPriceOfDay(ticket,cinemaShowTime);
+		
 		// Check Ticket type according to user's age, skip if Cinema Class is Platinum
 		setTicketType(ticket,movieGoer);
+		
 		// Update ticket based on movie type
 		ticket.updateTicketPrice(getMovieTypePrice(movie));
 		
 		return ticket;
 	}
 	
+	/**
+	 * Set the Ticket Day , check whether it's a holiday or a weekend
+	 * @param ticket 				The ticket to be updated
+	 * @param cinemaShowTime 		The ticket's cinema show time
+	 */
 	public static void setTicketPriceOfDay(Ticket ticket,CinemaShowTime cinemaShowTime)
 	{
 		if(isHoliday(cinemaShowTime))
@@ -69,14 +92,20 @@ public class TicketPriceController {
 		
 	}
 	
-	public static void setTicketClass(Ticket ticket, CinemaClass cinemeClass)
+	/**
+	 * Set the Ticket Cinema Class , according to the values in the text file
+	 * update the Ticket price 
+	 * @param ticket 					The ticket to be updated
+	 * @param ticketCinemaClass 		The ticket's cinema class
+	 */
+	public static void setTicketClass(Ticket ticket, CinemaClass ticketCinemaClass)
 	{
-		String databaseTableName = "cinema_class.txt";
+		String databaseFileName = "cinema_class.txt";
 		Map<CinemaClass,Double> cinemaClassPrice = new HashMap<CinemaClass,Double>();
 		
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseFileName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -85,7 +114,7 @@ public class TicketPriceController {
 				cinemaClassPrice.put(cinemaClass,classPrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "setTicketClass() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "setTicketClass() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -94,17 +123,22 @@ public class TicketPriceController {
 			}
 		}
 		
-		ticket.setCinemaClass(cinemeClass);
+		ticket.setCinemaClass(ticketCinemaClass);
 		ticket.updateTicketPrice(cinemaClassPrice.get(ticket.getCinemaClass()));
 	}
+	
+	/**
+	 * Get the Ticket Price according to the Day
+	 * @return the ticket price of it's corresponding day
+	 */
 	public static double getDayPrice(Ticket ticket,CinemaShowTime cinemaShowTime)
 	{
-		String databaseTableName = "ticket_day_price.txt";
+		String databaseFileName = "ticket_day_price.txt";
 		
 		Map<TicketDay,Double> ticketDayMap = new HashMap<TicketDay,Double>();
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseFileName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -113,7 +147,7 @@ public class TicketPriceController {
 				ticketDayMap.put(day,dayPrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getDayPrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getDayPrice() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -127,13 +161,17 @@ public class TicketPriceController {
 		return ticketDayMap.get(TicketDay.valueOf(day));
 	}
 	
+	/**
+	 * Get the Ticket Price if it is a holiday
+	 * @return the ticket price when its a holiday
+	 */
 	public static double getHolidayTicketPrice()
 	{
 		String databaseTableName = "holiday.txt";
 		Scanner sc = null;
 		double holidayPrice = 0;
 		try {
-			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseTableName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -141,7 +179,7 @@ public class TicketPriceController {
 				holidayPrice = Double.parseDouble(stringTokenizer.nextToken().trim());
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getHolidayTicketPrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getHolidayTicketPrice() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -152,21 +190,26 @@ public class TicketPriceController {
 		return holidayPrice;
 	}
 	
+	/**
+	 * Check whether the CinemaShowTime is on a holiday
+	 * @param cinemaShowTime 		Ticket's cinema show time
+	 * @return true if it is holiday false otherwise
+	 */
 	public static boolean isHoliday(CinemaShowTime cinemaShowTime)
 	{
-		String databaseTableName = "holiday_date.txt";
+		String databaseFileName = "holiday_date.txt";
 		LocalDateTime cinemaShowTimeDate = cinemaShowTime.getShowStartTime();
 		ArrayList<LocalDate> holidayDates = new ArrayList<LocalDate>();
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseFileName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
 				holidayDates.add(LocalDate.parse(stringTokenizer.nextToken().trim()));
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "isHoliday() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "isHoliday() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -184,17 +227,28 @@ public class TicketPriceController {
 		}
 		return false;
 	}
+	
+	/**
+	 * Set the Ticket Type , according to the values in the text file
+	 * checking MovieGoer age
+	 * if more than 55 of age, is a Senior
+	 * if less than 21 of age, is a Student
+	 * Standard otherwise
+	 * update the Ticket price 
+	 * @param ticket 					The ticket to be updated
+	 * @param movieGoer 				The ticket belonging to the Movie Goer
+	 */
 	public static void setTicketType(Ticket ticket,MovieGoer movieGoer)
 	{
 		
 		
 		
-		String databaseTableName = "ticket_type.txt";
+		String databaseFileName = "ticket_type.txt";
 		
 		Map<TicketType,Double> ticketTypeMap = new HashMap<TicketType,Double>();
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseFileName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -203,7 +257,7 @@ public class TicketPriceController {
 				ticketTypeMap.put(type,typePrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "setTicketType() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "setTicketType() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -236,6 +290,11 @@ public class TicketPriceController {
 		
 	}
 	
+	/**
+	 * Check whether the ticket is eligible for type discount (Students, Senior) 
+	 * @param ticket 					The ticket 
+	 * @return whether the ticket is eligible
+	 */
 	public static boolean isEligibleType(Ticket ticket)
 	{
 		boolean isWeekday = dayWithinWeekday(ticket.getTicketDateTime().toLocalDate());
@@ -251,6 +310,11 @@ public class TicketPriceController {
 		}
 	}
 	
+	/**
+	 * Check whether the localTime is before 6pm
+	 * @param localTime 				The time 
+	 * @return true if it is before 6pm , false otherwise
+	 */
 	public static boolean timeBeforeEvening(LocalTime localTime)
 	{
 		int hour = localTime.getHour();
@@ -262,6 +326,11 @@ public class TicketPriceController {
 		return true;
 	}
 	
+	/**
+	 * Gets whether the localDate is between Mon-Fri
+	 * @param localTime 				The time 
+	 * @return true if it is during weekday , false otherwise
+	 */
 	public static boolean dayWithinWeekday(LocalDate localDate)
 	{
 		int day = localDate.getDayOfWeek().getValue();
@@ -274,14 +343,19 @@ public class TicketPriceController {
 		
 	}
 	
+	/**
+	 * Gets price of the Movie Type in the database file
+	 * @param  movie 				The Movie
+	 * @return  return the price according to the movie type (2D,3D)
+	 */
 	public static double getMovieTypePrice(Movie movie)
 	{
-		String databaseTableName = "movie_type.txt";
+		String databaseFileName = "movie_type.txt";
 		
 		Map<MovieType,Double> movieTypeMap = new HashMap<MovieType,Double>();
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseFileName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -290,7 +364,7 @@ public class TicketPriceController {
 				movieTypeMap.put(movieType,movieTypePrice);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getMovieTypePrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getMovieTypePrice() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -302,14 +376,18 @@ public class TicketPriceController {
 		return movieTypeMap.get(movie.getMovieType());
 	}
 	
+	/**
+	 * Gets base ticket price in the database file
+	 * @return  return the base ticket price
+	 */
 	public static double getBaseTicketPrice()
 	{
-		String databaseTableName = "base_ticket_price.txt";
+		String databaseFileName = "base_ticket_price.txt";
 		
 		double basePrice = 0;
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseFileName));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -317,7 +395,7 @@ public class TicketPriceController {
 				basePrice = Double.parseDouble(stringTokenizer.nextToken());
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getBaseTicketPrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getBaseTicketPrice() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{

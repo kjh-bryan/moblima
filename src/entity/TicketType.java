@@ -1,5 +1,9 @@
 package entity;
 
+/**
+ * Enum TicketType to represent the type of the Ticket
+ * which differentiate the age group of the movie goer
+ */
 public enum TicketType {
 	SENIOR("Senior"),
 	STUDENT("Student"),

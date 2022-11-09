@@ -22,16 +22,33 @@ import entity.MovieType;
 import entity.Review;
 
 public class CastController {
+	/**
+	 * Separator used as String Token to separate data in text file
+	 */
 	private static final String SEPARATOR = "|";
-	public final static String databaseTableName = "src/database/cast.txt";
-	private final static Logger logger = Logger.getLogger(CastController.class.getName());
+	/**
+	 * Database Filename which stores Cast's information
+	 */
+	public final static String DATABASE_FILENAME = "src/database/cast.txt";
+	/**
+	 * Logger for debugging purposes
+	 */
+	private final static Logger LOGGER = Logger.getLogger(CastController.class.getName());
 	
 	
+	/**
+	 * READ all the Cast in the Database file
+	 * Store into an array list
+	 * return empty array list if no Cast exist
+	 * used by getCastsByMovieId to iterate through the list of Cast
+	 * and find The Cast which matched the Movie ID of
+	 * @return  an array list of all Casts
+	 */
 	private static ArrayList<Cast> getAllCastList() throws IOException
 	{
 		ArrayList<Cast> allCastList = new ArrayList<Cast>();
 		
-		Scanner sc = new Scanner(new FileInputStream(databaseTableName));
+		Scanner sc = new Scanner(new FileInputStream(DATABASE_FILENAME));
 		try {
 			while(sc.hasNextLine()) {
 				String line = sc.nextLine();
@@ -45,7 +62,7 @@ public class CastController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "getAllCastList() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getAllCastList() exception occured : " + e.getLocalizedMessage());
 		}
 		finally {
 			sc.close();
@@ -54,6 +71,12 @@ public class CastController {
 		return allCastList;
 	}
 	
+	
+	/**
+	 * READ the array list of cast by getAllCastList()
+	 * return all Casts which is matched by the Movie ID
+	 * @return  an array list of all Casts
+	 */
 	public static ArrayList<Cast> getCastsByMovieId(int movieId) 
 	{
 		ArrayList<Cast> allCastList = null;
@@ -65,7 +88,7 @@ public class CastController {
 		
 		for(Cast cast : allCastList)
 		{
-			if(cast.getMovieId() == movieId )
+			if(cast.getMovieId() == movieId)
 			{
 				castsByMovieIdList.add(cast);
 			}
@@ -74,21 +97,25 @@ public class CastController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "getCastsByMovieId() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getCastsByMovieId() exception occured : " + e.getLocalizedMessage());
 		}
 		
 		
 		return castsByMovieIdList;
 	}
 	
-	
+	/**
+	 * CREATE a Cast, adding into the database file with separator |
+	 * e.g. castId|castName|movieId
+	 * @param newCast 		New Cast to be added
+	 */
 	public static void createCasts( Cast newCast)
 	{
 		try {
-		UserInputValidationController.createDatabaseTableFile(databaseTableName);
+		UserInputValidationController.createDatabaseFileName(DATABASE_FILENAME);
 
-		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
-		int generateId = DatabaseController.generateIntegerId(databaseTableName);
+		PrintWriter out = new PrintWriter(new FileOutputStream(DATABASE_FILENAME,true));
+		int generateId = DatabaseController.generateIntegerId(DATABASE_FILENAME);
 		
 		
 		out.append(generateId + 
@@ -100,15 +127,19 @@ public class CastController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "createCasts() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "createCasts() exception occured : " + e.getLocalizedMessage());
 		}
 		
 	}
 	
+	/**
+	 * DELETE a Cast by its Movie ID, removing from the database
+	 * @param deletedMovieId 		Cast's movieID to be deleted
+	 */
 	public static void deleteCastsByMovieId(int deletedMovieId)
 	{
 		String tempFile = "temp.txt";
-		File oldFile = new File(databaseTableName);
+		File oldFile = new File(DATABASE_FILENAME);
 		File newFile = new File(tempFile);
 		Scanner sc = null;
 		
@@ -117,7 +148,7 @@ public class CastController {
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(databaseTableName));
+			sc = new Scanner(new File(DATABASE_FILENAME));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -125,7 +156,6 @@ public class CastController {
 				int castId = Integer.parseInt(sc.next());
 				int movieId = Integer.parseInt(sc.next());
 				String castName = sc.next();
-				
 				if(movieId != deletedMovieId)
 				{
 					pw.println(castId+SEPARATOR+movieId+SEPARATOR+castName);
@@ -138,12 +168,12 @@ public class CastController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(databaseTableName);
+			File dump = new File(DATABASE_FILENAME);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "deleteCastsByMovieId() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "deleteCastsByMovieId() exception occured : " + e.getLocalizedMessage());
 			
 		}
 		

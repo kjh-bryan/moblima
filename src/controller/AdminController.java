@@ -15,19 +15,38 @@ import java.util.StringTokenizer;
 import java.io.FileWriter;
 
 public class AdminController{
+	/**
+	 * Separator used as String Token to separate data in text file
+	 */
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/admin.txt";
 	
-	private final static Logger logger = Logger.getLogger(AdminController.class.getName());
+	/**
+	 * Database Filename which stores Admin's information
+	 */
 	
+	private static final String DATABASE_FILENAME = "src/database/admin.txt";
 	
+	/**
+	 * Logger for debugging purposes
+	 */
+	private static final  Logger LOGGER = Logger.getLogger(AdminController.class.getName());
+	
+	/**
+	 * CREATE a new Admin account, adding into the database file with separator |
+	 * e.g. ID|username|password
+	 * Check if an already existing username has exist, 
+	 * if have return false
+	 * else the Admin account will be created, returning true
+	 * @param newAdminAccount 		New admin account to be created
+	 * @return True if Admin account is successfully created, else false
+	 */
 	public static boolean createAdminAccount(Admin newAdminAccount)
 	{
 		
 		try {
-			UserInputValidationController.createDatabaseTableFile(databaseTableName);
+			UserInputValidationController.createDatabaseFileName(DATABASE_FILENAME);
 			
-			PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+			PrintWriter out = new PrintWriter(new FileOutputStream(DATABASE_FILENAME,true));
 			
 			Admin checkExistingAdminAccount = loginAdminAccount(newAdminAccount);
 			if(checkExistingAdminAccount != null)
@@ -37,7 +56,8 @@ public class AdminController{
 				out.close();
 				return false;
 			}
-			out.append(newAdminAccount.getId() + SEPARATOR + newAdminAccount.getUsername() + SEPARATOR + newAdminAccount.getPassword() + "\n");
+			int generateId = DatabaseController.generateIntegerId(DATABASE_FILENAME);
+			out.append(generateId+ SEPARATOR + newAdminAccount.getUsername() + SEPARATOR + newAdminAccount.getPassword() + "\n");
 			
 			
 			
@@ -47,13 +67,19 @@ public class AdminController{
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "createAdminAccount exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "createAdminAccount exception occured : " + e.getLocalizedMessage());
 		}
 		
 		return false;
 	}
 
-	
+	/**
+	 * READ the username of the Admin account in the arraylist of getAdminAccountList()
+	 * return null if no such username was found, 
+	 * used by createAdminAccount() to test for existing username
+	 * @param adminAccount 			Admin account contains (username and password)
+	 * @param Admin 			matched the Admin account and returns the Admin object
+	 */
 	public static Admin loginAdminAccount(Admin adminAccount) 
 	{
 		try {
@@ -71,18 +97,27 @@ public class AdminController{
 		catch(Exception e)
 		{
 
-			logger.log(Level.SEVERE, "loginAdminAccount exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "loginAdminAccount exception occured : " + e.getLocalizedMessage());
 			
 		}
 		return null;
 		
 	}
 	
-	private static ArrayList<Admin> getAdminAccountList() throws IOException
+	
+	/**
+	 * READ all the username and password in the database
+	 * Store into an array list
+	 * return empty array list if no account exist
+	 * used by loginAdminAccount to iterate through the list of accounts
+	 * @return  an arraylist of all Admin accounts
+	 */
+	private static ArrayList<Admin> getAdminAccountList() 
 	{
 		ArrayList<Admin> adminAccountList = new ArrayList<Admin>();
-		Scanner sc = new Scanner(new FileInputStream(databaseTableName));
+		Scanner sc = null;
 		try {
+		sc = new Scanner(new FileInputStream(DATABASE_FILENAME));
 			while(sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -94,10 +129,11 @@ public class AdminController{
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "getAdminAccountList() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getAdminAccountList() exception occured : " + e.getLocalizedMessage());
 		}
 		finally {
-			sc.close();
+			if(sc!=null)
+				sc.close();
 		}
 		
 		return adminAccountList;

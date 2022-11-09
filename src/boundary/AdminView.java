@@ -1,16 +1,26 @@
 package boundary;
 
 import controller.UserInputValidationController;
+
+
 import entity.Admin;
 import global.Constants;
 
 
+/**
+ * This class represents the Admin View when using Admin Module
+*/
+
 public class AdminView {
-	public static void admin_view()
+	
+	/**
+	 * Display the choice for Admin
+	 * CUR Movie Listing, CUR Cinema Showtimes/ Movies to be shown
+	 * or Configure System settings
+	*/
+	public static void adminView()
 	{
-		
 		Admin adminUser = (Admin) new LoginView(Constants.ADMIN).showLoginView();
-		
 		
 		while(adminUser != null)
 		{
@@ -28,14 +38,14 @@ public class AdminView {
 			{
 				case 1:
 					// Create/Update/Remove movie listing
-					CURMovieListingView.cur_movie_listing_view();
+					CURMovieListingView.curMovieListingView();
 					break;
 				case 2:
 					// Create/Update/Remove cinema showtimes and movies to be shown
-					CURShowTimeView.cur_show_time_view();
+					CURShowTimeView.curShowTimeView();
 					break;
 				case 3:
-					ConfigureSystemSettingView.configure_system_setting_view();
+					ConfigureSystemSettingView.configureSystemSettingView();
 					// Configure system settings
 					break;
 				case 4:

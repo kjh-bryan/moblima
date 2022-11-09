@@ -18,9 +18,21 @@ import entity.Ticket;
 import global.Constants;
 import global.UserSession;
 
-public class BookSeatView {
-
-	public static void check_login_before_book_seat_view(int showTimeId, ArrayList<Seat> selectedSeat) {
+/**
+ * This class represents when the MovieGoer and selected a seat and
+ * showned the booked seat view with the details and information of the 
+ * Movie and Price
+*/
+public class BookedSeatView {
+	
+	
+	/**
+	 * Checks for User credential before proceeding, only
+	 * a authenticated MovieGoer can book a seat
+	 * @param showTimeId 		CinemaShowTime's ID
+	 * @param selectedSeat 		An arraylist of selected Seat, can be more than 1
+	*/
+	public static void checkLoginBeforeBookSeatView(int showTimeId, ArrayList<Seat> selectedSeat) {
 		if (UserSession.movieGoer == null) {
 			System.out.println("Please login before booking a movie! Directing you to Login Screen..");
 			System.out.println();
@@ -29,13 +41,19 @@ public class BookSeatView {
 			{
 				return;
 			}
-			book_seat_view(showTimeId, selectedSeat);
+			bookedSeatView(showTimeId, selectedSeat);
 		} else {
-			book_seat_view(showTimeId, selectedSeat);
+			bookedSeatView(showTimeId, selectedSeat);
 		}
 	}
 
-	public static void book_seat_view(int showTimeId, ArrayList<Seat> selectedSeat) {
+	/**
+	 * Shows the view of the booked seats, prices, and misc information
+	 * regarding the movie, date , time
+	 * @param showTimeId 		CinemaShowTime's ID
+	 * @param selectedSeat 		An arraylist of selected Seat, can be more than 1
+	*/
+	public static void bookedSeatView(int showTimeId, ArrayList<Seat> selectedSeat) {
 		if(selectedSeat.isEmpty())
 		{
 			return;
@@ -89,7 +107,7 @@ public class BookSeatView {
 			return;
 		else
 		{
-			TransactionView.transaction_detail_view(ticketList);
+			TransactionView.transactionDetailView(ticketList);
 			return;
 		}
 		

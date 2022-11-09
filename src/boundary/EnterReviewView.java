@@ -13,8 +13,21 @@ import entity.Seat;
 import global.Constants;
 import global.UserSession;
 
+/**
+ * This class represents the view for MovieGoer
+ * To enter a review to a Movie
+*/
+
+
 public class EnterReviewView {
-	public static void check_login_before_book_seat_view(Movie movie) {
+	
+	
+	/**
+	 * Checks for User credential before proceeding, only
+	 * a authenticated MovieGoer Review a movie
+	 * @param movie 		movie to be reviewed
+	 */
+	public static void checkLoginBeforeReviewView(Movie movie) {
 		if (UserSession.movieGoer == null) {
 			System.out.println("Please login before booking a movie! Directing you to Login Screen..");
 			System.out.println();
@@ -23,13 +36,18 @@ public class EnterReviewView {
 			{
 				return;
 			}
-			enter_review_view(movie);
+			enterReviewView(movie);
 		} else {
-			enter_review_view(movie);
+			enterReviewView(movie);
 		}
 	}
 	
-	public static void enter_review_view(Movie movie)
+	/**
+	 * Shows the view for the MovieGoer to enter the Review Details
+	 * @param movie 		movie to be reviewed
+	 * 
+	*/
+	public static void enterReviewView(Movie movie)
 	{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("=======================");
@@ -42,7 +60,7 @@ public class EnterReviewView {
 		String reviewDescription = UserInputValidationController.validateStringFromUser();
 		LocalDateTime reviewDate = LocalDateTime.now();
 		
-		ReviewController.createReview(new Review(0,movie.getMovieId(),UserSession.movieGoer.getId(),reviewRating,reviewDescription,reviewDate));
+		ReviewController.createReview(new Review(0,movie.getMovieId(),reviewRating,UserSession.movieGoer.getUserId(),reviewDescription,reviewDate));
 		System.out.println("Review successful!");
 		return;
 		

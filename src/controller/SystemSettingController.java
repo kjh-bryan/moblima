@@ -2,46 +2,64 @@ package controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import entity.Cinema;
 import entity.CinemaClass;
+import entity.CinemaShowTime;
+import entity.Movie;
 import entity.MovieClassifiedRating;
 import entity.MovieGoer;
 import entity.MovieShowingStatus;
 import entity.MovieType;
+import entity.SeatingLayout;
 import entity.TicketDay;
 import entity.TicketType;
 
 public class SystemSettingController {
+	/**
+	 * Separator used as String Token to separate data in text file
+	 */
 	private static final String SEPARATOR = "|";
-	private static final String systemSettingFolder = "src/database/system_settings/";
-	
-	private final static Logger logger = Logger.getLogger(SystemSettingController.class.getName());
+	/**
+	 * Database File Directory which stores System Setting's text file
+	 */
+	private static final String SYSTEM_SETTING_FOLDER = "src/database/system_settings/";
+	/**
+	 * Logger for debugging purposes
+	 */
+	private final static Logger LOGGER = Logger.getLogger(SystemSettingController.class.getName());
 
-	public static void updateSystemSettings()
-	{
-		
-	}
-	
-	public static void updatePrice(int newPrice, String databaseTableName)
+	/**
+	 * UPDATE the price of a system settings according to the file name
+	 * e.g. movie_type / holiday
+	 * @param newPrice 				New price to be changed to
+	 * @param databaseFileName 		Database File Name price changes
+	 */
+	public static void updatePrice(int newPrice, String databaseFileName)
 	{
 		String tempFile = "temp.txt";
-		File oldFile = new File(systemSettingFolder+databaseTableName);
-		File newFile = new File(systemSettingFolder+tempFile);
+		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
+		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
 		
 		try {
-			FileWriter fw = new FileWriter(systemSettingFolder+tempFile,true);
+			FileWriter fw = new FileWriter(SYSTEM_SETTING_FOLDER+tempFile,true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new File(SYSTEM_SETTING_FOLDER+databaseFileName));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -59,30 +77,36 @@ public class SystemSettingController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(systemSettingFolder+databaseTableName);
+			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateCinemaClassPrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "updateCinemaClassPrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
 	}
 	
+	/**
+	 * UPDATE the price of a CinemaClass if it matches the CinemaClass in the file
+	 * e.g. Standard / Platinum
+	 * @param newCinemaClassPrice 		New CinemaClass Price
+	 * @param updateCinemaClass 		Specific Class to be updated
+	 */
 	public static void updateCinemaClassPrice(int newCinemaClassPrice, CinemaClass updateCinemaClass)
 	{
-		String databaseTableName = "cinema_class.txt";
+		String databaseFileName = "cinema_class.txt";
 		String tempFile = "temp.txt";
-		File oldFile = new File(systemSettingFolder+databaseTableName);
-		File newFile = new File(systemSettingFolder+tempFile);
+		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
+		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
 		
 		try {
-			FileWriter fw = new FileWriter(systemSettingFolder+tempFile,true);
+			FileWriter fw = new FileWriter(SYSTEM_SETTING_FOLDER+tempFile,true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new File(SYSTEM_SETTING_FOLDER+databaseFileName));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -106,31 +130,36 @@ public class SystemSettingController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(systemSettingFolder+databaseTableName);
+			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateCinemaClassPrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "updateCinemaClassPrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
 	}
 	
-	
+	/**
+	 * UPDATE the price of a MovieType if it matches the MovieType in the file
+	 * e.g. TWOD / THREED
+	 * @param newMovieTypePrice 		New MovieType Price
+	 * @param updateMovieType 		Specific Class to be updated
+	 */
 	public static void updateMovieTypePrice(int newMovieTypePrice, MovieType updateMovieType)
 	{
-		String databaseTableName = "movie_type.txt";
+		String databaseFileName = "movie_type.txt";
 		String tempFile = "temp.txt";
-		File oldFile = new File(systemSettingFolder+databaseTableName);
-		File newFile = new File(systemSettingFolder+tempFile);
+		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
+		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
 		
 		try {
-			FileWriter fw = new FileWriter(systemSettingFolder+tempFile,true);
+			FileWriter fw = new FileWriter(SYSTEM_SETTING_FOLDER+tempFile,true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new File(SYSTEM_SETTING_FOLDER+databaseFileName));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -154,31 +183,36 @@ public class SystemSettingController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(systemSettingFolder+databaseTableName);
+			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateMovieTypePrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "updateMovieTypePrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
 	}
 	
-	
+	/**
+	 * UPDATE the price of a TicketType if it matches the TicketType in the file
+	 * e.g. Senior / Student / Standard
+	 * @param newTicketTypePrice 		New TicketType Price
+	 * @param updateTicketType 		Specific Class to be updated
+	 */
 	public static void updateTicketTypePrice(int newTicketTypePrice, TicketType updateTicketType)
 	{
-		String databaseTableName = "movie_type.txt";
+		String databaseFileName = "movie_type.txt";
 		String tempFile = "temp.txt";
-		File oldFile = new File(systemSettingFolder+databaseTableName);
-		File newFile = new File(systemSettingFolder+tempFile);
+		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
+		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
 		
 		try {
-			FileWriter fw = new FileWriter(systemSettingFolder+tempFile,true);
+			FileWriter fw = new FileWriter(SYSTEM_SETTING_FOLDER+tempFile,true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new File(SYSTEM_SETTING_FOLDER+databaseFileName));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -202,33 +236,38 @@ public class SystemSettingController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(systemSettingFolder+databaseTableName);
+			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateMovieTypePrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "updateMovieTypePrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
 		
 		
 	}
 	
-	
+	/**
+	 * UPDATE the price of a TicketDay if it matches the TicketDay in the file
+	 * e.g. Mon - Sun
+	 * @param newTicketDayPrice 		New TicketDay Price
+	 * @param updateTicketDay 		Specific Class to be updated
+	 */
 	public static void updateTicketDayPrice(int newTicketDayPrice, TicketDay updateTicketDay)
 	{
-		String databaseTableName = "ticket_day_price.txt";
+		String databaseFileName = "ticket_day_price.txt";
 		String tempFile = "temp.txt";
-		File oldFile = new File(systemSettingFolder+databaseTableName);
-		File newFile = new File(systemSettingFolder+tempFile);
+		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
+		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
 		
 		try {
-			FileWriter fw = new FileWriter(systemSettingFolder+tempFile,true);
+			FileWriter fw = new FileWriter(SYSTEM_SETTING_FOLDER+tempFile,true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(systemSettingFolder+databaseTableName));
+			sc = new Scanner(new File(SYSTEM_SETTING_FOLDER+databaseFileName));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -252,24 +291,33 @@ public class SystemSettingController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(systemSettingFolder+databaseTableName);
+			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateTicketDayPrice() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "updateTicketDayPrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
 		
 		
 	}
+	
+	
+	/**
+	 * CREATE a new Holiday in the holiday file to indicate
+	 * that day is a holiday hence price will increase
+	 * e.g. 2022-12-25|CHRISTMASDAY
+	 * @param holiday 				Name of the holiday
+	 * @param holidayDate 			LocalDate of the holiday
+	 */
 	public static void addHoliday(String holiday, LocalDate holidayDate)
 	{
-		String databaseTableName = "holiday_date.txt";
+		String databaseFileName = "holiday_date.txt";
 		try {
-		UserInputValidationController.createDatabaseTableFile(systemSettingFolder+databaseTableName);
+		UserInputValidationController.createDatabaseFileName(SYSTEM_SETTING_FOLDER+databaseFileName);
 
-		PrintWriter out = new PrintWriter(new FileOutputStream(systemSettingFolder+databaseTableName,true));
+		PrintWriter out = new PrintWriter(new FileOutputStream(SYSTEM_SETTING_FOLDER+databaseFileName,true));
 		
 		
 		out.append(holidayDate + SEPARATOR + holiday.toUpperCase() + SEPARATOR +"\n");
@@ -279,9 +327,96 @@ public class SystemSettingController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "addHoliday() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "addHoliday() exception occured : " + e.getLocalizedMessage());
 		}
 		
 	}
+	
+	/**
+	 * READ the top 5 view settings in the database
+	 * @return  an map with key of Filter and value of enabled (boolean)
+	 */
+	public static Map<String,Boolean> getFilterSettings()
+	{
+		String databaseFileName = "top5movies.txt";
+		Map<String,Boolean> filterSettingsMap = new HashMap<String,Boolean>();
+		
+		Scanner sc = null;
+		try {
+			sc = new Scanner(new FileInputStream(SYSTEM_SETTING_FOLDER+databaseFileName));
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
+				String filter = stringTokenizer.nextToken().trim();
+				boolean enabled = Boolean.valueOf(stringTokenizer.nextToken().toLowerCase().trim());
+				filterSettingsMap.put(filter, enabled);
+			}
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "getFilterSettings() exception occured : " + e.getLocalizedMessage());
+		} finally {
+			if(sc != null)
+			{
+				sc.close();
+				
+			}
+		}
+
+		return filterSettingsMap;
+	}
+	
+	
+	/**
+	 * UPDATE the filter settings to disable or enable
+	 * @param filterToUpdate 		the filter to be updated
+	 */
+	public static void updateFilterSystem(String filterToUpdate)
+	{
+		String databaseFileName = "top5movies.txt";
+		String tempFile = "temp.txt";
+		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
+		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
+		Scanner sc = null;
+		
+		try {
+			FileWriter fw = new FileWriter(SYSTEM_SETTING_FOLDER+tempFile,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			sc = new Scanner(new File(SYSTEM_SETTING_FOLDER+databaseFileName));
+			sc.useDelimiter("[|\n]");
+			
+			while(sc.hasNext())
+			{
+				String filter = sc.next().trim();
+				
+				boolean enabled = Boolean.valueOf(sc.next().toLowerCase().trim());
+				
+				if(filter.equals(filterToUpdate))
+				{
+					pw.println(filter+SEPARATOR+!enabled);
+				}
+				else
+				{
+					pw.println(filter+SEPARATOR+enabled);
+				}
+			}
+			
+			sc.close();
+			pw.flush();
+			pw.close();
+			oldFile.delete();
+			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
+			newFile.renameTo(dump);
+		}
+		catch(Exception e)
+		{
+			LOGGER.log(Level.SEVERE, "updateTicketDayPrice() exception occured : " + e.getLocalizedMessage());
+			
+		}
+		
+		
+	}
+	
+	
 	
 }

@@ -18,11 +18,22 @@ import entity.Movie;
 import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
 import entity.MovieType;
-import entity.SeatingCapacity;
+import entity.SeatingLayout;
+
+/**
+ * This class represents the view for Admin
+ * when Create/Update/Remove CinemaShowTime is selected
+ * and Admin wishes to make changes to the corresponding information
+*/
 
 public class CURShowTimeView {
 	
-	public static void cur_show_time_view()
+	/**
+	 * Display the choice for Admin
+	 * Create / Update or Remove 
+	 * a Cinema Show Time
+	*/
+	public static void curShowTimeView()
 	{
 		boolean selectedExit = false;
 		
@@ -39,13 +50,13 @@ public class CURShowTimeView {
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
 				case 1:
-					create_showtime_view();
+					createShowTimeView();
 					break;
 				case 2:
-					update_showtime_view();
+					updateShowTimeView();
 					break;
 				case 3:
-					delete_showtime_view();
+					deleteShowTimeView();
 					break;
 				case 0:
 					return;
@@ -56,7 +67,14 @@ public class CURShowTimeView {
 			}
 		}
 	}
-	public static void create_showtime_view()
+	
+	/**
+	 * Create View for Admin
+	 * A new Cinema Show Time is to be created
+	 * Admin can select a Cinema and Movie from the list which
+	 * the input is validated by UserInputValidationController
+	*/
+	public static void createShowTimeView()
 	{
 		printAllMovies();
 		System.out.println();
@@ -91,10 +109,11 @@ public class CURShowTimeView {
 		LocalDateTime movieEndTime = LocalDateTime.of(showTimeDate, endTime);
 		
 		Cinema cinema = CinemaController.getCinemaByCinemaCode(cinemaCode);
-
-		SeatingCapacity seatingCapacity = cinema.getSeatingCapactities();
+		Movie movie = MovieController.getMovieByMovieId(movieId);
 		
-		CinemaShowTime newShow = new CinemaShowTime(id, cinemaCode, movieId, movieStartTime, movieEndTime, seatingCapacity);
+		SeatingLayout seatingLayout = cinema.getSeatingLayout();
+		
+		CinemaShowTime newShow = new CinemaShowTime(id, cinemaCode, movieId, movieStartTime, movieEndTime, seatingLayout);
 		
 		boolean success = CinemaShowTimeController.createCinemaShowTime(newShow);
 		
@@ -109,8 +128,12 @@ public class CURShowTimeView {
 		}
 		
 	}
-
-	public static void update_showtime_view()
+	
+	/**
+	 * Update View for Admin
+	 * Admin can update a CinemaShowTime
+	*/
+	public static void updateShowTimeView()
 	{
 
 
@@ -177,7 +200,11 @@ public class CURShowTimeView {
 		CinemaShowTimeController.updateCinemaShowTime(cinemaShowTime);
 	}
 	
-	public static void delete_showtime_view()
+	/**
+	 * Delete View for Admin
+	 * Admin can delete a CinemaShowTime from the database
+	*/
+	public static void deleteShowTimeView()
 	{
 		printAllCinemaShowTime();
 		System.out.println();
@@ -194,6 +221,11 @@ public class CURShowTimeView {
 		printAllCinemaShowTime();
 	}
 	
+	/**
+	 * A method to print all Cinema details in the database
+	 * Admin can select a Cinema from the list to create a CinemaShowTime
+	 * together with Movie
+	*/
 	public static void printAllCinemaSeating()
 	{
 		ArrayList<Cinema> cinemaList = CinemaController.getAllCinemaList();
@@ -218,8 +250,8 @@ public class CURShowTimeView {
 			System.out.println("=========================");
 			System.out.println("====== Seat Plan  =======");
 			System.out.println("=========================");
-			SeatingCapacity seatingCapacity = c.getSeatingCapactities();
-			seatingCapacity.printSeatingLayout();
+			SeatingLayout seatingLayout = c.getSeatingLayout();
+			seatingLayout.printSeatingLayout();
 			System.out.println("=========================");
 			System.out.println();
 			System.out.println();
@@ -227,10 +259,13 @@ public class CURShowTimeView {
 		}
 		System.out.println("=========================");
 	}
-	
+	/**
+	 * 
+	 * A method to print all showing Movie details in the database
+	*/
 	public static void printAllMovies()
 	{
-		ArrayList<Movie> movieList = MovieController.getAllMovies();
+		ArrayList<Movie> movieList = MovieController.getAllShowingMovie();
 		if(movieList.isEmpty())
 		{
 			System.out.println("No movies available");
@@ -238,26 +273,33 @@ public class CURShowTimeView {
 		}
 		for(Movie m : movieList)
 		{
-			ViewMovieDetailView.display_movie_detail(m);
+			ViewMovieDetailView.displayMovieDetail(m);
 		}
 	}
 	
+	/**
+	 * A method to print all CinemaShowTime of a Movie in the database
+	 * @param movieId 			Movie's ID
+	*/
 	public static void printAllMovieShowTime(int movieId)
 	{
 		Movie movie = MovieController.getMovieByMovieId(movieId);
 		
-		MovieShowTimeView.display_movie_show_time(movie);
+		MovieShowTimeView.displayMovieShowTime(movie);
 		
 	}
 	
+	/**
+	 * A method to print all CinemaShowTime of all Movie in the database
+	*/
 	public static void printAllCinemaShowTime()
 	{
 		
-		ArrayList<Movie> movieList = MovieController.getAllMovies();
+		ArrayList<Movie> movieList = MovieController.getAllShowingMovie();
 		
 		for(Movie m : movieList)
 		{
-			MovieShowTimeView.display_movie_show_time(m);
+			MovieShowTimeView.displayMovieShowTime(m);
 		}
 	}
 }

@@ -18,9 +18,18 @@ import entity.Transaction;
 import global.Constants;
 import global.UserSession;
 
+/**
+ * This class represents the view when MovieGoer is authenticated and selects
+ * to view it's transaction history
+*/
 public class TransactionHistoryView {
 	
-	public static void check_login_before_transaction_view()
+	
+	/**
+	 * Checks for User credential before proceeding, only
+	 * a authenticated MovieGoer can view it's transaction history / Bookings
+	*/
+	public static void checkLoginBeforeTransactionView()
 	{
 		if (UserSession.movieGoer == null) {
 			System.out.println("Please login before booking a movie! Directing you to Login Screen..");
@@ -30,16 +39,21 @@ public class TransactionHistoryView {
 			{
 				return;
 			}
-			transaction_history_view();
+			transactionHistoryView();
 		} else {
-			transaction_history_view();
+			transactionHistoryView();
 		}
 	}
 	
-	public static void transaction_history_view()
+	/**
+	 * Shows the View of Transaction details, the tickets to a transaction
+	 * Redirect back if User have yet to book any Movie
+	 * a authenticated MovieGoer can view it's transaction history / Bookings
+	*/
+	public static void transactionHistoryView()
 	{
 		
-		int movieGoerId = UserSession.movieGoer.getId();
+		int movieGoerId = UserSession.movieGoer.getUserId();
 		
 		ArrayList<Transaction> transactionByMovieGoer = TransactionController.getTransactionsByMovieGoerId(movieGoerId);
 		
@@ -55,7 +69,7 @@ public class TransactionHistoryView {
 		{
 			System.out.println("==============================================");
 			System.out.println("Transaction ID: " + t.getTransactionId());
-			CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(t.getShowTimeId());
+			CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(t.getCinemaShowTimeId());
 			Cinema cinema = CinemaController.getCinemaByCinemaCode(cinemaShowTime.getCinemaCode());
 			Cineplex cineplex = CineplexController.getCineplexByCinemaCode(cinemaShowTime.getCinemaCode());
 			Movie movie = MovieController.getMovieByMovieId(cinemaShowTime.getMovieId());

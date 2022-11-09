@@ -8,17 +8,39 @@ import controller.UserInputValidationController;
 import entity.Admin;
 import entity.MovieGoer;
 
-public class RegisterView {
 
+/**
+ * This class represents the view for User
+ * to Register and new account, it can be
+ * an Admin or a MovieGoer
+*/
+public class RegisterView {
+	/**
+	 * The role of the User currently registering
+	*/
 	private int role;
+	
+	/**
+	 * The role name of the User currently registering 
+	*/
 	String roleName;
 	
+	/**
+	 * Create the RegisterView with the role
+	 * @param role					User's role
+	*/
 	public RegisterView(int role)
 	{
 		this.role = role;
 		roleName = (role == 0) ? "Admin" : "MovieGoer";
 	}
 	
+	/**
+	 * Shows the view for the User to register
+	 * where User need to enter its credential based
+	 * on the role
+	 * @return True if successfully registered, false otherwise
+	*/
 	public boolean showRegisterView()
 	{
 		System.out.println("\n------------------------------");

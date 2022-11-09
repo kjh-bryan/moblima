@@ -23,30 +23,48 @@ import entity.Movie;
 import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
 import entity.MovieType;
-import entity.SeatingCapacity;
+import entity.SeatingLayout;
 
 public class CinemaShowTimeController {
+	/**
+	 * Separator used as String Token to separate data in text file
+	 */
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/showtime.txt";
-	private static final String showTimeFolderLocation = "src/database/showtime_seatingcapacity/seatingcapacity_";
+	/**
+	 * Database Filename which stores CinemaShowTime's information
+	 */
+	private static final String DATABASE_FILENAME = "src/database/showtime.txt";
+	/**
+	 * Database File Directory which stores the showtimes's seating layout in txt
+	 */
+	private static final String SHOWTIME_SEATINGLAYOUT_FOLDER = "src/database/showtime_seatinglayout/seatinglayout_";
+	/**
+	 * Logger for debugging purposes
+	 */
+	private final static Logger LOGGER = Logger.getLogger(CinemaShowTimeController.class.getName());
 
-	private final static Logger logger = Logger.getLogger(CinemaShowTimeController.class.getName());
-
+	/**
+	 * CREATE a CinemaShowTime, adding into the database file with separator |
+	 * e.g. showTimeId|cinemaCode|movieId|movieStartTime|movieEndTime
+	 * as well as creating a copy of the static Cinema Seating Layout 
+	 * into the showtime seatinglayout folder
+	 * @param newCinemaShowTime 		New CinemaShowTime to be added
+	 */
 	public static boolean createCinemaShowTime(CinemaShowTime newCinemaShowTime)
 	{
 		
 		boolean createdSuccessful = false;
 		
 		try {
-		UserInputValidationController.createDatabaseTableFile(databaseTableName);
+		UserInputValidationController.createDatabaseFileName(DATABASE_FILENAME);
 
-		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
-		int generateId = DatabaseController.generateIntegerId(databaseTableName);
-		SeatingCapacityController.createSeatingCapacityWithShowTimeId(generateId, newCinemaShowTime.getSeatingCapacity().outputToFile());
+		PrintWriter out = new PrintWriter(new FileOutputStream(DATABASE_FILENAME,true));
+		int generateId = DatabaseController.generateIntegerId(DATABASE_FILENAME);
+		SeatingLayoutController.createSeatingLayoutWithShowTimeId(generateId, newCinemaShowTime.getSeatingLayout().outputToFile());
 		
 		out.append(generateId + 
-				SEPARATOR + newCinemaShowTime.getCinemaCode()+"" + 
-				SEPARATOR + newCinemaShowTime.getMovieId() +
+				SEPARATOR + newCinemaShowTime.getCinemaCode() + 
+				SEPARATOR + newCinemaShowTime.getMovieId()+
 				SEPARATOR+ newCinemaShowTime.getShowStartTime() + 
 				SEPARATOR+ newCinemaShowTime.getShowEndTime() + 
 				"\n");
@@ -58,16 +76,20 @@ public class CinemaShowTimeController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "createCinemaShowTime() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "createCinemaShowTime() exception occured : " + e.getLocalizedMessage());
 		}
 		return createdSuccessful;
 		
 	}
 	
-	public static void updateCinemaShowTime(CinemaShowTime updatedShowTime)
+	/**
+	 * UPDATE a existing CinemaShowTime with an updated data
+	 * @param updatedCinemaShowTime 		CinemaShowTime to be updated and its values
+	 */
+	public static void updateCinemaShowTime(CinemaShowTime updatedCinemaShowTime)
 	{
 		String tempFile = "temp.txt";
-		File oldFile = new File(databaseTableName);
+		File oldFile = new File(DATABASE_FILENAME);
 		File newFile = new File(tempFile);
 		Scanner sc = null;
 		
@@ -76,7 +98,7 @@ public class CinemaShowTimeController {
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(databaseTableName));
+			sc = new Scanner(new File(DATABASE_FILENAME));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -87,13 +109,13 @@ public class CinemaShowTimeController {
 				LocalDateTime movieStartTime = LocalDateTime.parse(sc.next());
 				LocalDateTime movieEndTime = LocalDateTime.parse(sc.next());
 				
-				if(showTimeId == updatedShowTime.getShowTimeId())
+				if(showTimeId == updatedCinemaShowTime.getShowTimeId())
 				{
-					pw.println(updatedShowTime.getShowTimeId()+SEPARATOR+updatedShowTime.getCinemaCode()
-							+SEPARATOR+updatedShowTime.getMovieId()+SEPARATOR+updatedShowTime.getShowStartTime()
-							+SEPARATOR+updatedShowTime.getShowEndTime());
+					pw.println(updatedCinemaShowTime.getShowTimeId()+SEPARATOR+updatedCinemaShowTime.getCinemaCode()
+							+SEPARATOR+updatedCinemaShowTime.getMovieId()+SEPARATOR+updatedCinemaShowTime.getShowStartTime()
+							+SEPARATOR+updatedCinemaShowTime.getShowEndTime());
 				
-					SeatingCapacityController.updateSeatingCapacityByShowTimeId(showTimeId, updatedShowTime.getSeatingCapacity().outputToFile());
+					SeatingLayoutController.updateSeatingLayoutByShowTimeId(showTimeId, updatedCinemaShowTime.getSeatingLayout().outputToFile());
 				}
 				else
 				{
@@ -109,21 +131,25 @@ public class CinemaShowTimeController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(databaseTableName);
+			File dump = new File(DATABASE_FILENAME);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "updateCinemaShowTime() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "updateCinemaShowTime() exception occured : " + e.getLocalizedMessage());
 			
 		}
 		
 	}
 	
+	/**
+	 * DELETE CinemaShowTime by its ID, removing from the database
+	 * @param deletedShowTimeId 		CinemaShowTime to be deleted
+	 */
 	public static void deleteCinemaShowTimeById(int deletedShowTimeId)
 	{
 		String tempFile = "temp.txt";
-		File oldFile = new File(databaseTableName);
+		File oldFile = new File(DATABASE_FILENAME);
 		File newFile = new File(tempFile);
 		Scanner sc = null;
 		
@@ -132,7 +158,7 @@ public class CinemaShowTimeController {
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			sc = new Scanner(new File(databaseTableName));
+			sc = new Scanner(new File(DATABASE_FILENAME));
 			sc.useDelimiter("[|\n]");
 			
 			while(sc.hasNext())
@@ -145,7 +171,7 @@ public class CinemaShowTimeController {
 				
 				if(showTimeId == deletedShowTimeId)
 				{
-					SeatingCapacityController.deleteSeatingCapacityByShowTimeId(showTimeId);
+					SeatingLayoutController.deleteSeatingLayoutByShowTimeId(showTimeId);
 				}
 				else
 				{
@@ -161,23 +187,28 @@ public class CinemaShowTimeController {
 			pw.flush();
 			pw.close();
 			oldFile.delete();
-			File dump = new File(databaseTableName);
+			File dump = new File(DATABASE_FILENAME);
 			newFile.renameTo(dump);
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "deleteCinemaShowTimeById() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "deleteCinemaShowTimeById() exception occured : " + e.getLocalizedMessage());
 			
 		}
 		
 	}
 	
-	
+	/**
+	 * READ all the CinemaShowTime in the Database file, 
+	 * Store the result in an arraylist of CinemaShowTime
+	 * return empty array list if no CinemaShowTime exist
+	 * @return  an array list of all CinemaShowTime 
+	 */
 	public static ArrayList<CinemaShowTime> getAllCinemaShowTimeList() {
 		ArrayList<CinemaShowTime> cinemaShowTimeList = new ArrayList<CinemaShowTime>();
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(databaseTableName));
+			sc = new Scanner(new FileInputStream(DATABASE_FILENAME));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -186,13 +217,12 @@ public class CinemaShowTimeController {
 				int movieId = Integer.parseInt(stringTokenizer.nextToken().trim());
 				LocalDateTime movieStartTime = LocalDateTime.parse(stringTokenizer.nextToken().trim());
 				LocalDateTime movieEndTime = LocalDateTime.parse(stringTokenizer.nextToken().trim());
-				SeatingCapacity seatingCapacity = SeatingCapacityController.getSeatingCapacityByShowTimeId(showTimeId);
+				SeatingLayout seatingLayout = SeatingLayoutController.getSeatingLayoutByShowTimeId(showTimeId);
 				
-				
-				cinemaShowTimeList.add(new CinemaShowTime(showTimeId, cinemaCode, movieId, movieStartTime, movieEndTime,seatingCapacity));
+				cinemaShowTimeList.add(new CinemaShowTime(showTimeId, cinemaCode, movieId, movieStartTime, movieEndTime,seatingLayout));
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getAllCinemaShowTimeList() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "getAllCinemaShowTimeList() exception occured : " + e.getLocalizedMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -204,6 +234,15 @@ public class CinemaShowTimeController {
 		return cinemaShowTimeList;
 	}
 	
+	
+	/**
+	 * READ all the CinemaShowTime in array list by getAllCinemaShowTimeList()
+	 * Check if the CinemaShowTime's Cinema belong to the Cineplex
+	 * Store into an array list of CinemaShowTime if it does
+	 * return empty array list if no CinemaShowTime exist for that Cineplex
+	 * @param cineplexCode 			CinemaShowTime's Cinema's CineplexCode
+	 * @return  an array list of all CinemaShowTime by that CineplexCode
+	 */
 	public static ArrayList<CinemaShowTime> getCinemaShowTimeByCineplexCodeList(String cineplexCode)
 	{
 		ArrayList<CinemaShowTime> allCinemaShowTimeList = getAllCinemaShowTimeList();
@@ -224,7 +263,14 @@ public class CinemaShowTimeController {
 
 	}
 
-	
+	/**
+	 * READ all the CinemaShowTime in array list by getAllCinemaShowTimeList()
+	 * Store into an array list of CinemaShowTime if CinemaShowTime's 
+	 * Cinema Code matches 
+	 * return empty array list if no CinemaShowTime exist for that Cinema Code
+	 * @param cinemaCode 			CinemaShowTime's Cinema Code
+	 * @return  an array list of all CinemaShowTime by that CinemaCode
+	 */
 	public static ArrayList<CinemaShowTime> getCinemaShowTimeByCinemaCodeList(String cinemaCode)
 	{
 		ArrayList<CinemaShowTime> allCinemaShowTimeList = getAllCinemaShowTimeList();
@@ -244,6 +290,14 @@ public class CinemaShowTimeController {
 		
 	}
 	
+	/**
+	 * READ all the CinemaShowTime in array list by getAllCinemaShowTimeList()
+	 * Store into an array list of CinemaShowTime if
+	 * CinemaShowTime's Movie ID matches
+	 * return empty array list if no CinemaShowTime exist for that Movie ID
+	 * @param movieId 			CinemaShowTime's Movie's ID
+	 * @return  an array list of all CinemaShowTime by that MovieID
+	 */
 	public static ArrayList<CinemaShowTime> getCinemaShowTimeByMovieIdList(int movieId)
 	{
 		ArrayList<CinemaShowTime> allCinemaShowTimeList = getAllCinemaShowTimeList();
@@ -262,6 +316,13 @@ public class CinemaShowTimeController {
 		
 	}
 
+	/**
+	 * READ all the CinemaShowTime in array list by getAllCinemaShowTimeList()
+	 * returns the CinemaShowTime if CinemaShowTime's ID matches
+	 * return null if no such CinemaShowTime exist 
+	 * @param showTimeId 			CinemaShowTime's showTimeId
+	 * @return CinemaShowTime by that showTimeId
+	 */
 	public static CinemaShowTime getCinemaShowTimeByShowTimeId(int showTimeId)
 	{
 
@@ -278,7 +339,11 @@ public class CinemaShowTimeController {
 		return cinemaShowTime;
 	}
 	
-	
+	/**
+	 * Orders the CinemaShowTime of array list by the CinemaCode, 
+	 * followed by the Starting Time of the CinemaShowTime
+	 * @param cinemaShowTimeList 			A list of CinemaShowTime to be sorted
+	 */
 	public static void orderCinemaShowTime(ArrayList<CinemaShowTime> cinemaShowTimeList)
 	{
 		Collections.sort(cinemaShowTimeList, new Comparator<Object>() {

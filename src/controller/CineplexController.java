@@ -14,17 +14,32 @@ import entity.Cinema;
 import entity.Cineplex;
 
 public class CineplexController {
+	/**
+	 * Separator used as String Token to separate data in text file
+	 */
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/cineplex.txt";
-
+	/**
+	 * Database Filename which stores Cineplex's information
+	 */
+	private static final String DATABASE_FILENAME = "src/database/cineplex.txt";
+	/**
+	 * Database File Directory which stores the showtimes's seating layout in txt
+	 */
 	private final static Logger logger = Logger.getLogger(CineplexController.class.getName());
 
-	
+	/**
+	 * READ all the Cineplex in the Database file, 
+	 * Gets all Cinema that belongs to this Cineplex 
+	 * using CinemaController
+	 * Store the result in an arraylist of Cineplex
+	 * return empty array list if no Cineplex exist
+	 * @return  an array list of all Cineplex 
+	 */
 	public static ArrayList<Cineplex> getAllCineplexList()  {
 		ArrayList<Cineplex> cineplexList = new ArrayList<Cineplex>();
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(databaseTableName));
+			sc = new Scanner(new FileInputStream(DATABASE_FILENAME));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -48,6 +63,16 @@ public class CineplexController {
 		return cineplexList;
 	}
 	
+	
+	/**
+	 * READ all the Cineplex in array list by getAllCineplexList()
+	 * for every Cineplex in that array list, iterate Cinema list
+	 * and find a Cinema that matches the CinemaCode
+	 * returns the Cineplex if CinemaCode matches
+	 * return null if no such Cinema exist by that Code
+	 * @param cinemaCode 			Cineplex's Cinema's cinemaCode
+	 * @return Cineplex 			by that Cinema's cinemaCode
+	 */
 	public static Cineplex getCineplexByCinemaCode(String cinemaCode)
 	{
 		ArrayList<Cineplex> allCineplexList = getAllCineplexList();
@@ -66,6 +91,14 @@ public class CineplexController {
 		return cineplex;
 	}
 	
+	
+	/**
+	 * READ all the Cineplex in array list by getAllCineplexList()
+	 * returns the Cineplex if Cineplex Code matches
+	 * return null if no such Cineplex exist 
+	 * @param cineplexCode 			Cineplex Code
+	 * @return Cineplex by that cineplexCode
+	 */
 	public static Cineplex getCineplexByCineplexCode(String cineplexCode) {
 		ArrayList<Cineplex> allCineplexList = getAllCineplexList();
 		Cineplex cineplex = null;

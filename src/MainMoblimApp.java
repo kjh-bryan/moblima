@@ -31,11 +31,11 @@ public class MainMoblimApp {
 			{
 				case 1: 
 					// Initiate Movie-goer Module
-					MovieGoerView.movie_goer_view();
+					MovieGoerView.movieGoerView();
 					break;
 				case 2:
 					// Initiate Admin Module
-					AdminView.admin_view();
+					AdminView.adminView();
 					break;
 				case 0:
 					selectedExit = true;

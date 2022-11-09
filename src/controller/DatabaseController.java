@@ -14,12 +14,12 @@ public class DatabaseController {
 	private static final String SEPARATOR = "|";
 	private final static Logger logger = Logger.getLogger(DatabaseController.class.getName());
 	
-	public static int generateIntegerId(String databaseTableName)
+	public static int generateIntegerId(String databaseFileName)
 	{
 		int biggestId = 1;
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(databaseTableName));
+			sc = new Scanner(new FileInputStream(databaseFileName));
 			while(sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -41,4 +41,8 @@ public class DatabaseController {
 		}
 		return biggestId+1;
 	}
+	
+	
+	
+	
 }

@@ -2,6 +2,7 @@ package boundary;
 
 import java.util.ArrayList;
 
+
 import controller.CinemaController;
 import controller.CinemaShowTimeController;
 import controller.CineplexController;
@@ -12,8 +13,17 @@ import entity.CinemaShowTime;
 import entity.Cineplex;
 import entity.Movie;
 
+/**
+ * This class represents the view when MovieGoer selects 
+ * to view a List of All Cineplex
+*/
 public class ExploreCineplexesView {
-	public static void explore_cineplexes_view()
+	
+	/**
+	 * Prints all the cineplex information and prompt
+	 * the User to input Cineplex Code of its choice
+	*/
+	public static void exploreCineplexesView()
 	{
 		System.out.println("\n------------------------------");
 		System.out.println("MOBLIMA - List of All Cineplexes");
@@ -25,7 +35,7 @@ public class ExploreCineplexesView {
 		}
 		cineplexList.forEach(Cineplex -> printCineplex(Cineplex));
 		while(true) {
-			System.out.print("\nEnter Cineplex ID to Select (Enter 0 to Go Back): ");
+			System.out.print("\nEnter Cineplex Code to Select (Enter 0 to Go Back): ");
 			String cineplexCode = UserInputValidationController.validateStringFromUser();
 			if(cineplexCode.equals("0"))return;
 			Cineplex cineplex = CineplexController.getCineplexByCineplexCode(cineplexCode);
@@ -33,12 +43,18 @@ public class ExploreCineplexesView {
 				System.out.println("\nInvalid Cineplex Code. Please Try Again");
 				continue;
 			}
-			explore_show_times_by_cineplex(cineplex);
+			exploreShowTimesByCineplex(cineplex);
 			return;
 		}
 	}
-
-	public static void explore_show_times_by_cineplex(Cineplex cineplex) {
+	
+	/**
+	 * Shows the Cineplex followed by the Movies and all its showtimes
+	 * the User can then select the Show Time ID to be 
+	 * directed to Seat Selection View
+	 * @param cineplex					Cineplex
+	*/
+	public static void exploreShowTimesByCineplex(Cineplex cineplex) {
 		ArrayList<CinemaShowTime> showTimeList = CinemaShowTimeController.getCinemaShowTimeByCineplexCodeList(cineplex.getCineplexCode());
 
 		if(showTimeList.isEmpty()) {
@@ -63,8 +79,8 @@ public class ExploreCineplexesView {
 				titlePrinted = movie.getMovieTitle();
 			}
 			System.out.println(cinemaShowTime.getShowTimeId() + "\t\t" + cinemaShowTime.getStartTimeToString() + "\t"
-					+ cinemaShowTime.getSeatingCapacity().getNoOfAvailableSeats() + "/"
-					+ cinemaShowTime.getSeatingCapacity().getTotalNoOfSeat());
+					+ cinemaShowTime.getSeatingLayout().getNoOfAvailableSeats() + "/"
+					+ cinemaShowTime.getSeatingLayout().getTotalNoOfSeat());
 		}
 
 		System.out.println();
@@ -79,15 +95,20 @@ public class ExploreCineplexesView {
 				return;
 			} else {
 				// Go to Showing Seat UI
-				SeatSelectionView.seat_selection_view(showTimeId);
+				SeatSelectionView.seatSelectionView(showTimeId);
 			}
 		}
 	}
+	
+	/**
+	 * Prints the information of the Cinplex details
+	 * @param cineplex					Cineplex
+	*/
 	public static void printCineplex(Cineplex cineplex) {
 		System.out.println("\n========================================");
 		System.out.println(cineplex.getCineplexName());
 		System.out.println("\nCineplex ID:\t" + cineplex.getCineplexCode());
-		System.out.println("Location:\t" + cineplex.getCineplexDistinctLocation());
+		System.out.println("Location:\t" + cineplex.getCineplexDistinctMallLocation());
 		System.out.println("Nearest MRT:\t" + cineplex.getCineplexNearestMrtStation());
 		System.out.println();
 		System.out.println(cineplex.getCineplexAddress());

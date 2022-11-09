@@ -11,10 +11,23 @@ import entity.CinemaShowTime;
 import entity.Cineplex;
 import entity.Movie;
 
-public class MovieShowTimeView {
-	public static void show_time_view(Movie movie) {
+/**
+ * This class represents the view for MovieGoer 
+ * when they selected a 
+ * to Login, which is used when authenticated
+ * an Admin or a MovieGoer
+*/
 
-		display_movie_show_time(movie);
+public class MovieShowTimeView {
+	
+	/**
+	 * Shows the view when User selected the Movie
+	 * and will be shown a list of Show Time of that movie
+	 * @param movie 			The User's selected movie
+	*/
+	public static void showTimeView(Movie movie) {
+
+		displayMovieShowTime(movie);
 		boolean goBack = false;
 		while (!goBack) {
 			System.out.println("Enter Show Time ID to Proceed to Seat Selection (Enter 0 to Go Back): ");
@@ -31,7 +44,7 @@ public class MovieShowTimeView {
 				else
 				{
 					// Go to Showing Seat UI
-					SeatSelectionView.seat_selection_view(showTimeId);
+					SeatSelectionView.seatSelectionView(showTimeId);
 					return;
 				}
 				
@@ -40,8 +53,11 @@ public class MovieShowTimeView {
 		
 	}
 	
-	
-	public static void display_movie_show_time(Movie movie)
+	/**
+	 * Prints all the showtimes of the Movie
+	 * @param movie 			The User's selected movie
+	*/
+	public static void displayMovieShowTime(Movie movie)
 	{
 		ArrayList<CinemaShowTime> cinemaShowTimeList = CinemaShowTimeController
 				.getCinemaShowTimeByMovieIdList(movie.getMovieId());
@@ -69,8 +85,8 @@ public class MovieShowTimeView {
 				titlePrinted = cineplex.getCinemaLocatedMall();
 			}
 			System.out.println(cinemaShowTime.getShowTimeId() + "\t\t" + cinemaShowTime.getStartDateToString()+ "\t"+cinemaShowTime.getStartTimeToString() + "\t"
-					+ cinemaShowTime.getSeatingCapacity().getNoOfAvailableSeats() + "/"
-					+ cinemaShowTime.getSeatingCapacity().getTotalNoOfSeat());
+					+ cinemaShowTime.getSeatingLayout().getNoOfAvailableSeats() + "/"
+					+ cinemaShowTime.getSeatingLayout().getTotalNoOfSeat());
 		}
 
 		System.out.println();

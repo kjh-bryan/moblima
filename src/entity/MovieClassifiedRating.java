@@ -1,5 +1,10 @@
 package entity;
 
+/**
+ * Enum MovieClassifiedRating to represent the Film Rating of the movie
+ * which restricts the age regarding the maturity of content
+ */
+
 public enum MovieClassifiedRating {
 	G("General"), 
 	PG("Parental Guidance"), 

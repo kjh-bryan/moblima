@@ -4,8 +4,17 @@ import controller.UserInputValidationController;
 import global.Constants;
 import global.UserSession;
 
+/**
+ * This class represents the view for MovieGoer
+ * To View Movies or Cineplex or its own transaction history
+ * Only authenticated MovieGoer can view its transaction history
+*/
 public class MovieGoerView {
-	public static void movie_goer_view()
+	/**
+	 * The View for Movie Goer module
+	 * Able to Explore Movies, Explore Cineplexes or View Transaction History
+	*/
+	public static void movieGoerView()
 	{
 		boolean selectedExit = false;
 		
@@ -28,15 +37,15 @@ public class MovieGoerView {
 			{
 				case 1:
 					// Explore Movies
-					SearchListMoviesView.search_list_movies_view();
+					SearchListMoviesView.searchListMoviesView();
 					break;
 				case 2:
 					// Explore Cineplexes
-					ExploreCineplexesView.explore_cineplexes_view();
+					ExploreCineplexesView.exploreCineplexesView();
 					break;
 				case 3:
 					// View Booking History
-					TransactionHistoryView.check_login_before_transaction_view();
+					TransactionHistoryView.checkLoginBeforeTransactionView();
 					break;
 				case 4:
 					if(UserSession.movieGoer != null)

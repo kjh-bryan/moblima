@@ -1,6 +1,11 @@
 package controller;
 
 
+/**
+ * The controls the User Input and validates it
+*/
+
+
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +26,20 @@ import java.time.format.DateTimeParseException;
 
 
 public class UserInputValidationController {
-	private static Scanner scanner = new Scanner(System.in);
-	private final static Logger logger = Logger.getLogger(UserInputValidationController.class.getName());
+	/**
+	 * The Scanner class to read user input
+	*/
+	private static Scanner SCANNER = new Scanner(System.in);
+	/**
+	 * Logger for debugging purposes
+	 */
+	private final static Logger LOGGER = Logger.getLogger(UserInputValidationController.class.getName());
 	
 	
+	/**
+	 * Get a integer rating from 1 to 5 from User
+	 * @return the validated input of 1 - 5
+	*/
 	public static int validateRatingFromUser()
 	{
 		int rating = 0;
@@ -44,6 +59,10 @@ public class UserInputValidationController {
 		return rating;
 	}
 	
+	/**
+	 * Get a String input of LocalDate from User
+	 * @return the validated input of LocalDate to String e.g. (yyyy-MM-dd)
+	*/
 	public static String validateLocalDateFromUser()
 	{
 		String date = "";
@@ -63,7 +82,10 @@ public class UserInputValidationController {
 		}
 		return date;
 	}
-	
+	/**
+	 * Get a String input of LocalTime from User
+	 * @return the validated input of LocalTime to String e.g. (HH:mm)
+	*/
 	public static String validateLocalTimeFromUser()
 	{
 		String time = "";
@@ -84,26 +106,33 @@ public class UserInputValidationController {
 		return time;
 	}
 	
+	/**
+	 * Get a integer input from User
+	 * @return the validated input of numbers
+	*/
 	public static int validateNumberFromUser() {
 		int number = -1;
 		boolean isValid = false;
 		while(!isValid)
 		{
-			if(scanner.hasNextInt())
+			if(SCANNER.hasNextInt())
 			{
-				number = scanner.nextInt();
+				number = SCANNER.nextInt();
 				isValid = true;
 			}
 			else
 			{
 				System.out.println(Constants.INVALID_NUMBER);
 			}
-			scanner.nextLine();
+			SCANNER.nextLine();
 		}
 		return number;
 	}
 	
-	
+	/**
+	 * Get a integer input that corresponds to a mobile phone number
+	 * @return the validated number which is 8 numbers in length
+	*/
 	public static int validatePhoneNumberFromUser()
 	{
 		int number = -1;
@@ -123,14 +152,18 @@ public class UserInputValidationController {
 		return number;
 	}
 	
+	/**
+	 * Get a String input from User and not empty String
+	 * @return the validated string 
+	*/
 	public static String validateStringFromUser() {
 		String input = "";
 		boolean isValid = false;
 		while(!isValid)
 		{
-			if(scanner.hasNext())
+			if(SCANNER.hasNext())
 			{
-				input = scanner.next();
+				input = SCANNER.next();
 				if(input.length() > 1)
 				{
 					isValid = true;
@@ -144,20 +177,25 @@ public class UserInputValidationController {
 			{
 				System.out.println(Constants.INVALID_STRING);
 			}
-			scanner.nextLine();
+			SCANNER.nextLine();
 		}
 		return input;
 	}
 	
-	public static String validateSeatNumberFromUser() {
+	/**
+	 * Get a String input from User making sure it matches format of SeatID
+	 * e.g. A5
+	 * @return the validated seat Id
+	*/
+	public static String validateSeatIDFromUser() {
 		String input = "";
 		boolean isValid = false;
 		while(!isValid)
 		{
 			
-			if(scanner.hasNext())
+			if(SCANNER.hasNext())
 			{
-				input = scanner.next();
+				input = SCANNER.next();
 				if(input.equals("0") || input.equals("1"))
 				{
 					isValid = true;
@@ -181,11 +219,16 @@ public class UserInputValidationController {
 			{
 				System.out.println(Constants.INVALID_STRING);
 			}
-			scanner.nextLine();
+			SCANNER.nextLine();
 		}
 		return input;
 	}
 	
+	/**
+	 * Get a String input from User making sure CinemaCode exist in database
+	 * e.g. AAA
+	 * @return the validated CinemaCode to string
+	*/
 	public static String validateCinemaCodeFromUser()
 	{
 		String cinemaCode = "";
@@ -207,6 +250,10 @@ public class UserInputValidationController {
 		return cinemaCode;
 	}
 	
+	/**
+	 * Get a integer input from User making sure Movie exist in database
+	 * @return the validated movieId
+	*/
 	public static int validateMovieIdFromUser()
 	{
 		int movieId = 0;
@@ -228,6 +275,10 @@ public class UserInputValidationController {
 		return movieId;
 	}
 	
+	/**
+	 * Get a integer input from User making sure CinemaShowTime exist in database
+	 * @return the validated showTimeId
+	*/	
 	public static int validateShowTimeIdFromUser()
 	{
 		int showTimeId = -1;
@@ -249,6 +300,12 @@ public class UserInputValidationController {
 		return showTimeId;
 	}
 	
+	
+	/**
+	 * Get a String input from User making sure that CinemaClass is valid
+	 * e.g. Standard/Platinum
+	 * @return the validated CinemaClass
+	*/	
 	public static CinemaClass validateCinemaClassFromUser()
 	{
 		String cinemaClass = "";
@@ -274,6 +331,11 @@ public class UserInputValidationController {
 		return c;
 	}
 	
+	/**
+	 * Get a String input from User making sure that MovieType is valid
+	 * e.g. 2D/3D
+	 * @return the validated MovieType
+	*/	
 	public static MovieType validateMovieTypeFromUser()
 	{
 		String movieType = "";
@@ -299,6 +361,11 @@ public class UserInputValidationController {
 		return m;
 	}
 	
+	/**
+	 * Get a String input from User making sure that TicketType is valid
+	 * e.g. Student/Senior/Standard
+	 * @return the validated TicketType
+	*/	
 	public static TicketType validateTicketTypeFromUser()
 	{
 		String ticketType = "";
@@ -324,6 +391,11 @@ public class UserInputValidationController {
 		return t;
 	}
 	
+	/**
+	 * Get a String input from User making sure that TicketDay is valid
+	 * e.g. Mon - Sun
+	 * @return the validated TicketDay
+	*/	
 	public static TicketDay validateTicketDayFromUser()
 	{
 		String ticketDay = "";
@@ -349,7 +421,12 @@ public class UserInputValidationController {
 		return t;
 	}
 	
-	public static boolean createDatabaseTableFile(String fileName)
+	/**
+	 * Get a whether the database filename already exists.
+	 * create a new file if it doesn't exist
+	 * @return True or false whether it exist
+	*/	
+	public static boolean createDatabaseFileName(String fileName)
 	{
 		File databaseTableFile = new File(fileName);
 		
@@ -358,19 +435,19 @@ public class UserInputValidationController {
 			
 			if(databaseTableFile.exists())
 			{
-				logger.log(Level.FINE, "DatabaseTableFile exist.");
+				LOGGER.log(Level.FINE, "DatabaseTableFile exist.");
 				return true;
 			}
 			else
 			{
-				logger.log(Level.INFO, "DatabaseTableFile does not exist, create new file");
+				LOGGER.log(Level.INFO, "DatabaseTableFile does not exist, create new file");
 				databaseTableFile.createNewFile();
 				return true;
 			}
 		}catch(Exception e)
 		{
 			
-			logger.log(Level.SEVERE, "createDatabaseTableFile exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "createDatabaseTableFile exception occured : " + e.getLocalizedMessage());
 		}
 		return false;
 		

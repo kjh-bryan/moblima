@@ -11,9 +11,18 @@ import entity.MovieGoer;
 import entity.Review;
 import global.Constants;
 
+/**
+ * This class represents the view for MovieGoer selects a Movie
+ * and will be shown all the description of Movie attributes
+*/
+
 public class ViewMovieDetailView {
 	
-	public static void view_movie_detail_view()
+	
+	/**
+	 * User will be shown the Movie Details upon entering the Movie ID
+	*/
+	public static void viewMovieDetailView()
 	{
 		boolean goBack = false;
 		
@@ -29,7 +38,7 @@ public class ViewMovieDetailView {
 			if(movieId == 0)return;
 			else
 			{
-				Movie choosenMovie = display_movie_detail(MovieController.getShowingMovieByMovieId(movieId));
+				Movie choosenMovie = displayMovieDetail(MovieController.getShowingMovieByMovieId(movieId));
 
 				if(choosenMovie != null)
 				{
@@ -40,12 +49,12 @@ public class ViewMovieDetailView {
 							goBack = true;
 							// show time options
 							
-							MovieShowTimeView.show_time_view(choosenMovie);
+							MovieShowTimeView.showTimeView(choosenMovie);
 					}
 					else if(choice == 2)
 					{
 						
-						EnterReviewView.check_login_before_book_seat_view(choosenMovie);
+						EnterReviewView.checkLoginBeforeReviewView(choosenMovie);
 					}
 					else
 					{
@@ -56,13 +65,18 @@ public class ViewMovieDetailView {
 		}
 	}
 	
-	public static Movie display_movie_detail(Movie movie)
+	/**
+	 * User will be shown the Movie Details upon entering the Movie ID
+	 * @param movie				The Movie Details to be shown
+	 * @return The movie after it printed the details
+	*/
+	public static Movie displayMovieDetail(Movie movie)
 	{
 		
 		if(movie != null)
 		{
 			System.out.println("======================================================");
-			System.out.println("==========Movie ID: "+movie.getMovieId()+"=============");
+			System.out.println("========== Movie ID: "+movie.getMovieId()+" =============");
 			System.out.println("======================================================");
 			System.out.println(movie.getMovieTitle());
 			System.out.println(movie.getMovieClassifiedRating());
@@ -89,17 +103,17 @@ public class ViewMovieDetailView {
 			System.out.println("Runtime");
 			System.out.println(movie.getMovieDurationInMins()+"mins");
 			System.out.println("Opening");
-			System.out.println(movie.getMovieStartDateToString());
+			System.out.println(movie.getMovieReleaseDateToString());
 			
 			if(movie.getMovieReviews().size() > 1)
 			{
-				System.out.println("Movie Overall Rating : " + movie.getMovieOverallRating());
+				System.out.println("Movie Overall Rating : " + movie.getMovieOverallRatingOrNA());
 				System.out.println("==============================");
 				System.out.println("========== Reviews ===========");
 				for(Review r : movie.getMovieReviews())
 				{
 					System.out.println("====================");
-					MovieGoer movieGoer = MovieGoerController.getMovieGoerByMovieGoerId(r.getMovieGoerReviewerId());
+					MovieGoer movieGoer = MovieGoerController.getMovieGoerByMovieGoerId(r.getMovieGoerId());
 					System.out.println("Rating : " +r.getReviewRating()  + "\t\t" + r.getReviewDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 					System.out.println(movieGoer.getName());
 					System.out.println(r.getReviewDescription());

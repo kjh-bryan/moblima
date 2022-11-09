@@ -14,27 +14,42 @@ import entity.Cinema;
 import entity.CinemaClass;
 import entity.CinemaShowTime;
 import entity.MovieGoer;
-import entity.SeatingCapacity;
+import entity.SeatingLayout;
 import entity.Ticket;
 import entity.Transaction;
 
 public class TransactionController {
+	/**
+	 * Separator used as String Token to separate data in text file
+	 */
 	private static final String SEPARATOR = "|";
-	private static final String databaseTableName = "src/database/transaction.txt";
-
-	private final static Logger logger = Logger.getLogger(TransactionController.class.getName());
-	public static void createTransaction(Transaction transaction)
+	/**
+	 * Database Filename consist of transaction's information
+	 */
+	private static final String DATABASE_FILENAME = "src/database/transaction.txt";
+	/**
+	 * Logger for debugging purposes
+	 */
+	private final static Logger LOGGER = Logger.getLogger(TransactionController.class.getName());
+	
+	
+	/**
+	 * CREATE a Transaction, adding into the database file with separator |
+	 * e.g. transactionId|totalPrice|cinemaShowTimeId|movieGoerId|transactionDate
+	 * @param newTransaction 		New Transaction to be added
+	 */
+	public static void createTransaction(Transaction newTransaction)
 	{
 		try {
-		UserInputValidationController.createDatabaseTableFile(databaseTableName);
+		UserInputValidationController.createDatabaseFileName(DATABASE_FILENAME);
 
-		PrintWriter out = new PrintWriter(new FileOutputStream(databaseTableName,true));
+		PrintWriter out = new PrintWriter(new FileOutputStream(DATABASE_FILENAME,true));
 		
-		out.append(transaction.getTransactionId() + 
-				SEPARATOR + transaction.getTotalPrice()+"" + 
-				SEPARATOR + transaction.getShowTimeId() +
-				SEPARATOR+ transaction.getMovieGoerId() + 
-				SEPARATOR+ transaction.getTransactionDate() + 
+		out.append(newTransaction.getTransactionId() + 
+				SEPARATOR + newTransaction.getTotalPrice()+"" + 
+				SEPARATOR + newTransaction.getCinemaShowTimeId() +
+				SEPARATOR+ newTransaction.getMovieGoerId() + 
+				SEPARATOR+ newTransaction.getTransactionDate() + 
 				"\n");
 		
 		
@@ -42,16 +57,22 @@ public class TransactionController {
 		}
 		catch(Exception e)
 		{
-			logger.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.SEVERE, "createTransaction() exception occured : " + e.getLocalizedMessage());
 		}
 		
 	}
 	
+	/**
+	 * READ all the Transaction in the Database file, 
+	 * Store the result in an arraylist of Transaction
+	 * return empty array list if no Transaction exist
+	 * @return  an array list of all Transaction 
+	 */
 	private static ArrayList<Transaction> getAllTransactionList() {
 		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new FileInputStream(databaseTableName));
+			sc = new Scanner(new FileInputStream(DATABASE_FILENAME));
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
@@ -61,11 +82,12 @@ public class TransactionController {
 				int movieGoerId  = Integer.parseInt(stringTokenizer.nextToken().trim());
 				LocalDateTime transactionDateTime = LocalDateTime.parse(stringTokenizer.nextToken().trim());
 				
+				
 				ArrayList<Ticket> ticketList = TicketController.getTicketsByTransactionId(transactionId);
 				transactionList.add(new Transaction(transactionId,totalPrice,showTimeId, movieGoerId,ticketList,transactionDateTime));
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "getAllTransactionList() exception occured : " + e.getLocalizedMessage() + " : " + e.getMessage());
+			LOGGER.log(Level.SEVERE, "getAllTransactionList() exception occured : " + e.getLocalizedMessage() + " : " + e.getMessage());
 		} finally {
 			if(sc != null)
 			{
@@ -77,6 +99,14 @@ public class TransactionController {
 		return transactionList;
 	}
 	
+	/**
+	 * READ all the Transaction in array list by getAllTransactionList()
+	 * Check if the Transaction's belong to the movieGoerId
+	 * Store into an array list of Transaction if it does
+	 * return empty array list if no Transaction exist for that movieGoerId
+	 * @param movieGoerId 			Transaction's MovieGoer ID
+	 * @return  an array list of all Transaction by that MovieGoer ID
+	 */
 	public static ArrayList<Transaction> getTransactionsByMovieGoerId(int movieGoerId)
 	{
 		ArrayList<Transaction> transactionList = getAllTransactionList();
@@ -91,6 +121,31 @@ public class TransactionController {
 		}
 		
 		return transactionsByMovieGoerIdList;
+		
+	}
+	
+	/**
+	 * READ all the Transaction in array list by getAllTransactionList()
+	 * Check if the transactionId matches
+	 * Store into an array list of Transaction if it does
+	 * return empty array list if no Transaction exist for that transactionId
+	 * @param transactionId 			Transaction's ID
+	 * @return  an array list of all Transaction by that transactionId
+	 */
+	public static Transaction getTransactionByTranasctionId(String transactionId)
+	{
+		ArrayList<Transaction> transactionList = getAllTransactionList();
+		Transaction transaction = null;
+		
+		for(Transaction t: transactionList)
+		{
+			if(t.getTransactionId() == transactionId)
+			{
+				transaction = t;
+			}
+		}
+		
+		return transaction;
 		
 		
 		

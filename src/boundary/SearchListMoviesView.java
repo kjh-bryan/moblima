@@ -8,9 +8,20 @@ import entity.Movie;
 import entity.MovieClassifiedRating;
 import global.Constants;
 
+/**
+ * This class the View when User selected Explore Movies option
+ *	A list of options will be available for User to further select
+ *	
+*/
+
 public class SearchListMoviesView {
 	
-	public static void search_list_movies_view()
+	/**
+	 * The view to be shown to User, to select an options of
+	 * List All Movies, Search by Movie ID or Title, List Top 5 Movies
+	 * or Go Back
+	*/
+	public static void searchListMoviesView()
 	{
 		boolean goBack = false;
 		
@@ -32,57 +43,56 @@ public class SearchListMoviesView {
 			{
 				case 1:	// List all movies
 					
-					movie = list_all_movies();
+					movie = listAllMovies();
 					System.out.println();
 					if(movie != null)
 					{
 						goBack = true;
-						Movie choosenMovie = ViewMovieDetailView.display_movie_detail(movie);
+						Movie choosenMovie = ViewMovieDetailView.displayMovieDetail(movie);
 						if(choosenMovie != null)
 						{
 							
-							MovieShowTimeView.show_time_view(choosenMovie);
+							MovieShowTimeView.showTimeView(choosenMovie);
 						}
 						return;
 					}
 					
 					break;
 				case 2:	// Search movie by ID
-					movie = search_movies_by_id();
+					movie = searchMovieById();
 
 					System.out.println();
 					
 					if(movie != null)
 					{
 						goBack = true;
-						Movie choosenMovie = ViewMovieDetailView.display_movie_detail(movie);
+						Movie choosenMovie = ViewMovieDetailView.displayMovieDetail(movie);
 						if(choosenMovie != null)
 						{
 							
-							MovieShowTimeView.show_time_view(choosenMovie);
+							MovieShowTimeView.showTimeView(choosenMovie);
 						}
 						return;
 					}
 					break;
 				case 3:	// Search movie by Title
-					movie = search_movies_by_title();
+					movie = searchMoviesByTitle();
 					System.out.println();
 					if(movie != null)
 					{
 						goBack = true;
-						Movie choosenMovie = ViewMovieDetailView.display_movie_detail(movie);
+						Movie choosenMovie = ViewMovieDetailView.displayMovieDetail(movie);
 						if(choosenMovie != null)
 						{
 							
-							MovieShowTimeView.show_time_view(choosenMovie);
+							MovieShowTimeView.showTimeView(choosenMovie);
 						}
 						return;
 					}
 					break;
 				case 4:	//List Top 5 Movies
-					ListTop5View.list_top_5_view();
+					ListTop5View.listTop5View();
 					return;	
-				
 				case 0:	// Go Back
 					return;
 				default:
@@ -92,7 +102,12 @@ public class SearchListMoviesView {
 		}
 	}
 	
-	protected static void display_movie_list(ArrayList<Movie> movieList) {
+	
+	/**
+	 * Print out all the movie details in the array list 
+	 * @param movieList			List of Movie to be displayed
+	*/
+	protected static void printMovieListDetails(ArrayList<Movie> movieList) {
 
 		
 		if(!movieList.isEmpty())
@@ -104,7 +119,13 @@ public class SearchListMoviesView {
 		}
 	}
 	
-	private static Movie list_all_movies()
+	/**
+	 * The View to be shown when User select option 1 to List All Movies
+	 * Gets all showing movie in the database using the controller
+	 * User can then select the Movie by entering the Movie ID
+	 * @return	the Movie if User selected 
+	*/
+	private static Movie listAllMovies()
 	{
 
 		ArrayList<Movie> movieList = MovieController.getAllShowingMovie();
@@ -113,7 +134,7 @@ public class SearchListMoviesView {
 			System.out.println("No movies available");
 			return null;
 		}
-		display_movie_list(movieList);
+		printMovieListDetails(movieList);
 		boolean goBack = false;
 		
 		while(!goBack)
@@ -140,8 +161,13 @@ public class SearchListMoviesView {
 		}
 		return null;
 	}
-	
-	public static Movie search_movies_by_title() {
+	/**
+	 * The View to be shown when User select option 3 to Search By Movie Title
+	 * Gets all showing movie in the database that contains the Title
+	 * User can then select the Movie by entering the Movie ID
+	 * @return	the Movie if User selected 
+	*/
+	public static Movie searchMoviesByTitle() {
 		
 		boolean goBack = false;
 		
@@ -176,9 +202,15 @@ public class SearchListMoviesView {
 		
 	}
 	
+	/**
+	 * The View to be shown after entering a Movie Title after selecting the
+	 * option of Search By Title
+	 * User can then select the Movie by entering the Movie ID
+	 * @return	the Movie if User selected 
+	*/
 	public static Movie selectOneMovieFromMovieTitle(ArrayList<Movie> movieList)
 	{
-		display_movie_list(movieList);
+		printMovieListDetails(movieList);
 		boolean goBack = false;
 		while(!goBack)
 		{
@@ -221,7 +253,13 @@ public class SearchListMoviesView {
 		
 	}
 	
-	public static Movie search_movies_by_id()
+	
+	/**
+	 * The View to be shown after User select Option 2 to Search By Movie ID
+	 * User can then select the Movie by entering the Movie ID
+	 * @return	the Movie if User selected 
+	*/
+	public static Movie searchMovieById()
 	{
 		boolean goBack = false;
 		
@@ -230,9 +268,7 @@ public class SearchListMoviesView {
 			System.out.println("\n------------------------------");
 			System.out.println("MOBLIMA - Search Movie by Movie ID");
 			System.out.println("------------------------------");
-			System.out.println("Enter Movie ID to view details");
-			System.out.println("or  ");
-			System.out.println("Enter 0 to go back");
+			System.out.println("Enter Movie ID to view details (Enter 0 to go back)");
 			System.out.println("------------------------------");
 			System.out.println();
 			
@@ -252,7 +288,10 @@ public class SearchListMoviesView {
 		return null;
 	}
 	
-	
+	/**
+	 * Print out the Movie Brief Description
+	 * @param	movie 			The movie to be printed
+	*/
 	public static void printMovieBriefDescription(Movie movie)
 	{
 		int movieId = movie.getMovieId();
@@ -278,13 +317,13 @@ public class SearchListMoviesView {
 		}
 		
 		String divider = generateDivider(longestWord);
-		String movieIdString = getMovieDescriptionString("Movie ID: " + movieId,divider);
-		String titleString = getMovieDescriptionString(title,divider);
-		String movieGenreString = getMovieDescriptionString(movieGenre,divider);
-		String emptySpace = getMovieDescriptionString("", divider);
-		String movieClassifiedRatingString = getMovieDescriptionString(movieClassifiedRating+"",divider);
-		String movieDurationInMinsString = getMovieDescriptionString(movieDurationInMins+"mins",divider);
-		String movieLanguageString = getMovieDescriptionString(movieLanguage,divider);
+		String movieIdString = formatMovieDescriptionString("Movie ID: " + movieId,divider);
+		String titleString = formatMovieDescriptionString(title,divider);
+		String movieGenreString = formatMovieDescriptionString(movieGenre,divider);
+		String emptySpace = formatMovieDescriptionString("", divider);
+		String movieClassifiedRatingString = formatMovieDescriptionString(movieClassifiedRating+"",divider);
+		String movieDurationInMinsString = formatMovieDescriptionString(movieDurationInMins+"mins",divider);
+		String movieLanguageString = formatMovieDescriptionString(movieLanguage,divider);
 		System.out.println(divider);
 		System.out.println(movieIdString);
 		System.out.println(emptySpace);
@@ -297,7 +336,13 @@ public class SearchListMoviesView {
 		System.out.println(divider);
 	}
 	
-	public static String getMovieDescriptionString(String details, String totalCharacters)
+	/**
+	 * Format the string to fit the the movie description
+	 * @param	details 			The movie to be printed
+	 * @param	totalCharacters 			The movie to be printed
+	 * @return	 The combined description
+	*/
+	public static String formatMovieDescriptionString(String details, String totalCharacters)
 	{
 		int totalLength = totalCharacters.length();
 		int detailsLength = details.length();
@@ -311,6 +356,11 @@ public class SearchListMoviesView {
 		return filledSpace;
 	}
 	
+	/**
+	 * Generate the length of divided according to movieTitle length
+	 * @param	movieTitle 			The movie Title
+	 * @return	a String of equal symbol that makes up a divider
+	*/
 	public static String generateDivider(String movieTitle)
 	{
 		String divider = "";

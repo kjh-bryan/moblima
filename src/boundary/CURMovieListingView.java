@@ -12,9 +12,20 @@ import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
 import entity.MovieType;
 
+/**
+ * This class represents the view for Admin
+ * when Create/Update/Remove movie listing is selected
+ * and Admin wishes to make changes to the corresponding information
+*/
+
 public class CURMovieListingView {
 	
-	public static void cur_movie_listing_view()
+	/**
+	 * Display the choice for Admin
+	 * Create / Update or Remove 
+	 * a Movie Listing
+	*/
+	public static void curMovieListingView()
 	{
 		boolean selectedExit = false;
 		
@@ -31,13 +42,13 @@ public class CURMovieListingView {
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
 				case 1:
-					create_movie_listing_view();
+					createMovieListingView();
 					break;
 				case 2:
-					update_movie_listing_view();
+					updateMovieListingView();
 					break;
 				case 3:
-					delete_movie_listing_view();
+					deleteMovieListingView();
 					
 
 					break;
@@ -51,7 +62,13 @@ public class CURMovieListingView {
 			}
 		}
 	}
-	public static void create_movie_listing_view()
+	
+	
+	/**
+	 * Create View for Admin
+	 * A new movie is to be created
+	*/
+	public static void createMovieListingView()
 
 	
 	{
@@ -93,7 +110,7 @@ public class CURMovieListingView {
 		System.out.println( "Enter End Date (yyyy-MM-dd): ");
 		String endDate = UserInputValidationController.validateLocalDateFromUser();
 		
-		LocalDate movieStartDate = LocalDate.parse(startDate);
+		LocalDate movieReleaseDate = LocalDate.parse(startDate);
 		LocalDate movieEndDate = LocalDate.parse(endDate);
 		
 		
@@ -168,7 +185,7 @@ public class CURMovieListingView {
 				break;
 		}
 		
-		Movie movie = new Movie(id,movieTitle, movieShowingStatus, movieStartDate, movieEndDate, movieSynopsis, movieDirector, id, movieCasts, null, movieClassifiedRating, movieGenre, movieDuration, movieLanguage, movieType);
+		Movie movie = new Movie(id,movieTitle, movieShowingStatus, movieReleaseDate, movieEndDate, movieSynopsis, movieDirector, -1, movieCasts, null, movieClassifiedRating, movieGenre, movieDuration, movieLanguage, movieType,null);
 		boolean success = MovieController.createMovie(movie);
 		
 		if(success)
@@ -182,7 +199,13 @@ public class CURMovieListingView {
 		
 	}
 
-	public static void update_movie_listing_view()
+	/**
+	 * Update View for Admin
+	 * Admin can  update a Movie Details
+	 * Admin can also configure the Movie Showing Status to End Of Show
+	 * so that the Movie won't be shown
+	*/
+	public static void updateMovieListingView()
 	{
 		printAllMovies();
 
@@ -264,7 +287,7 @@ public class CURMovieListingView {
 				System.out.println( "Enter new Start Date (yyyy-MM-dd): ");
 				String startDate = UserInputValidationController.validateLocalDateFromUser();
 				LocalDate movieStartDate = LocalDate.parse(startDate);
-				movie.setMovieStartDate(movieStartDate);
+				movie.setMovieReleaseDate(movieStartDate);
 				break;
 
 			case 5:
@@ -345,7 +368,11 @@ public class CURMovieListingView {
 		MovieController.updateMovieByMovie(movie);
 	}
 	
-	public static void delete_movie_listing_view()
+	/**
+	 * Delete View for Admin
+	 * Admin can delete a Movie from the database
+	*/
+	public static void deleteMovieListingView()
 	{
 		printAllMovies();
 		System.out.println();
@@ -362,7 +389,10 @@ public class CURMovieListingView {
 		printAllMovies();
 	}
 	
-	
+	/**
+	 * A method to print all movies in the database
+	 * Admin can select a movie from the list to Update or Delete
+	*/
 	public static void printAllMovies()
 	{
 		ArrayList<Movie> movieList = MovieController.getAllMovies();
@@ -373,7 +403,7 @@ public class CURMovieListingView {
 		}
 		for(Movie m : movieList)
 		{
-			ViewMovieDetailView.display_movie_detail(m);
+			ViewMovieDetailView.displayMovieDetail(m);
 		}
 	}
 
