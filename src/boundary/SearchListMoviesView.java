@@ -48,12 +48,7 @@ public class SearchListMoviesView {
 					if(movie != null)
 					{
 						goBack = true;
-						Movie choosenMovie = ViewMovieDetailView.displayMovieDetail(movie);
-						if(choosenMovie != null)
-						{
-							
-							MovieShowTimeView.showTimeView(choosenMovie);
-						}
+						ViewMovieDetailView.viewMovieDetailView(movie);
 						return;
 					}
 					
@@ -66,12 +61,8 @@ public class SearchListMoviesView {
 					if(movie != null)
 					{
 						goBack = true;
-						Movie choosenMovie = ViewMovieDetailView.displayMovieDetail(movie);
-						if(choosenMovie != null)
-						{
-							
-							MovieShowTimeView.showTimeView(choosenMovie);
-						}
+
+						ViewMovieDetailView.viewMovieDetailView(movie);
 						return;
 					}
 					break;
@@ -81,12 +72,8 @@ public class SearchListMoviesView {
 					if(movie != null)
 					{
 						goBack = true;
-						Movie choosenMovie = ViewMovieDetailView.displayMovieDetail(movie);
-						if(choosenMovie != null)
-						{
-							
-							MovieShowTimeView.showTimeView(choosenMovie);
-						}
+
+						ViewMovieDetailView.viewMovieDetailView(movie);
 						return;
 					}
 					break;

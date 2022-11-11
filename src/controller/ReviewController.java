@@ -49,8 +49,8 @@ public class ReviewController {
 				StringTokenizer stringTokenizer = new StringTokenizer(line, SEPARATOR);
 				int reviewId = Integer.parseInt(stringTokenizer.nextToken().trim());
 				int movieId = Integer.parseInt(stringTokenizer.nextToken().trim());
-				int reviewRating = Integer.parseInt(stringTokenizer.nextToken().trim());
 				int movieGoerId = Integer.parseInt(stringTokenizer.nextToken().trim());
+				int reviewRating = Integer.parseInt(stringTokenizer.nextToken().trim());
 				String reviewDescription = stringTokenizer.nextToken().trim();
 				LocalDateTime reviewDate = LocalDateTime.parse(stringTokenizer.nextToken().trim());
 				

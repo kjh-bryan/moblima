@@ -135,7 +135,7 @@ public class ListTop5View {
 			
 			System.out.println("=======================================================");
 			System.out.println("======================");
-			System.out.println("Movie Rating : " +movie.getMovieOverallRating() + "/5");
+			System.out.println("Movie Rating : " +movie.getMovieOverallRatingOrNA());
 			System.out.println("======================");
 			SearchListMoviesView.printMovieBriefDescription(movie);
 			System.out.println("=======================================================");

@@ -12,80 +12,66 @@ import entity.Review;
 import global.Constants;
 
 /**
- * This class represents the view for MovieGoer selects a Movie
- * and will be shown all the description of Movie attributes
-*/
+ * This class represents the view for MovieGoer selects a Movie and will be
+ * shown all the description of Movie attributes
+ */
 
 public class ViewMovieDetailView {
-	
-	
+
 	/**
 	 * User will be shown the Movie Details upon entering the Movie ID
-	*/
-	public static void viewMovieDetailView()
-	{
+	 */
+	public static void viewMovieDetailView(Movie movie) {
 		boolean goBack = false;
-		
-		while(!goBack)
-		{
+
+		while (!goBack) {
 			System.out.println("\n------------------------------");
 			System.out.println("MOBLIMA - View Movie Detail");
 			System.out.println("------------------------------");
-			System.out.println("\nEnter the Movie ID to View Movie Detail (Enter 0 to Go Back) :");
 			System.out.println();
-			
-			int movieId = UserInputValidationController.validateNumberFromUser();
-			if(movieId == 0)return;
-			else
-			{
-				Movie choosenMovie = displayMovieDetail(MovieController.getShowingMovieByMovieId(movieId));
 
-				if(choosenMovie != null)
-				{
-					System.out.println("Would you like to see the showtimes or make a review? (1 for showtimes, 2 for make a review, 0 for Go back)");
-					int choice = UserInputValidationController.validateNumberFromUser();
-					if(choice == 1)
-					{
-							goBack = true;
-							// show time options
-							
-							MovieShowTimeView.showTimeView(choosenMovie);
-					}
-					else if(choice == 2)
-					{
-						
-						EnterReviewView.checkLoginBeforeReviewView(choosenMovie);
-					}
-					else
-					{
-						// Empty else statement
-					}
+			Movie choosenMovie = displayMovieDetail(movie);
+
+			if (choosenMovie != null) {
+				System.out.println(
+						"Would you like to see the showtimes or make a review? (1 for showtimes, 2 for make a review, 0 for Go back)");
+				int choice = UserInputValidationController.validateNumberFromUser();
+				if (choice == 1) {
+					goBack = true;
+					// show time options
+					MovieShowTimeView.showTimeView(choosenMovie);
+				} else if (choice == 2) {
+
+					EnterReviewView.checkLoginBeforeReviewView(choosenMovie);
+				} else if(choice == 0){
+					// Empty else statement
+					
+					return;
 				}
 			}
 		}
+
 	}
-	
+
 	/**
 	 * User will be shown the Movie Details upon entering the Movie ID
-	 * @param movie				The Movie Details to be shown
+	 * 
+	 * @param movie The Movie Details to be shown
 	 * @return The movie after it printed the details
-	*/
-	public static Movie displayMovieDetail(Movie movie)
-	{
-		
-		if(movie != null)
-		{
+	 */
+	public static Movie displayMovieDetail(Movie movie) {
+
+		if (movie != null) {
 			System.out.println("======================================================");
-			System.out.println("========== Movie ID: "+movie.getMovieId()+" =============");
+			System.out.println("========== Movie ID: " + movie.getMovieId() + " =============");
 			System.out.println("======================================================");
 			System.out.println(movie.getMovieTitle());
 			System.out.println(movie.getMovieClassifiedRating());
 			System.out.println(movie.getMovieType().getMovieType());
 			System.out.println("Cast");
 			String castsName = "";
-			for(Cast c: movie.getMovieCasts())
-			{
-				castsName +=c.getCastName() + ", ";
+			for (Cast c : movie.getMovieCasts()) {
+				castsName += c.getCastName() + ", ";
 			}
 			castsName = castsName.replaceAll(", $", "");
 			System.out.println(castsName);
@@ -101,36 +87,32 @@ public class ViewMovieDetailView {
 			System.out.println("Rating");
 			System.out.println(movie.getMovieClassifiedRating().getMovieClassifiedRating());
 			System.out.println("Runtime");
-			System.out.println(movie.getMovieDurationInMins()+"mins");
+			System.out.println(movie.getMovieDurationInMins() + "mins");
 			System.out.println("Opening");
 			System.out.println(movie.getMovieReleaseDateToString());
-			
-			if(movie.getMovieReviews().size() > 1)
-			{
+
+			if (movie.getMovieReviews().size() > 1) {
 				System.out.println("Movie Overall Rating : " + movie.getMovieOverallRatingOrNA());
-				System.out.println("==============================");
-				System.out.println("========== Reviews ===========");
-				for(Review r : movie.getMovieReviews())
-				{
-					System.out.println("====================");
+				System.out.println("=================================================");
+				System.out.println("==================== Reviews ====================");
+				for (Review r : movie.getMovieReviews()) {
+					System.out.println("=====================================");
 					MovieGoer movieGoer = MovieGoerController.getMovieGoerByMovieGoerId(r.getMovieGoerId());
-					System.out.println("Rating : " +r.getReviewRating()  + "\t\t" + r.getReviewDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+					System.out.println("Rating : " + r.getReviewRating() + "\t\t"
+							+ r.getReviewDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 					System.out.println(movieGoer.getName());
 					System.out.println(r.getReviewDescription());
-					System.out.println("====================");
+					System.out.println("=====================================");
 				}
-				System.out.println("==============================");
+				System.out.println("=================================================");
+				
 			}
-			
-			
-			
+
 			System.out.println("======================================================");
 			System.out.println();
 
 			return movie;
-		}
-		else
-		{
+		} else {
 			System.out.println("No such movie exists.");
 			return null;
 		}

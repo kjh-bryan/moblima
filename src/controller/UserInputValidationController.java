@@ -161,23 +161,18 @@ public class UserInputValidationController {
 		boolean isValid = false;
 		while(!isValid)
 		{
-			if(SCANNER.hasNext())
+			while(input.equals(""))
 			{
-				input = SCANNER.next();
-				if(input.length() > 1)
-				{
-					isValid = true;
-				}
-				else
+				input = SCANNER.nextLine();
+				if(input.length() < 1)
 				{
 					System.out.println(Constants.INVALID_STRING);
 				}
+				else
+				{
+					isValid = true;
+				}
 			}
-			else
-			{
-				System.out.println(Constants.INVALID_STRING);
-			}
-			SCANNER.nextLine();
 		}
 		return input;
 	}

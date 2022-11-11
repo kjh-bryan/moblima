@@ -282,7 +282,7 @@ public class Movie {
 			}
 			rating = rating / movieReviews.size();
 			setMovieOverallRating(rating);
-			return rating+"";
+			return ""+rating+"/5";
 		}
 		else
 		{
