@@ -49,6 +49,11 @@ public class Ticket {
 	 */
 	private boolean isHoliday;
 	
+	/**
+	 * This Ticket to check which type of Movie is it
+	 */
+	private MovieType movieType;
+	
 	/** 
 	 * Create a new Ticket with the given attributes
 	 * @param ticketId					This Ticket's ID
@@ -61,10 +66,11 @@ public class Ticket {
 	 * @param cinemaClass				This Ticket's Cinema Class
 	 * @param ticketPrice				This Ticket's price
 	 * @param isHoliday					This Ticket's day whether its a holiday
+	 * @param movieType					This Ticket check which type of Movie is it
 	 */
 	public Ticket(int ticketId, String transactionId, TicketType ticketType, TicketDay ticketDay,
 			LocalDateTime ticketDateTime, int cinemaShowTimeId, String seatId, CinemaClass cinemaClass,
-			double ticketPrice, boolean isHoliday) {
+			double ticketPrice, boolean isHoliday, MovieType movieType) {
 		this.ticketId = ticketId;
 		this.transactionId = transactionId;
 		this.ticketType = ticketType;
@@ -75,6 +81,7 @@ public class Ticket {
 		this.cinemaClass = cinemaClass;
 		this.ticketPrice = ticketPrice;
 		this.isHoliday = isHoliday;
+		this.movieType = movieType;
 	}
 
 	/** 
@@ -287,5 +294,21 @@ public class Ticket {
 		
 		return weekdayWeekend;
 	}
+	/** 
+	 * Gets the Movie Type of this Ticket (2D,3D)
+	 * @return this Ticket Movie Type
+	 */
+	public MovieType getMovieType() {
+		return movieType;
+	}
+
+	/** 
+	 * Set this Ticket's Movie Type (2D,3D)
+	 * @param movieType 		this Ticket's Movie Type
+	 */
+	public void setMovieType(MovieType movieType) {
+		this.movieType = movieType;
+	}
+	
 	
 }

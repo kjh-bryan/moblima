@@ -21,6 +21,7 @@ import entity.Cinema;
 import entity.CinemaClass;
 import entity.CinemaShowTime;
 import entity.MovieGoer;
+import entity.MovieType;
 import entity.SeatingLayout;
 import entity.Ticket;
 import entity.TicketDay;
@@ -68,7 +69,8 @@ public class TicketController {
 					newTicket.getSeatId() + SEPARATOR +
 					newTicket.getCinemaClass() + SEPARATOR +
 					newTicket.getTicketPrice() + SEPARATOR +
-					newTicket.isHoliday() +"\n");
+					newTicket.isHoliday() + SEPARATOR +
+					newTicket.getMovieType() +"\n");
 			
 			
 			
@@ -105,8 +107,9 @@ public class TicketController {
 				CinemaClass cinemaClass = CinemaClass.valueOf(stringTokenizer.nextToken().trim());
 				Double ticketPrice = Double.parseDouble(stringTokenizer.nextToken().trim());
 				boolean isHoliday = Boolean.parseBoolean(stringTokenizer.nextToken().trim());
+				MovieType movieType = MovieType.valueOf(stringTokenizer.nextToken().trim());
 				
-				ticketList.add(new Ticket(ticketId, transactionId, ticketType, ticketDay, ticketDateTime, cinemaShowTimeId, seatId, cinemaClass, ticketPrice, isHoliday));
+				ticketList.add(new Ticket(ticketId, transactionId, ticketType, ticketDay, ticketDateTime, cinemaShowTimeId, seatId, cinemaClass, ticketPrice, isHoliday,movieType));
 			
 			}
 		} catch (Exception e) {

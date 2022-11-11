@@ -63,11 +63,13 @@ public class TicketPriceController {
 		//Set ticket price according to day or if holiday
 		setTicketPriceOfDay(ticket,cinemaShowTime);
 		
+		//Set movie Type update price
+		setMovieType(ticket,movie);
+		
 		// Check Ticket type according to user's age, skip if Cinema Class is Platinum
 		setTicketType(ticket,movieGoer);
 		
 		// Update ticket based on movie type
-		ticket.updateTicketPrice(getMovieTypePrice(movie));
 		
 		return ticket;
 	}
@@ -272,11 +274,11 @@ public class TicketPriceController {
 		}
 		else
 		{
-			if(movieGoer.getAge() < 21)
+			if(movieGoer.getAge() < 21 && (ticket.getMovieType().equals(MovieType.THREED) || (ticket.getMovieType().equals(MovieType.TWOD))))
 			{
 				ticket.setTicketType(TicketType.STUDENT);
 			}
-			else if (movieGoer.getAge() > 55)
+			else if (movieGoer.getAge() > 55 && !ticket.getMovieType().equals(MovieType.THREED))
 			{
 				ticket.setTicketType(TicketType.SENIOR);
 			}
@@ -289,6 +291,8 @@ public class TicketPriceController {
 		ticket.updateTicketPrice(ticketTypeMap.get(ticket.getTicketType()));
 		
 	}
+	
+	
 	
 	/**
 	 * Check whether the ticket is eligible for type discount (Students, Senior) 
@@ -344,11 +348,13 @@ public class TicketPriceController {
 	}
 	
 	/**
-	 * Gets price of the Movie Type in the database file
-	 * @param  movie 				The Movie
-	 * @return  return the price according to the movie type (2D,3D)
+	 * Set the Movie Type , according to the values in the text file
+	 * 2D or 3D
+	 * update the Ticket price 
+	 * @param ticket 					The ticket to be updated
+	 * @param movie 					Check what the movie type is
 	 */
-	public static double getMovieTypePrice(Movie movie)
+	public static void setMovieType(Ticket ticket,Movie movie)
 	{
 		String databaseFileName = "movie_type.txt";
 		
@@ -372,8 +378,7 @@ public class TicketPriceController {
 				
 			}
 		}
-		
-		return movieTypeMap.get(movie.getMovieType());
+		ticket.updateTicketPrice(movieTypeMap.get(movie.getMovieType()));
 	}
 	
 	/**
