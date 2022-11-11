@@ -215,7 +215,7 @@ public class SystemSettingController {
 	 */
 	public static boolean updateTicketTypePrice(int newTicketTypePrice, TicketType updateTicketType)
 	{
-		String databaseFileName = "movie_type.txt";
+		String databaseFileName = "ticket_type.txt";
 		String tempFile = "temp.txt";
 		boolean updatedSuccessful = false;
 		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
