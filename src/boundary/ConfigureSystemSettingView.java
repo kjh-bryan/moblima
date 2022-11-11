@@ -1,6 +1,7 @@
 package boundary;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -77,7 +78,7 @@ public class ConfigureSystemSettingView {
 				case 8:
 					// Enable/ Disable 
 					updateTop5FilterSystem();
-					
+					break;
 				case 0:
 					return;
 				
@@ -108,8 +109,19 @@ public class ConfigureSystemSettingView {
 		}
 		else
 		{
-			SystemSettingController.updatePrice(baseTicketPrice, "base_ticket_price.txt");
-			
+			boolean success = SystemSettingController.updatePrice(baseTicketPrice, "base_ticket_price.txt");
+			System.out.println();
+			if(success)
+			{
+				System.out.println("Base ticket price have been changed to " + baseTicketPrice);
+				System.out.println("Successful!");
+			}
+			else
+			{
+				System.out.println("Base ticket price could not be changed");
+				System.out.println("Failed!");
+			}
+			System.out.println();
 		}
 		
 	}
@@ -134,10 +146,15 @@ public class ConfigureSystemSettingView {
 				System.out.println("- : " +c);
 			}
 			System.out.println("0: Exit");
+			System.out.println();
 			System.out.println("Enter the Cinema Class to update");
 			System.out.println();
 			cinemaClass = UserInputValidationController.validateCinemaClassFromUser();
-			if(cinemaClass == null)
+			if(cinemaClass != null)
+			{
+				selectedExit = true;
+			}
+			else
 			{
 				selectedExit = true;
 				return;
@@ -149,8 +166,20 @@ public class ConfigureSystemSettingView {
 		
 		System.out.println("Enter a new price for '" + cinemaClass.getCinemaType() + "' :");
 		int cinemaClassPrice = UserInputValidationController.validateNumberFromUser();
-		SystemSettingController.updateCinemaClassPrice(cinemaClassPrice, cinemaClass);
-		
+		boolean success = SystemSettingController.updateCinemaClassPrice(cinemaClassPrice, cinemaClass);
+
+		System.out.println();
+		if(success)
+		{
+			System.out.println("Cinema Class for '" + cinemaClass.getCinemaType() + "' price have been changed to " + cinemaClassPrice);
+			System.out.println("Successful!");
+		}
+		else
+		{
+			System.out.println("Cinema Class price could not be changed");
+			System.out.println("Failed!");
+		}
+		System.out.println();
 		
 	}
 	
@@ -204,7 +233,11 @@ public class ConfigureSystemSettingView {
 			System.out.println("Enter a Movie Type to update");
 			System.out.println();
 			movieType = UserInputValidationController.validateMovieTypeFromUser();
-			if(movieType == null)
+			if(movieType != null)
+			{
+				selectedExit = true;
+			}
+			else
 			{
 				selectedExit = true;
 				return;
@@ -215,10 +248,21 @@ public class ConfigureSystemSettingView {
 		System.out.println();
 		
 		System.out.println("Enter a new price for '" + movieType.getMovieType() + "' :");
-		int cinemaClassPrice = UserInputValidationController.validateNumberFromUser();
-		SystemSettingController.updateMovieTypePrice(cinemaClassPrice, movieType);
+		int movieTypePrice = UserInputValidationController.validateNumberFromUser();
+		boolean success = SystemSettingController.updateMovieTypePrice(movieTypePrice, movieType);
 		
-		
+		System.out.println();
+		if(success)
+		{
+			System.out.println("Movie Type for '" + movieType.getMovieType() + "' price have been changed to " + movieTypePrice);
+			System.out.println("Successful!");
+		}
+		else
+		{
+			System.out.println("Movie Type price could not be changed");
+			System.out.println("Failed!");
+		}
+		System.out.println();
 	}
 	
 	/**
@@ -244,7 +288,11 @@ public class ConfigureSystemSettingView {
 			System.out.println("Enter a Ticket Type to update");
 			System.out.println();
 			ticketType = UserInputValidationController.validateTicketTypeFromUser();
-			if(ticketType == null)
+			if(ticketType != null)
+			{
+				selectedExit = true;
+			}
+			else
 			{
 				selectedExit = true;
 				return;
@@ -256,8 +304,22 @@ public class ConfigureSystemSettingView {
 		
 		System.out.println("Enter a new price for '" + ticketType.getTicketType() + "' :");
 		int ticketTypePrice = UserInputValidationController.validateNumberFromUser();
-		SystemSettingController.updateTicketTypePrice(ticketTypePrice, ticketType);
 		
+		
+		boolean success = SystemSettingController.updateTicketTypePrice(ticketTypePrice, ticketType);
+		
+		System.out.println();
+		if(success)
+		{
+			System.out.println("Ticket Type for '" + ticketType.getTicketType() + "' price have been changed to " + ticketTypePrice);
+			System.out.println("Successful!");
+		}
+		else
+		{
+			System.out.println("Ticket Type price could not be changed");
+			System.out.println("Failed!");
+		}
+		System.out.println();
 	}
 	
 	/**
@@ -284,7 +346,11 @@ public class ConfigureSystemSettingView {
 			System.out.println("Enter a Ticket Day to update");
 			System.out.println();
 			ticketDay = UserInputValidationController.validateTicketDayFromUser();
-			if(ticketDay == null)
+			if(ticketDay != null)
+			{
+				selectedExit = true;
+			}
+			else
 			{
 				selectedExit = true;
 				return;
@@ -296,7 +362,22 @@ public class ConfigureSystemSettingView {
 		
 		System.out.println("Enter a new price for '" + ticketDay.getTicketDay() + "' :");
 		int ticketDayPrice = UserInputValidationController.validateNumberFromUser();
-		SystemSettingController.updateTicketDayPrice(ticketDayPrice, ticketDay);
+		
+		
+		boolean success = SystemSettingController.updateTicketDayPrice(ticketDayPrice, ticketDay);
+		
+		System.out.println();
+		if(success)
+		{
+			System.out.println("Ticket Day for '" + ticketDay.getTicketDay() + "' price have been changed to " + ticketDayPrice);
+			System.out.println("Successful!");
+		}
+		else
+		{
+			System.out.println("Ticket Day price could not be changed");
+			System.out.println("Failed!");
+		}
+		System.out.println();
 		
 	}
 	
@@ -316,8 +397,19 @@ public class ConfigureSystemSettingView {
 		System.out.println("Enter the holiday : ");
 		String holiday = UserInputValidationController.validateStringFromUser();
 		
-		SystemSettingController.addHoliday(holiday, holidayDate);
+		boolean success = SystemSettingController.addHoliday(holiday, holidayDate);
 		
+		if(success)
+		{
+			System.out.println("Added holiday '" + holiday + "' on " + holidayDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+			System.out.println("Successful!");
+		}
+		else
+		{
+			System.out.println("Holiday could not be added!");
+			System.out.println("Failed!");
+		}
+		System.out.println();
 	}
 	
 	/**
@@ -350,7 +442,19 @@ public class ConfigureSystemSettingView {
 		}
 		else if(choice > 0 && choice < filterList.size()+1)
 		{
-			SystemSettingController.updateFilterSystem(filterList.get(choice-1));
+			boolean success = SystemSettingController.updateFilterSystem(filterList.get(choice-1));
+			if(success)
+			{
+				String changedFilter = filterSettings.get(filterList.get(choice-1)) ? "disabled" : "enabled" ;
+				System.out.println("'" + filterList.get(choice-1)+ "' has been " + changedFilter);
+				System.out.println("Successful!");
+			}
+			else
+			{
+				System.out.println("Filter could not be changed!");
+				System.out.println("Failed!");
+			}
+			System.out.println();
 		}
 		else
 		{

@@ -46,9 +46,11 @@ public class SystemSettingController {
 	 * e.g. movie_type / holiday
 	 * @param newPrice 				New price to be changed to
 	 * @param databaseFileName 		Database File Name price changes
+	 * @return True if successful, false otherwise
 	 */
-	public static void updatePrice(int newPrice, String databaseFileName)
+	public static boolean updatePrice(int newPrice, String databaseFileName)
 	{
+		boolean updateSuccessful = false;
 		String tempFile = "temp.txt";
 		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
@@ -79,12 +81,14 @@ public class SystemSettingController {
 			oldFile.delete();
 			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
+			updateSuccessful = true;
 		}
 		catch(Exception e)
 		{
 			LOGGER.log(Level.SEVERE, "updateCinemaClassPrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
+		return updateSuccessful;
 	}
 	
 	/**
@@ -92,15 +96,16 @@ public class SystemSettingController {
 	 * e.g. Standard / Platinum
 	 * @param newCinemaClassPrice 		New CinemaClass Price
 	 * @param updateCinemaClass 		Specific Class to be updated
+	 * @return True if successful, false otherwise
 	 */
-	public static void updateCinemaClassPrice(int newCinemaClassPrice, CinemaClass updateCinemaClass)
+	public static boolean updateCinemaClassPrice(int newCinemaClassPrice, CinemaClass updateCinemaClass)
 	{
 		String databaseFileName = "cinema_class.txt";
 		String tempFile = "temp.txt";
 		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
-		
+		boolean updatedSuccessful = false;
 		try {
 			FileWriter fw = new FileWriter(SYSTEM_SETTING_FOLDER+tempFile,true);
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -132,12 +137,15 @@ public class SystemSettingController {
 			oldFile.delete();
 			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
+			updatedSuccessful = true;
 		}
 		catch(Exception e)
 		{
 			LOGGER.log(Level.SEVERE, "updateCinemaClassPrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
+		
+		return updatedSuccessful;
 	}
 	
 	/**
@@ -145,11 +153,13 @@ public class SystemSettingController {
 	 * e.g. TWOD / THREED
 	 * @param newMovieTypePrice 		New MovieType Price
 	 * @param updateMovieType 		Specific Class to be updated
+	 * @return True if successful, false otherwise
 	 */
-	public static void updateMovieTypePrice(int newMovieTypePrice, MovieType updateMovieType)
+	public static boolean updateMovieTypePrice(int newMovieTypePrice, MovieType updateMovieType)
 	{
 		String databaseFileName = "movie_type.txt";
 		String tempFile = "temp.txt";
+		boolean updatedSuccessful = false;
 		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
@@ -185,12 +195,15 @@ public class SystemSettingController {
 			oldFile.delete();
 			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
+			updatedSuccessful = true;
 		}
 		catch(Exception e)
 		{
 			LOGGER.log(Level.SEVERE, "updateMovieTypePrice() exception occured : " + e.getLocalizedMessage());
 			
 		}
+		
+		return updatedSuccessful;
 	}
 	
 	/**
@@ -198,11 +211,13 @@ public class SystemSettingController {
 	 * e.g. Senior / Student / Standard
 	 * @param newTicketTypePrice 		New TicketType Price
 	 * @param updateTicketType 		Specific Class to be updated
+	 * @return True if successful, false otherwise
 	 */
-	public static void updateTicketTypePrice(int newTicketTypePrice, TicketType updateTicketType)
+	public static boolean updateTicketTypePrice(int newTicketTypePrice, TicketType updateTicketType)
 	{
 		String databaseFileName = "movie_type.txt";
 		String tempFile = "temp.txt";
+		boolean updatedSuccessful = false;
 		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
@@ -238,6 +253,7 @@ public class SystemSettingController {
 			oldFile.delete();
 			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
+			updatedSuccessful = true;
 		}
 		catch(Exception e)
 		{
@@ -245,7 +261,7 @@ public class SystemSettingController {
 			
 		}
 		
-		
+		return updatedSuccessful;
 	}
 	
 	/**
@@ -253,11 +269,13 @@ public class SystemSettingController {
 	 * e.g. Mon - Sun
 	 * @param newTicketDayPrice 		New TicketDay Price
 	 * @param updateTicketDay 		Specific Class to be updated
+	 * @return True if successful, false otherwise
 	 */
-	public static void updateTicketDayPrice(int newTicketDayPrice, TicketDay updateTicketDay)
+	public static boolean updateTicketDayPrice(int newTicketDayPrice, TicketDay updateTicketDay)
 	{
 		String databaseFileName = "ticket_day_price.txt";
 		String tempFile = "temp.txt";
+		boolean updatedSuccessful = false;
 		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
@@ -293,6 +311,7 @@ public class SystemSettingController {
 			oldFile.delete();
 			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
+			updatedSuccessful = true;
 		}
 		catch(Exception e)
 		{
@@ -300,7 +319,7 @@ public class SystemSettingController {
 			
 		}
 		
-		
+		return updatedSuccessful;
 	}
 	
 	
@@ -310,10 +329,12 @@ public class SystemSettingController {
 	 * e.g. 2022-12-25|CHRISTMASDAY
 	 * @param holiday 				Name of the holiday
 	 * @param holidayDate 			LocalDate of the holiday
+	 * @return True if successful, false otherwise
 	 */
-	public static void addHoliday(String holiday, LocalDate holidayDate)
+	public static boolean addHoliday(String holiday, LocalDate holidayDate)
 	{
 		String databaseFileName = "holiday_date.txt";
+		boolean createdSuccessful = false;
 		try {
 		UserInputValidationController.createDatabaseFileName(SYSTEM_SETTING_FOLDER+databaseFileName);
 
@@ -322,14 +343,14 @@ public class SystemSettingController {
 		
 		out.append(holidayDate + SEPARATOR + holiday.toUpperCase() + SEPARATOR +"\n");
 		
-		
+		createdSuccessful = true;
 		out.close();
 		}
 		catch(Exception e)
 		{
 			LOGGER.log(Level.SEVERE, "addHoliday() exception occured : " + e.getLocalizedMessage());
 		}
-		
+		return createdSuccessful;
 	}
 	
 	/**
@@ -368,11 +389,13 @@ public class SystemSettingController {
 	/**
 	 * UPDATE the filter settings to disable or enable
 	 * @param filterToUpdate 		the filter to be updated
+	 * @return True if successful, false otherwise
 	 */
-	public static void updateFilterSystem(String filterToUpdate)
+	public static boolean updateFilterSystem(String filterToUpdate)
 	{
 		String databaseFileName = "top5movies.txt";
 		String tempFile = "temp.txt";
+		boolean updateSuccessful = false;
 		File oldFile = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 		File newFile = new File(SYSTEM_SETTING_FOLDER+tempFile);
 		Scanner sc = null;
@@ -407,6 +430,7 @@ public class SystemSettingController {
 			oldFile.delete();
 			File dump = new File(SYSTEM_SETTING_FOLDER+databaseFileName);
 			newFile.renameTo(dump);
+			updateSuccessful = true;
 		}
 		catch(Exception e)
 		{
@@ -415,6 +439,7 @@ public class SystemSettingController {
 		}
 		
 		
+		return updateSuccessful;
 	}
 	
 	

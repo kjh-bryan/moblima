@@ -309,16 +309,22 @@ public class UserInputValidationController {
 		while(!isValid)
 		{
 			cinemaClass = validateStringFromUser().toUpperCase();
-			c = CinemaClass.valueOf(cinemaClass);
-			if(cinemaClass == "0")
+			if(cinemaClass.equals("0"))
 			{
 				isValid = true;
+				break;
 			}
-			else if(c == null)
+			try
+			{
+				c = CinemaClass.valueOf(cinemaClass);
+			}
+			catch(Exception e)
 			{
 				System.out.println("Cinema Class is invalid");
+				System.out.println();
 			}
-			else
+			
+			if(c != null)
 			{
 				isValid = true;
 			}
@@ -339,16 +345,22 @@ public class UserInputValidationController {
 		while(!isValid)
 		{
 			movieType = validateStringFromUser().toUpperCase();
-			m = MovieType.valueOf(movieType);
-			if(movieType == "0")
+			if(movieType.equals("0"))
 			{
 				isValid = true;
+				break;
 			}
-			else if(m == null)
+			try
+			{
+				m = MovieType.valueOf(movieType);
+			}
+			catch(Exception e)
 			{
 				System.out.println("Movie Type is invalid");
+				System.out.println();
 			}
-			else
+			
+			if (m != null)
 			{
 				isValid = true;
 			}
@@ -368,17 +380,24 @@ public class UserInputValidationController {
 		boolean isValid = false;
 		while(!isValid)
 		{
+			
 			ticketType = validateStringFromUser().toUpperCase();
-			t = TicketType.valueOf(ticketType);
-			if(ticketType == "0")
+			if(ticketType.equals("0"))
 			{
 				isValid = true;
+				break;
 			}
-			else if(t == null)
+			try
+			{
+				t = TicketType.valueOf(ticketType);
+			}
+			catch(Exception e)
 			{
 				System.out.println("Ticket Type is invalid");
+				System.out.println();
 			}
-			else
+			
+			if (t != null)
 			{
 				isValid = true;
 			}
@@ -399,16 +418,22 @@ public class UserInputValidationController {
 		while(!isValid)
 		{
 			ticketDay = validateStringFromUser().toUpperCase();
-			t = TicketDay.valueOf(ticketDay);
-			if(ticketDay == "0")
+			if(ticketDay.equals("0"))
 			{
 				isValid = true;
+				break;
 			}
-			else if(t == null)
+			try
+			{
+				t = TicketDay.valueOf(ticketDay);
+			}
+			catch(Exception e)
 			{
 				System.out.println("Ticket Day is invalid");
+				System.out.println();
 			}
-			else
+			
+			if (t != null)
 			{
 				isValid = true;
 			}
