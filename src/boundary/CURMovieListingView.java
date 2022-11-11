@@ -11,6 +11,8 @@ import entity.Movie;
 import entity.MovieClassifiedRating;
 import entity.MovieShowingStatus;
 import entity.MovieType;
+import entity.Review;
+import entity.Ticket;
 
 /**
  * This class represents the view for Admin
@@ -125,7 +127,7 @@ public class CURMovieListingView {
 		ArrayList<Cast> movieCasts = new ArrayList<Cast>();
 		for(int i = 0; i < numberOfCast; i++)
 		{
-			System.out.println("Enter cast " + i+1 + "'s name: " );
+			System.out.println("Enter cast " + (i+1) + "'s name: " );
 			Cast cast = new Cast(UserInputValidationController.validateStringFromUser());
 			movieCasts.add(cast);
 		}
@@ -184,8 +186,9 @@ public class CURMovieListingView {
 				movieType = MovieType.THREED;
 				break;
 		}
-		
-		Movie movie = new Movie(id,movieTitle, movieShowingStatus, movieReleaseDate, movieEndDate, movieSynopsis, movieDirector, -1, movieCasts, null, movieClassifiedRating, movieGenre, movieDuration, movieLanguage, movieType,null);
+		ArrayList<Review> reviewList = new ArrayList<Review>();
+		ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
+		Movie movie = new Movie(id,movieTitle, movieShowingStatus, movieReleaseDate, movieEndDate, movieSynopsis, movieDirector, -1, movieCasts, reviewList, movieClassifiedRating, movieGenre, movieDuration, movieLanguage, movieType,ticketList);
 		boolean success = MovieController.createMovie(movie);
 		
 		if(success)

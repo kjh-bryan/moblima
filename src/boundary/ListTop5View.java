@@ -62,7 +62,7 @@ public class ListTop5View {
 				if(filterSettings.get(filterByTicketSale))
 				{
 
-					filterByMovieReviews();
+					filterByTicketSale();
 				}
 				else
 				{
@@ -107,7 +107,6 @@ public class ListTop5View {
 		
 		for(Movie movie : movieListByTicketSale)
 		{
-
 			System.out.println("=======================================================");
 			System.out.println("======================");
 			System.out.println("Ticket Sales : " + movie.getTicketSales().size());
@@ -133,7 +132,7 @@ public class ListTop5View {
 		
 		for(Movie movie : movieListByReviews)
 		{
-
+			
 			System.out.println("=======================================================");
 			System.out.println("======================");
 			System.out.println("Movie Rating : " +movie.getMovieOverallRating() + "/5");

@@ -56,7 +56,7 @@ public class MovieGoerController {
 			out.close();
 			return false;
 		}
-		out.append(generateId + SEPARATOR + newMovieGoerAccount.getUsername() + SEPARATOR + newMovieGoerAccount.getPassword() +SEPARATOR+ newMovieGoerAccount.getName() + SEPARATOR + newMovieGoerAccount.getPhone() + SEPARATOR + newMovieGoerAccount.getEmailAddress() +"\n");
+		out.append(generateId + SEPARATOR + newMovieGoerAccount.getUsername() + SEPARATOR + newMovieGoerAccount.getPassword() +SEPARATOR+ newMovieGoerAccount.getName() + SEPARATOR + newMovieGoerAccount.getPhone() + SEPARATOR + newMovieGoerAccount.getEmailAddress() + SEPARATOR + newMovieGoerAccount.getAge()   +"\n");
 		
 		
 		out.close();

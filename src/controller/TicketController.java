@@ -61,7 +61,6 @@ public class TicketController {
 			
 			out.append(generateId+ SEPARATOR + 
 					newTicket.getTransactionId() + SEPARATOR +
-					newTicket.getCinemaShowTimeId() + SEPARATOR +
 					newTicket.getTicketType() + SEPARATOR +  
 					newTicket.getTicketDay()  + SEPARATOR +
 					newTicket.getTicketDateTime().toString()  + SEPARATOR +

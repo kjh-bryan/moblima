@@ -240,13 +240,21 @@ public class MovieController {
 		UserInputValidationController.createDatabaseFileName(DATABASE_FILENAME);
 
 		PrintWriter out = new PrintWriter(new FileOutputStream(DATABASE_FILENAME,true));
+		
 		int generateId = DatabaseController.generateIntegerId(DATABASE_FILENAME);
 		
-		for(Cast c : newMovie.getMovieCasts())
+		if(newMovie.getMovieCasts() != null)
 		{
-			c.setMovieId(newMovie.getMovieId());
-			CastController.createCasts(c);
+			if(!newMovie.getMovieCasts().isEmpty())
+			{
+				for(Cast c : newMovie.getMovieCasts())
+				{
+					c.setMovieId(newMovie.getMovieId());
+					CastController.createCasts(c);
+				}
+			}
 		}
+		
 		
 		out.append(generateId + 
 				SEPARATOR + newMovie.getMovieTitle()+"" + 
@@ -256,7 +264,7 @@ public class MovieController {
 				SEPARATOR+ newMovie.getMovieEndDate() + 
 				SEPARATOR+ newMovie.getMovieSynopsis() + 
 				SEPARATOR+ newMovie.getMovieDirector() + 
-				SEPARATOR+ newMovie.getMovieOverallRatingOrNA() + 
+				SEPARATOR+ newMovie.getMovieOverallRating() + 
 				SEPARATOR+ newMovie.getMovieGenre() + 
 				SEPARATOR+ newMovie.getMovieDurationInMins() + 
 				SEPARATOR+ newMovie.getMovieLanguage() + 
@@ -418,21 +426,22 @@ public class MovieController {
 		{
 			return null;
 		}
+		ArrayList<Movie> moviesByReviewRatingList = new ArrayList<Movie>();
 		for(Movie m : movieList)
 		{
-			if(m.getMovieReviews().isEmpty())
+			if(!m.getMovieReviews().isEmpty())
 			{
-				movieList.remove(m);
+				moviesByReviewRatingList.add(m);
 			}
 		}
-		Collections.sort(movieList, new Comparator<Movie>() {
+		Collections.sort(moviesByReviewRatingList, new Comparator<Movie>() {
 			  @Override
 			  public int compare(Movie m1, Movie m2) {
 			    return Integer.compare(m2.getMovieOverallRating(),m1.getMovieOverallRating());
 			  }
 			});
 		
-		return movieList;
+		return moviesByReviewRatingList;
 	}
 	
 	public static ArrayList<Movie> getMovieSortedByTicketSales()
@@ -444,22 +453,23 @@ public class MovieController {
 		{
 			return null;
 		}
-
+		ArrayList<Movie> moviesByTicketSalesList = new ArrayList<Movie>();
+		
 		for(Movie m : movieList)
 		{
-			if(m.getTicketSales().isEmpty())
+			if(!m.getTicketSales().isEmpty())
 			{
-				movieList.remove(m);
+				moviesByTicketSalesList.add(m);
 			}
 		}
-		Collections.sort(movieList, new Comparator<Movie>() {
+		Collections.sort(moviesByTicketSalesList, new Comparator<Movie>() {
 			  @Override
 			  public int compare(Movie m1, Movie m2) {
 			    return Integer.compare(m2.getTicketSales().size(),m1.getTicketSales().size());
 			  }
 			});
 		
-		return movieList;
+		return moviesByTicketSalesList;
 	}
 	
 }

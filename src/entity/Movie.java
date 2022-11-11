@@ -243,7 +243,11 @@ public class Movie {
 	public void setMovieOverallRatingWithReview(ArrayList<Review> reviewList)
 	{
 		int totalRating = 0;
+		if(reviewList == null)
+			return;
 		
+		if(reviewList.isEmpty())
+			return;
 		for(Review r : reviewList)
 		{
 			r.getReviewRating();

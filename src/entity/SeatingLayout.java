@@ -57,7 +57,7 @@ public class SeatingLayout {
 	public SeatingLayout(int cinemaShowTimeId, ArrayList<String> layoutFromTextFile) {
 		this.cinemaShowTimeId = cinemaShowTimeId;
 		this.layoutFromTextFile = layoutFromTextFile;
-		this.numberOfColumns = getColumnFromTextFile(layoutFromTextFile.get(0)) + 1;
+		this.numberOfColumns = getColumnFromTextFile(layoutFromTextFile.get(1));
 		this.numberOfRows = layoutFromTextFile.size() - 1;
 		this.totalNoOfSeats = 0;
 		this.noOfAvailableSeats = 0;
@@ -111,7 +111,7 @@ public class SeatingLayout {
 	public SeatingLayout(String cinemaCode, ArrayList<String> layoutFromTextFile) {
 		this.cinemaCode = cinemaCode;
 		this.layoutFromTextFile = layoutFromTextFile;
-		this.numberOfColumns = getColumnFromTextFile(layoutFromTextFile.get(0)) + 1;
+		this.numberOfColumns = getColumnFromTextFile(layoutFromTextFile.get(1));
 		this.numberOfRows = layoutFromTextFile.size() - 1;
 		this.totalNoOfSeats = 0;
 		this.noOfAvailableSeats = 0;
@@ -193,6 +193,8 @@ public class SeatingLayout {
 	public void updateSeatLayoutWithSeatId(String seatId) {
 		for (int r = 0; r < numberOfRows; r++) {
 			for (int c = 0; c < numberOfColumns; c++) {
+				if(seats[r][c] == null)
+					continue;
 				if (seats[r][c].getIsSeat()) {
 					if (seats[r][c].getSeatId().equals(seatId)) {
 						seats[r][c].assignSeat();
@@ -212,6 +214,8 @@ public class SeatingLayout {
 		Seat seat = null;
 		for (int r = 0; r < numberOfRows; r++) {
 			for (int c = 0; c < numberOfColumns; c++) {
+				if(seats[r][c] == null)
+					continue;
 				if (seats[r][c].getSeatId().equals(seatId)) {
 					seat = seats[r][c];
 				}
@@ -262,13 +266,15 @@ public class SeatingLayout {
 	 */
 	public int getColumnFromTextFile(String text) {
 
-		int rows = 0;
-		for (int i = 0; i < text.length(); i++) {
-			if (Character.isDigit(text.charAt(i))) {
-				rows++;
+		int columns = 0;
+		for(int i = 0 ; i< text.length();i++)
+		{
+			if(Character.isDigit(text.charAt(i)) || text.charAt(i) == 'x' || text.charAt(i) == '-')
+			{
+				columns++;
 			}
 		}
-		return rows;
+		return columns;
 	}
 
 	/** 

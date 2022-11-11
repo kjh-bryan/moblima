@@ -74,6 +74,7 @@ public class RegisterView {
 			//Todo implement email validator
 			email = UserInputValidationController.validateStringFromUser();
 
+			System.out.println();
 			System.out.print("Please enter your age: ");
 			age = UserInputValidationController.validateNumberFromUser();
 			System.out.println();
