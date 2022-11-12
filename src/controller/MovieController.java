@@ -321,7 +321,7 @@ public class MovieController {
 				String movieGenre = sc.next();
 				int movieDurationInMins = Integer.parseInt(sc.next());
 				String movieLanguage = sc.next();
-				MovieType movieType = MovieType.valueOf(sc.next());
+				MovieType movieType = MovieType.valueOf(sc.next().trim());
 				if(movieId == updatedMovie.getMovieId())
 				{
 					pw.println(updatedMovie.getMovieId()+SEPARATOR+updatedMovie.getMovieTitle()+SEPARATOR+updatedMovie.getMovieShowingStatus()+SEPARATOR+updatedMovie.getMovieClassifiedRating()
@@ -390,7 +390,7 @@ public class MovieController {
 				String movieGenre = sc.next();
 				int movieDurationInMins = Integer.parseInt(sc.next());
 				String movieLanguage = sc.next();
-				MovieType movieType = MovieType.valueOf(sc.next());
+				MovieType movieType = MovieType.valueOf(sc.next().trim());
 				
 				if(movieId != deletedMovieId)
 				{
