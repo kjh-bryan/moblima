@@ -385,6 +385,7 @@ public class TicketPriceController {
 				
 			}
 		}
+		ticket.setMovieType(movie.getMovieType());
 		ticket.updateTicketPrice(movieTypeMap.get(movie.getMovieType()));
 	}
 	
