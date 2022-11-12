@@ -41,8 +41,8 @@ public class ViewMovieDetailView {
 						"Would you like to see the showtimes or make a review? (1 for showtimes, 2 for make a review, 0 for Go back)");
 				int choice = UserInputValidationController.validateNumberFromUser();
 				if (choice == 1) {
-					goBack = true;
 					// show time options
+					goBack = true;
 					if(choosenMovie.getMovieShowingStatus().equals(MovieShowingStatus.COMING_SOON)
 							|| choosenMovie.getMovieShowingStatus().equals(MovieShowingStatus.END_OF_SHOW))
 					{
@@ -57,7 +57,7 @@ public class ViewMovieDetailView {
 					EnterReviewView.checkLoginBeforeReviewView(choosenMovie);
 				} else if(choice == 0){
 					// Empty else statement
-					
+
 					return;
 				}
 			}

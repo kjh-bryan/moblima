@@ -32,7 +32,11 @@ public class MovieShowTimeView {
 		System.out.println("---------------------------------------------------");
 		System.out.println();
 		
-		displayMovieShowTime(movie);
+		boolean hasShowTimes = displayMovieShowTime(movie);
+		if(!hasShowTimes)
+		{
+			return;
+		}
 		boolean goBack = false;
 		while (!goBack) {
 			System.out.println("Enter Show Time ID to Proceed to Seat Selection (Enter 0 to Go Back): ");
@@ -61,15 +65,16 @@ public class MovieShowTimeView {
 	/**
 	 * Prints all the showtimes of the Movie
 	 * @param movie 			The User's selected movie
+	 * @return true if there is showtimes
 	*/
-	public static void displayMovieShowTime(Movie movie)
+	public static boolean displayMovieShowTime(Movie movie)
 	{
 		ArrayList<CinemaShowTime> cinemaShowTimeList = CinemaShowTimeController
 				.getCinemaShowTimeByMovieIdList(movie.getMovieId());
 		
 		if(cinemaShowTimeList.isEmpty()) {
 			System.out.println("\nNo showtimes available for " + movie.getMovieTitle());
-			return;
+			return false;
 		}
 		
 		String printMovieTitle = "=============" + movie.getMovieTitle() + " Show Times=============";
@@ -96,7 +101,7 @@ public class MovieShowTimeView {
 
 		System.out.println();
 
-		
+		return true;
 	}
 
 }
