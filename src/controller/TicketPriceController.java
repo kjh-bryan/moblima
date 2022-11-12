@@ -86,6 +86,7 @@ public class TicketPriceController {
 	 */
 	public static void setTicketPriceOfDay(Ticket ticket,CinemaShowTime cinemaShowTime)
 	{
+		TicketDay ticketDay = TicketDay.valueOf(cinemaShowTime.getShowStartTime().format(DateTimeFormatter.ofPattern("EEE")).toUpperCase());
 		if(isHoliday(cinemaShowTime))
 		{
 			ticket.updateTicketPrice(getHolidayTicketPrice());
@@ -96,7 +97,8 @@ public class TicketPriceController {
 			ticket.updateTicketPrice(getDayPrice(ticket,cinemaShowTime));
 			ticket.setIsHoliday(false);
 		}
-		
+
+		ticket.setTicketDay(ticketDay);
 	}
 	
 	/**
