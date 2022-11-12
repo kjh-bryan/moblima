@@ -102,6 +102,8 @@ public class CURMovieListingView {
 			case 2:
 				movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
 				break;
+			case 3:
+				movieShowingStatus = MovieShowingStatus.END_OF_SHOW;
 		}
 		
 		System.out.println("Enter Movie duration in mins: ");
@@ -277,6 +279,8 @@ public class CURMovieListingView {
 					case 2:
 						movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
 						break;
+					case 3:
+						movieShowingStatus = MovieShowingStatus.END_OF_SHOW;
 				}
 				movie.setMovieShowingStatus(movieShowingStatus);
 				break;
