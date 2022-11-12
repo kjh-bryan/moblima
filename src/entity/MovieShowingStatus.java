@@ -25,8 +25,4 @@ public enum MovieShowingStatus {
 		return movieShowingStatus;
 	}
 	
-	@Override
-	public String toString() {
-		return movieShowingStatus;
-	}
 }
