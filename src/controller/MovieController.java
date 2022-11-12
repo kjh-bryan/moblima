@@ -253,7 +253,7 @@ public class MovieController {
 			{
 				for(Cast c : newMovie.getMovieCasts())
 				{
-					c.setMovieId(newMovie.getMovieId());
+					c.setMovieId(generateId);
 					CastController.createCasts(c);
 				}
 			}

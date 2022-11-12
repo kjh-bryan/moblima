@@ -15,7 +15,8 @@
 15|3|Hong Huifang
 16|3|Jung Dong-Hwan
 17|3|Kang Hyung Suk
-18|3|Yeo Jingoo19|-1|Noone
+18|3|Yeo Jingoo
+19|-1|Noone
 19|-1|Test
 20|-1|Test2
 21|-1|Test
