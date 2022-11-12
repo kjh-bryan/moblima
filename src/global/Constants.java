@@ -1,7 +1,10 @@
 package global;
 
-import entity.Admin;
-import entity.User;
+/**
+ * This class represents the static constant for strings
+ * for readability and reusability
+*/
+
 
 public class Constants {
 	

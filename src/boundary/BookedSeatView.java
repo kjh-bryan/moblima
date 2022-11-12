@@ -59,6 +59,13 @@ public class BookedSeatView {
 			return;
 		}
 		System.out.println();
+		
+		System.out.println("\n-----------------------------------------------------------");
+		System.out.println("-------------- MOBLIMA - Booked Seat Details --------------");
+		System.out.println("-----------------------------------------------------------");
+
+		System.out.println();
+		
 		ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
 		String ticketType = "";
 		String ticketWeekdayOrWeekend = "";

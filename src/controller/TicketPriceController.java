@@ -24,6 +24,11 @@ import entity.TicketDay;
 import entity.TicketType;
 import global.UserSession;
 
+/**
+ * This class represents the Controller for Ticket Pricing
+ * It handles all database functions related to System Settings database file
+ */
+
 public class TicketPriceController {
 	/**
 	 * Separator used as String Token to separate data in text file
@@ -131,6 +136,8 @@ public class TicketPriceController {
 	
 	/**
 	 * Get the Ticket Price according to the Day
+	 * @param ticket					The ticket to set the day
+	 * @param cinemaShowTime			The cinema Show time to check the date and time of the Movie
 	 * @return the ticket price of it's corresponding day
 	 */
 	public static double getDayPrice(Ticket ticket,CinemaShowTime cinemaShowTime)
@@ -332,7 +339,7 @@ public class TicketPriceController {
 	
 	/**
 	 * Gets whether the localDate is between Mon-Fri
-	 * @param localTime 				The time 
+	 * @param localDate 				The date 
 	 * @return true if it is during weekday , false otherwise
 	 */
 	public static boolean dayWithinWeekday(LocalDate localDate)

@@ -20,14 +20,16 @@ public class ViewMovieDetailView {
 
 	/**
 	 * User will be shown the Movie Details upon entering the Movie ID
+	 * @param movie			The movie that was passed to view the detail
 	 */
 	public static void viewMovieDetailView(Movie movie) {
 		boolean goBack = false;
 
 		while (!goBack) {
-			System.out.println("\n------------------------------");
-			System.out.println("MOBLIMA - View Movie Detail");
-			System.out.println("------------------------------");
+			System.out.println("\n---------------------------------------------------");
+			System.out.println("----------- MOBLIMA - View Movie Detail -----------");
+			System.out.println("---------------------------------------------------");
+			
 			System.out.println();
 
 			Movie choosenMovie = displayMovieDetail(movie);

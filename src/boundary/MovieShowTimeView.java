@@ -27,6 +27,11 @@ public class MovieShowTimeView {
 	*/
 	public static void showTimeView(Movie movie) {
 
+		System.out.println("\n---------------------------------------------------");
+		System.out.println("----------- MOBLIMA - Movie's Show Time -----------");
+		System.out.println("---------------------------------------------------");
+		System.out.println();
+		
 		displayMovieShowTime(movie);
 		boolean goBack = false;
 		while (!goBack) {

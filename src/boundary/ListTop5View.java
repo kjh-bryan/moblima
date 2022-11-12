@@ -41,9 +41,9 @@ public class ListTop5View {
 		boolean selectedExit = false;
 
 		while (!selectedExit) {
-			System.out.println("----------------------------------------");
-			System.out.println("   List your top five movies  ");
-			System.out.println("----------------------------------------");
+			System.out.println("\n-------------------------------------------------------");
+			System.out.println("------------- MOBLIMA - List Top 5 Movies -------------");
+			System.out.println("-------------------------------------------------------");
 			if(filterSettings.get(filterByTicketSale))
 			{
 				System.out.println("1: Filter by ticket sales");
@@ -90,7 +90,9 @@ public class ListTop5View {
 			}
 		}
 	}
-	
+	/**
+	 * The View to show if MovieGoer selects to filter by ticket sale
+	*/
 	public static void filterByTicketSale()
 	{
 		ArrayList<Movie> movieListByTicketSale = MovieController.getMovieSortedByTicketSales();
@@ -98,11 +100,12 @@ public class ListTop5View {
 		if(movieListByTicketSale.isEmpty())
 		{
 			System.out.println("No ticket sales!");
+			return;
 		}
 		
-		System.out.println("\n------------------------------");
-		System.out.println(" Top 5 Movie by Ticket Sales");
-		System.out.println("------------------------------");
+		System.out.println("\n-------------------------------------------------------");
+		System.out.println("-------- MOBLIMA - Top 5 Movie by Ticket Sales --------");
+		System.out.println("-------------------------------------------------------");
 		System.out.println();
 		
 		for(Movie movie : movieListByTicketSale)
@@ -116,18 +119,22 @@ public class ListTop5View {
 			
 		}
 	}
-	
+	/**
+	 * The View to show if MovieGoer selects to filter by movie reviews
+	*/
 	public static void filterByMovieReviews()
 	{
 		ArrayList<Movie> movieListByReviews = MovieController.getMovieSortedByReviewRating();
 		if(movieListByReviews.isEmpty())
 		{
 			System.out.println("No reviews made!");
+			return;
 		}
 		
-		System.out.println("\n------------------------------");
-		System.out.println(" Top 5 Movie by Movie Reviews");
-		System.out.println("------------------------------");
+		System.out.println("\n--------------------------------------------------------");
+		System.out.println("-------- MOBLIMA - Top 5 Movie by Movie Reviews --------");
+		System.out.println("--------------------------------------------------------");
+		
 		System.out.println();
 		
 		for(Movie movie : movieListByReviews)

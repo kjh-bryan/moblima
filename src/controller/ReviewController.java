@@ -16,7 +16,10 @@ import entity.MovieGoer;
 import entity.Review;
 import entity.Transaction;
 
-
+/**
+ * This class represents the Controller for  Review
+ * It handles all database functions related to  Review database file
+ */
 public class ReviewController {
 	/**
 	 * Separator used as String Token to separate data in text file

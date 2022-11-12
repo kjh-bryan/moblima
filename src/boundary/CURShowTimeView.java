@@ -39,9 +39,9 @@ public class CURShowTimeView {
 		
 		while(!selectedExit)
 		{
-			System.out.println("\n------------------------------");
-			System.out.println("Create, Update, Remove ShowTime");
-			System.out.println("------------------------------");
+			System.out.println("\n-----------------------------------------------------------------");
+			System.out.println("----------- MOBLIMA - Create, Update, Remove ShowTime -----------");
+			System.out.println("-----------------------------------------------------------------");
 			System.out.println("1: Create ShowTime");
 			System.out.println("2: Update ShowTime");
 			System.out.println("3: Remove ShowTime");

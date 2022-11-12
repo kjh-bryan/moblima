@@ -23,7 +23,7 @@ public class Cast {
 	 * Create a new Cast with the given name and movie it belongs to
 	 * @param castId					This Cast's ID 
 	 * @param castName					This Cast's name
-	 * @param movie						The Movie which this Cast belonged to
+	 * @param movieId						The Movie which this Cast belonged to
 	 */
 	public Cast(int castId, String castName, int movieId) {
 		this.castId = castId;
@@ -66,7 +66,7 @@ public class Cast {
 	
 	/** 
 	 * Set the Movie of which this Cast belongs to
-	 * @param movie  		The Movie which this Cast belonged to
+	 * @param movieId  		The Movie which this Cast belonged to
 	 */
 	
 	public void setMovieId(int movieId) {

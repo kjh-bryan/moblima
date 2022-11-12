@@ -29,6 +29,10 @@ import entity.TicketType;
 import entity.Transaction;
 import global.UserSession;
 
+/**
+ * This class represents the Controller for Ticket that corresponds to a Transaction
+ * It handles all database functions related to Ticket database file
+ */
 public class TicketController {
 	/**
 	 * Separator used as String Token to separate data in text file

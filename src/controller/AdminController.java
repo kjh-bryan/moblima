@@ -14,6 +14,11 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.io.FileWriter;
 
+/**
+ * This class represents the Controller for Admin
+ * It handles all database functions related to Admin database file
+ */
+
 public class AdminController{
 	/**
 	 * Separator used as String Token to separate data in text file
@@ -78,7 +83,7 @@ public class AdminController{
 	 * return null if no such username was found, 
 	 * used by createAdminAccount() to test for existing username
 	 * @param adminAccount 			Admin account contains (username and password)
-	 * @param Admin 			matched the Admin account and returns the Admin object
+	 * @return the matched the Admin account and returns the Admin object
 	 */
 	public static Admin loginAdminAccount(Admin adminAccount) 
 	{

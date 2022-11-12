@@ -52,9 +52,10 @@ public class LoginView {
 		
 		while(!selectedExit)
 		{
-			System.out.println("\n------------------------------");
-			System.out.println("MOBLIMA - Login as " + roleName);
-			System.out.println("------------------------------");
+			System.out.println("\n----------------------------------------------");
+			System.out.println("--------- MOBLIMA - Login as " + roleName + " --------- ");
+			System.out.println("----------------------------------------------");
+			
 			System.out.println("1: Enter Login Credentials");
 			System.out.println("2: Register a new account");
 			System.out.println("0: Go Back");

@@ -20,9 +20,11 @@ public class MovieGoerView {
 		
 		while(!selectedExit)
 		{
-			System.out.println("\n------------------------------");
+			System.out.println("\n---------------------------------------------------------");
 			System.out.println("MOvie Booking and Listing Management Application - Movie Goer Module");
-			System.out.println("------------------------------");
+			System.out.println("---------------------------------------------------------");
+			
+	
 			System.out.println("1: Explore Movies");
 			System.out.println("2: Explore Cineplexes");
 			System.out.println("3: View Transaction History");

@@ -25,9 +25,10 @@ public class ExploreCineplexesView {
 	*/
 	public static void exploreCineplexesView()
 	{
-		System.out.println("\n------------------------------");
-		System.out.println("MOBLIMA - List of All Cineplexes");
-		System.out.println("------------------------------");
+		System.out.println("\n--------------------------------------------------------");
+		System.out.println("----------- MOBLIMA - List of All Cineplexes -----------");
+		System.out.println("--------------------------------------------------------");
+		
 		ArrayList<Cineplex> cineplexList = CineplexController.getAllCineplexList();
 		if(cineplexList.isEmpty()) {
 			System.out.println("No Cineplex Available");

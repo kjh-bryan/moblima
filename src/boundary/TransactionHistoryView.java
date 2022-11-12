@@ -32,7 +32,7 @@ public class TransactionHistoryView {
 	public static void checkLoginBeforeTransactionView()
 	{
 		if (UserSession.movieGoer == null) {
-			System.out.println("Please login before booking a movie! Directing you to Login Screen..");
+			System.out.println("Please login before viewing your transaction history! Directing you to Login Screen..");
 			System.out.println();
 			UserSession.movieGoer = (MovieGoer) new LoginView(Constants.MOVIE_GOER).showLoginView();
 			if(UserSession.movieGoer == null)

@@ -17,6 +17,11 @@ import entity.CinemaShowTime;
 import entity.Cineplex;
 import entity.SeatingLayout;
 
+
+/**
+ * This class represents the Controller for Cinema
+ * It handles all database functions related to Cinema database file
+ */
 public class CinemaController {
 	/**
 	 * Separator used as String Token to separate data in text file

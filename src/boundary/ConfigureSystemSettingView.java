@@ -32,9 +32,10 @@ public class ConfigureSystemSettingView {
 		boolean selectedExit = false;
 		while(!selectedExit)
 		{
-			System.out.println("\n------------------------------");
-			System.out.println("Configure System Settings");
-			System.out.println("------------------------------");
+			System.out.println("\n-----------------------------------------------------------");
+			System.out.println("----------- MOBLIMA - Configure System Settings -----------");
+			System.out.println("-----------------------------------------------------------");
+
 			System.out.println("1: Update Base Ticket Price");
 			System.out.println("2: Update Cinema Class Price");
 			System.out.println("3: Update Holiday Price");
@@ -44,7 +45,7 @@ public class ConfigureSystemSettingView {
 			System.out.println("7: Add Holiday");
 			System.out.println("8: Enable/Disable Top 5 Movie Filter");
 			System.out.println("0: Exit");
-			
+			System.out.println();
 			switch(UserInputValidationController.validateNumberFromUser())
 			{
 				case 1:

@@ -21,6 +21,10 @@ import entity.MovieShowingStatus;
 import entity.MovieType;
 import entity.Review;
 
+/**
+ * This class represents the Controller for Cast
+ * It handles all database functions related to Cast database file
+ */
 public class CastController {
 	/**
 	 * Separator used as String Token to separate data in text file
@@ -75,6 +79,7 @@ public class CastController {
 	/**
 	 * READ the array list of cast by getAllCastList()
 	 * return all Casts which is matched by the Movie ID
+	 * @param movieId				Movie ID which Cast belongs to
 	 * @return  an array list of all Casts
 	 */
 	public static ArrayList<Cast> getCastsByMovieId(int movieId) 

@@ -262,6 +262,7 @@ public class SeatingLayout {
 	 * if it's a number, increment
 	 * e.g.    1  2     3  4  5  6  7  8     9 10
 	 * returns 10
+	 * @param text			The Text File in String
 	 * @return this SeatingLayout's number columns seats
 	 */
 	public int getColumnFromTextFile(String text) {
@@ -362,7 +363,7 @@ public class SeatingLayout {
 	/** 
 	 * Gets the longest string in the array of string of this Seating Layout
 	 * To calculate the how the Screens and Entrance will form
-	 * 
+	 * @return The string that has the largest length 
 	 */
 	public String getColumnString() {
 		String largestColumnString = "";

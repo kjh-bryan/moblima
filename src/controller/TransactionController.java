@@ -18,6 +18,11 @@ import entity.SeatingLayout;
 import entity.Ticket;
 import entity.Transaction;
 
+/**
+ * This class represents the Controller for Transaction
+ * It handles all database functions related to Transaction database file
+ */
+
 public class TransactionController {
 	/**
 	 * Separator used as String Token to separate data in text file

@@ -31,10 +31,15 @@ public class TransactionView {
 	/**
 	 * The Transaction Details Page
 	 * Will be shown the Transaction Id, Cinplex, Hall Number, Total price
-	 * and the Movie
+	 * and the Movie'
+	 * @param ticketList 			The ticket that corresponds to a Seat ID selected by movie Goer
 	*/
 	public static void transactionDetailView(ArrayList<Ticket> ticketList)
 	{
+		System.out.println("\n--------------------------------------------------");
+		System.out.println("----------- MOBLIMA - Transaction View -----------");
+		System.out.println("--------------------------------------------------");
+		
 		
 		int cinemaShowTimeId = ticketList.get(0).getCinemaShowTimeId();
 		CinemaShowTime cinemaShowTime = CinemaShowTimeController.getCinemaShowTimeByShowTimeId(cinemaShowTimeId);

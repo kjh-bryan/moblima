@@ -39,8 +39,8 @@ public class Transaction {
 	 * Create a new Transaction with the given attributes
 	 * @param transactionId				This Transaction's ID
 	 * @param totalPrice				This Transaction's Total price
-	 * @param cinemaShowTime			This Transaction's CinemaShowTime
-	 * @param movieGoer					This Transaction's MovieGoer 
+	 * @param cinemaShowTimeId			This Transaction's CinemaShowTime
+	 * @param movieGoerId					This Transaction's MovieGoer 
 	 * @param transactionDate			This Transaction's Date and Time
 	 */
 	public Transaction(String transactionId, Double totalPrice,

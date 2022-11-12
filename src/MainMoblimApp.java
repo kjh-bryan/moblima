@@ -5,8 +5,16 @@ import boundary.MovieGoerView;
 import controller.UserInputValidationController;
 import global.Constants;
 
-public class MainMoblimApp {
+/**
+ * This is the Main Moblim App that will be the first executed
+ * 
+*/
 
+public class MainMoblimApp {
+	
+	/**
+	 * The Main Function that starts the application
+	*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -17,9 +25,9 @@ public class MainMoblimApp {
 		while(!selectedExit)
 		{
 
-			System.out.println("\n------------------------------");
+			System.out.println("\n---------------------------------------------------------");
 			System.out.println("MOvie Booking and Listing Management Application - MOBLIMA");
-			System.out.println("------------------------------");
+			System.out.println("---------------------------------------------------------");
 			System.out.println("1: Movie-goer Module");
 			System.out.println("2: Admin Module");
 			System.out.println("0: Exit");

@@ -27,9 +27,9 @@ public class SearchListMoviesView {
 		
 		while(!goBack)
 		{
-			System.out.println("\n------------------------------");
-			System.out.println("MOBLIMA - Explore Movies");
-			System.out.println("------------------------------");
+			System.out.println("\n------------------------------------------------------------");
+			System.out.println("----------------- MOBLIMA - Explore Movies -----------------");
+			System.out.println("------------------------------------------------------------");
 	        System.out.println("1: List All Movies");
 			System.out.println("2: Search by Movie ID");
 			System.out.println("3: Search by Movie Title");
@@ -126,11 +126,11 @@ public class SearchListMoviesView {
 		
 		while(!goBack)
 		{
-			System.out.println("\n------------------------------------------");
-			System.out.println("MOBLIMA - List All Movies");
-			System.out.println("--------------------------------------------");
+			System.out.println("\n-----------------------------------------------------------");
+			System.out.println("---------------- MOBLIMA - List All Movies ----------------");
+			System.out.println("-----------------------------------------------------------");
 			System.out.println("Select a Movie to view Movie Details by entering the Movie ID (Enter 0 to Go Back): ");
-			System.out.println("--------------------------------------------");
+			System.out.println("-----------------------------------------------------------");
 			System.out.println();
 			
 			int movieId = UserInputValidationController.validateNumberFromUser();
@@ -160,11 +160,11 @@ public class SearchListMoviesView {
 		
 		while(!goBack)
 		{
-			System.out.println("\n-------------------------------------------");
-			System.out.println("MOBLIMA - Search Movie by Title");
-			System.out.println("--------------------------------------------");
+			System.out.println("\n-----------------------------------------------------------");
+			System.out.println("------------- MOBLIMA - Search Movie By Title -------------");
+			System.out.println("-----------------------------------------------------------");
 			System.out.println("Enter Movie Title to view details (Enter 0 to go back) :");
-			System.out.println("--------------------------------------------");
+			System.out.println("-----------------------------------------------------------");
 			System.out.println();
 			
 			String movieTitle = UserInputValidationController.validateStringFromUser();
@@ -193,6 +193,7 @@ public class SearchListMoviesView {
 	 * The View to be shown after entering a Movie Title after selecting the
 	 * option of Search By Title
 	 * User can then select the Movie by entering the Movie ID
+	 * @param movieList 			a List of Movie passed when Search via movie Title
 	 * @return	the Movie if User selected 
 	*/
 	public static Movie selectOneMovieFromMovieTitle(ArrayList<Movie> movieList)
@@ -201,11 +202,12 @@ public class SearchListMoviesView {
 		boolean goBack = false;
 		while(!goBack)
 		{
-			System.out.println("\n------------------------------");
-			System.out.println("MOBLIMA - Search Movie by Movie Title");
-			System.out.println("------------------------------");
-			System.out.println("Enter Movie ID to view details (Enter 0 to go back)");
-			System.out.println("------------------------------");
+			System.out.println("\n-----------------------------------------------------------");
+			System.out.println("---------- MOBLIMA - Search Movie by Movie Title ----------");
+			System.out.println("-----------------------------------------------------------");
+			System.out.println("Enter Movie ID to view details (Enter 0 to go back) :");
+			System.out.println("-----------------------------------------------------------");
+			
 			System.out.println();
 			
 			int movieId = UserInputValidationController.validateNumberFromUser();
@@ -252,11 +254,11 @@ public class SearchListMoviesView {
 		
 		while(!goBack)
 		{
-			System.out.println("\n------------------------------");
-			System.out.println("MOBLIMA - Search Movie by Movie ID");
-			System.out.println("------------------------------");
-			System.out.println("Enter Movie ID to view details (Enter 0 to go back)");
-			System.out.println("------------------------------");
+			System.out.println("\n----------------------------------------------------------");
+			System.out.println("----------- MOBLIMA - Search Movie by Movie ID -----------");
+			System.out.println("----------------------------------------------------------");
+			System.out.println("Enter Movie ID to view details (Enter 0 to go back) :");
+			System.out.println("----------------------------------------------------------");
 			System.out.println();
 			
 			int movieId = UserInputValidationController.validateNumberFromUser();

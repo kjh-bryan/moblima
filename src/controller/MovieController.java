@@ -25,6 +25,10 @@ import entity.MovieType;
 import entity.Review;
 import entity.Ticket;
 
+/**
+ * This class represents the Controller for Movie
+ * It handles all database functions related to Movie database file
+ */
 public class MovieController {
 	/**
 	 * Separator used as String Token to separate data in text file
@@ -285,9 +289,11 @@ public class MovieController {
 	/**
 	 * UPDATE an existing Movie with an updated details
 	 * @param updatedMovie 		Movie to be updated and its values
+	 * @return True if updated successfully, false otherwise
 	 */
-	public static void updateMovieByMovie(Movie updatedMovie)
+	public static boolean updateMovieByMovie(Movie updatedMovie)
 	{
+		boolean updateSuccessful = false;
 		String tempFile = "temp.txt";
 		File oldFile = new File(DATABASE_FILENAME);
 		File newFile = new File(tempFile);
@@ -339,21 +345,24 @@ public class MovieController {
 			oldFile.delete();
 			File dump = new File(DATABASE_FILENAME);
 			newFile.renameTo(dump);
+			updateSuccessful = true;
 		}
 		catch(Exception e)
 		{
 			LOGGER.log(Level.SEVERE, "updateMovieByMovie() exception occured : " + e.getLocalizedMessage());
 			
 		}
-		
+		return updateSuccessful;
 	}
 	
 	/**
 	 * DELETE Movie by its ID, removing from the database
 	 * @param deletedMovieId 		Movie to be deleted
+	 * @return True if deleted successfully, false otherwise
 	 */
-	public static void deleteMovieByMovieId(int deletedMovieId)
+	public static boolean deleteMovieByMovieId(int deletedMovieId)
 	{
+		boolean deleteSuccessful = false;
 		String tempFile = "temp.txt";
 		File oldFile = new File(DATABASE_FILENAME);
 		File newFile = new File(tempFile);
@@ -403,18 +412,20 @@ public class MovieController {
 			oldFile.delete();
 			File dump = new File(DATABASE_FILENAME);
 			newFile.renameTo(dump);
+			deleteSuccessful = true;
 		}
 		catch(Exception e)
 		{
 			LOGGER.log(Level.SEVERE, "deleteMovieByMovieId() exception occured : " + e.getLocalizedMessage());
 			
 		}
+		return deleteSuccessful;
 		
 	}
 	/**
 	 * READ all the Movie in the array list of getAllShowingMovie()
-	 * Store all results in array list of Movie
-	 * return empty array list if no such Movie exists
+	 * Store all results in array list of Movie if Review is not Empty
+	 * return empty array list if all Movie review is empty
 	 * Sorts the ArrayList in descending order of Movie Overall Rating
 	 * @return  this arraylist containing Movies sorted by Ratings
 	 */
@@ -444,6 +455,14 @@ public class MovieController {
 		return moviesByReviewRatingList;
 	}
 	
+	
+	/**
+	 * READ all the Movie in the array list of getAllShowingMovie()
+	 * Store all results in array list of Movie if ticketSale is not Empty
+	 * return empty array list if all Movie's ticketSale is empty
+	 * Sorts the ArrayList in descending order of Movie Ticket's sale
+	 * @return  this arraylist containing Movies sorted by Ticket sales
+	 */
 	public static ArrayList<Movie> getMovieSortedByTicketSales()
 	{
 		ArrayList<Movie> movieList = getAllShowingMovie();

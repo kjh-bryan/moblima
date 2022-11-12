@@ -13,6 +13,7 @@ public enum CinemaClass {
 		this.cinemaClass = cinemaClass;
 	}
 	
+
 	public String getCinemaType()
 	{
 		return this.cinemaClass;

@@ -1,5 +1,8 @@
 package global;
-
+/**
+ * This class represents the Session when user is logged in
+ * 
+*/
 import entity.Admin;
 import entity.MovieGoer;
 

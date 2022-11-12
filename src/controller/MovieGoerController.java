@@ -14,7 +14,10 @@ import java.util.logging.Logger;
 import entity.Admin;
 import entity.MovieGoer;
 import global.Constants;
-
+/**
+ * This class represents the Controller for MovieGoer
+ * It handles all database functions related to MovieGoer database file
+ */
 public class MovieGoerController {
 	/**
 	 * Separator used as String Token to separate data in text file
@@ -75,7 +78,7 @@ public class MovieGoerController {
 	 * return null if no such username was found, 
 	 * used by createMovieGoerAccount() to test for existing username
 	 * @param movieGoerAccount 			MovieGoer account contains (username and password)
-	 * @param MovieGoer 				matched the MovieGoer account and returns the MovieGoer object
+	 * @return the	matched the MovieGoer account and returns the MovieGoer object
 	 */
 	public static MovieGoer loginMovieGoerAccount(MovieGoer movieGoerAccount)
 	{

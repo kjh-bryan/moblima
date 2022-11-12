@@ -25,6 +25,11 @@ import entity.MovieShowingStatus;
 import entity.MovieType;
 import entity.SeatingLayout;
 
+/**
+ * This class represents the Controller for CinemaShowTime
+ * It handles all database functions related to CinemaShowTime database file
+ */
+
 public class CinemaShowTimeController {
 	/**
 	 * Separator used as String Token to separate data in text file
@@ -49,6 +54,7 @@ public class CinemaShowTimeController {
 	 * as well as creating a copy of the static Cinema Seating Layout 
 	 * into the showtime seatinglayout folder
 	 * @param newCinemaShowTime 		New CinemaShowTime to be added
+	 * @return True if created successfully, false otherwise
 	 */
 	public static boolean createCinemaShowTime(CinemaShowTime newCinemaShowTime)
 	{

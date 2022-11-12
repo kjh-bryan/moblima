@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,18 +14,15 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entity.Cinema;
 import entity.CinemaClass;
-import entity.CinemaShowTime;
-import entity.Movie;
-import entity.MovieClassifiedRating;
-import entity.MovieGoer;
-import entity.MovieShowingStatus;
 import entity.MovieType;
-import entity.SeatingLayout;
 import entity.TicketDay;
 import entity.TicketType;
 
+/**
+ * This class represents the Controller for SeatingLayout that corresponds to a CinemaShowTime
+ * It handles all database functions related to SeatingLayout database file
+ */
 public class SystemSettingController {
 	/**
 	 * Separator used as String Token to separate data in text file

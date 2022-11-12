@@ -124,7 +124,7 @@ public class Ticket {
 
 	/** 
 	 * Set this Ticket's Transaction
-	 * @param transaction 		this Ticket's transaction
+	 * @param transactionId 		this Ticket's transaction
 	 */
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;

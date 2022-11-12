@@ -29,7 +29,7 @@ public class EnterReviewView {
 	 */
 	public static void checkLoginBeforeReviewView(Movie movie) {
 		if (UserSession.movieGoer == null) {
-			System.out.println("Please login before booking a movie! Directing you to Login Screen..");
+			System.out.println("Please login before reviewing a movie! Directing you to Login Screen..");
 			System.out.println();
 			UserSession.movieGoer = (MovieGoer) new LoginView(Constants.MOVIE_GOER).showLoginView();
 			if(UserSession.movieGoer == null)
@@ -49,10 +49,16 @@ public class EnterReviewView {
 	*/
 	public static void enterReviewView(Movie movie)
 	{
+		
+		System.out.println("\n----------------------------------------------");
+		System.out.println("----------- MOBLIMA - Review Movie -----------");
+		System.out.println("----------------------------------------------");
+		System.out.println();
+		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("=======================");
+		System.out.println("================================");
 		System.out.println("Reviewing for " + movie.getMovieTitle());
-		System.out.println("=======================");
+		System.out.println("================================");
 		
 		System.out.println("Enter your rating: ");
 		int reviewRating = UserInputValidationController.validateRatingFromUser();

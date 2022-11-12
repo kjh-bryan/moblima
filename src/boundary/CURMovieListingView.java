@@ -33,9 +33,10 @@ public class CURMovieListingView {
 		
 		while(!selectedExit)
 		{
-			System.out.println("\n------------------------------");
-			System.out.println("Create, Update, Remove Movie Listing");
-			System.out.println("------------------------------");
+			System.out.println("\n----------------------------------------------------------------------");
+			System.out.println("----------- MOBLIMA - Create, Update, Remove Movie Listing -----------");
+			System.out.println("----------------------------------------------------------------------");
+
 			System.out.println("1: Create Movie Listing");
 			System.out.println("2: Update Movie Listing");
 			System.out.println("3: Remove Movie Listing");
@@ -220,7 +221,7 @@ public class CURMovieListingView {
 		
 		System.out.println("Enter the Movie ID you wish to update: ");
 		int movieId = UserInputValidationController.validateNumberFromUser();
-
+		String attributeToUpdate = "";
 		Movie movie = MovieController.getMovieByMovieId(movieId);
 		if(movie==null)
 		{
@@ -229,8 +230,9 @@ public class CURMovieListingView {
 		}
 		
 		System.out.println();
-		System.out.println("What do you want to update? ");
-		System.out.println("------------------------------");
+		System.out.println("-------------------------------------");
+		System.out.println("---- What do you want to update? ----");
+		System.out.println("-------------------------------------");
 		System.out.println("1: Movie Title");
 		System.out.println("2: Movie Showing Status");
 		System.out.println("3: Movie Duration");
@@ -247,6 +249,7 @@ public class CURMovieListingView {
 		int option = UserInputValidationController.validateNumberFromUser();
 		switch(option){
 			case 1:
+				attributeToUpdate = "Movie Title";
 				System.out.println("Enter a new Movie Title: ");
 				String newMovieTitle = UserInputValidationController.validateStringFromUser();
 				movie.setMovieTitle(newMovieTitle);
@@ -254,6 +257,7 @@ public class CURMovieListingView {
 				break;
 
 			case 2:
+				attributeToUpdate = "Movie Status";
 				int movieStatus = -1;
 				while(movieStatus < 0 || movieStatus > 2)
 				{
@@ -278,6 +282,7 @@ public class CURMovieListingView {
 				break;
 
 			case 3:
+				attributeToUpdate = "Movie Duration";
 				// Duration
 				System.out.println("Enter new Movie duration in mins: ");
 				int movieDuration = UserInputValidationController.validateNumberFromUser();
@@ -286,6 +291,7 @@ public class CURMovieListingView {
 
 			case 4:
 				// Start Date
+				attributeToUpdate = "Movie Start Date";
 				
 				System.out.println( "Enter new Start Date (yyyy-MM-dd): ");
 				String startDate = UserInputValidationController.validateLocalDateFromUser();
@@ -295,6 +301,7 @@ public class CURMovieListingView {
 
 			case 5:
 				// End Date
+				attributeToUpdate = "Movie End Date";
 				System.out.println( "Enter new End Date (yyyy-MM-dd): ");
 				String endDate = UserInputValidationController.validateLocalDateFromUser();
 				LocalDate movieEndDate = LocalDate.parse(endDate);
@@ -303,6 +310,7 @@ public class CURMovieListingView {
 
 			case 6:
 				// Movie Synopsis
+				attributeToUpdate = "Movie Synopsis";
 				System.out.println("Enter new Movie Synopsis: ");
 				String movieSynopsis = UserInputValidationController.validateStringFromUser();
 				movie.setMovieSynopsis(movieSynopsis);
@@ -310,6 +318,7 @@ public class CURMovieListingView {
 
 			case 7:
 				// Movie Director
+				attributeToUpdate = "Movie Director";
 				System.out.println("Enter new Movie Director: ");
 				String movieDirector = UserInputValidationController.validateStringFromUser();
 				movie.setMovieDirector(movieDirector);
@@ -317,6 +326,7 @@ public class CURMovieListingView {
 
 			case 8:
 				// Movie Classified Rating
+				attributeToUpdate = "Movie Classified Rating";
 				int classifiedRating = -1;
 				while(classifiedRating < 0 || classifiedRating > 5)
 				{
@@ -352,12 +362,14 @@ public class CURMovieListingView {
 
 			case 9:
 				// Movie Genre
+				attributeToUpdate = "Movie Genre";
 				System.out.println("Enter new Movie Genre: ");
 				String movieGenre = UserInputValidationController.validateStringFromUser();
 				movie.setMovieGenre(movieGenre);
 				break;
 			case 10:
 				// Movie language
+				attributeToUpdate = "Movie Language";
 				System.out.println("Enter new Movie Language: ");
 				String movieLanguage = UserInputValidationController.validateStringFromUser();
 				movie.setMovieLanguage(movieLanguage);
@@ -368,7 +380,16 @@ public class CURMovieListingView {
 				System.out.println("Invalid option");
 		}
 		
-		MovieController.updateMovieByMovie(movie);
+		boolean success = MovieController.updateMovieByMovie(movie);
+		if(success)
+		{
+			System.out.println(attributeToUpdate + " has been successfully updated");
+		}
+		else
+		{
+			System.out.println("Movie could not be updated!");
+		}
+		printAllMovies();
 	}
 	
 	/**
@@ -385,9 +406,17 @@ public class CURMovieListingView {
 		
 		System.out.println("Enter the Movie ID you wish to delete: ");
 		int movieId = UserInputValidationController.validateNumberFromUser();
-		MovieController.deleteMovieByMovieId(movieId);
-		
-		System.out.println("Deleted Successfully");
+		boolean success = MovieController.deleteMovieByMovieId(movieId);
+		if(success)
+		{
+
+			System.out.println("Deleted Successfully");
+		}
+		else
+		{
+
+			System.out.println("Movie could not be deleted");
+		}
 
 		printAllMovies();
 	}

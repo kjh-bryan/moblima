@@ -43,9 +43,10 @@ public class RegisterView {
 	*/
 	public boolean showRegisterView()
 	{
-		System.out.println("\n------------------------------");
-		System.out.println("MOBLIMA - Register as " + roleName);
-		System.out.println("------------------------------");
+		System.out.println("\n----------------------------------------------");
+		System.out.println("--------- MOBLIMA - Register as " + roleName + " --------- ");
+		System.out.println("----------------------------------------------");
+		
 
 		Random random = new Random();
 		int id = random.nextInt(1000);

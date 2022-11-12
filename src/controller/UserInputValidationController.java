@@ -2,7 +2,7 @@ package controller;
 
 
 /**
- * The controls the User Input and validates it
+ * This controls the User Input and validates it to make sure it's valid
 */
 
 
@@ -444,6 +444,7 @@ public class UserInputValidationController {
 	/**
 	 * Get a whether the database filename already exists.
 	 * create a new file if it doesn't exist
+	 * @param fileName				to create the file name if it doesn't exist
 	 * @return True or false whether it exist
 	*/	
 	public static boolean createDatabaseFileName(String fileName)

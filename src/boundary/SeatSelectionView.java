@@ -36,7 +36,7 @@ public class SeatSelectionView {
 			printEntranceLayout(seatingLayout.getColumnString());
 			
 			System.out.println();
-			System.out.println("Enter the corresponding Row Letter and Column Number of your seat choice (Enter 1 to Confirm, 0 to Go Back): ");
+			System.out.println("Enter the corresponding Row Letter and Column Number of your seat choice e.g B5 (Enter 1 to Confirm, 0 to Go Back): ");
 			
 			String seatId = UserInputValidationController.validateSeatIDFromUser();
 			

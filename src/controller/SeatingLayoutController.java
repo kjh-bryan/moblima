@@ -15,7 +15,10 @@ import entity.Admin;
 import entity.Cinema;
 import entity.CinemaShowTime;
 import entity.SeatingLayout;
-
+/**
+ * This class represents the Controller for  SeatingLayout
+ * It handles all database functions related to  SeatingLayout database file
+ */
 public class SeatingLayoutController {
 	
 	/**

@@ -12,6 +12,10 @@ import java.util.logging.Logger;
 
 import entity.Cinema;
 import entity.Cineplex;
+/**
+ * This class represents the Controller for CineplexController
+ * It handles all database functions related to CineplexController database file
+ */
 
 public class CineplexController {
 	/**
