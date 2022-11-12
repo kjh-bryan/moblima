@@ -8,6 +8,7 @@ import controller.UserInputValidationController;
 import entity.Cast;
 import entity.Movie;
 import entity.MovieGoer;
+import entity.MovieShowingStatus;
 import entity.Review;
 import global.Constants;
 
@@ -42,7 +43,15 @@ public class ViewMovieDetailView {
 				if (choice == 1) {
 					goBack = true;
 					// show time options
-					MovieShowTimeView.showTimeView(choosenMovie);
+					if(choosenMovie.getMovieShowingStatus().equals(MovieShowingStatus.COMING_SOON)
+							|| choosenMovie.getMovieShowingStatus().equals(MovieShowingStatus.END_OF_SHOW))
+					{
+						System.out.println("Movie coming soon could not be booked yet!");
+					}
+					else
+					{
+						MovieShowTimeView.showTimeView(choosenMovie);
+					}
 				} else if (choice == 2) {
 
 					EnterReviewView.checkLoginBeforeReviewView(choosenMovie);
