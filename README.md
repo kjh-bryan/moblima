@@ -48,23 +48,23 @@ Required following functionalities:
 ## Roadmap
 
  
- - [ ]  **_Admin module_**
-    - [ ] Movie Listing
-        - [ ] Create
-        - [ ] Update
-        - [ ] Remove
-    - [ ] Cinema Showtimes & Movies Shown
-        - [ ] Create
-        - [ ] Update
-        - [ ] Remove
-    - [ ] Configure System Settings
- - [ ] **_Movie-goer module_**
-    - [ ] Search/List movie
-    - [ ] View movie details – including reviews and ratings
-    - [ ] Check seat availability and selection of seat/s.
-    - [ ] Book and purchase ticket
-    - [ ] View booking history
-    - [ ] List the Top 5 ranking by ticket sales OR by overall reviewers’ ratings
+ - [x]  **_Admin module_**
+    - [x] Movie Listing
+        - [x] Create
+        - [x] Update
+        - [x] Remove
+    - [x] Cinema Showtimes & Movies Shown
+        - [x] Create
+        - [x] Update
+        - [x] Remove
+    - [x] Configure System Settings
+ - [x] **_Movie-goer module_**
+    - [x] Search/List movie
+    - [x] View movie details – including reviews and ratings
+    - [x] Check seat availability and selection of seat/s.
+    - [x] Book and purchase ticket
+    - [x] View booking history
+    - [x] List the Top 5 ranking by ticket sales OR by overall reviewers’ ratings
 
 
 
