@@ -31,8 +31,9 @@ public class ViewMovieDetailView {
 			System.out.println("---------------------------------------------------");
 			
 			System.out.println();
-
-			Movie choosenMovie = displayMovieDetail(movie);
+			
+			Movie refreshMovie = MovieController.getMovieByMovieId(movie.getMovieId());
+			Movie choosenMovie = displayMovieDetail(refreshMovie);
 
 			if (choosenMovie != null) {
 				System.out.println(
@@ -70,6 +71,7 @@ public class ViewMovieDetailView {
 			System.out.println(movie.getMovieTitle());
 			System.out.println(movie.getMovieClassifiedRating());
 			System.out.println(movie.getMovieType().getMovieType());
+			System.out.println();
 			System.out.println("Cast");
 			String castsName = "";
 			for (Cast c : movie.getMovieCasts()) {
@@ -80,18 +82,25 @@ public class ViewMovieDetailView {
 			System.out.println();
 			System.out.println("Director");
 			System.out.println(movie.getMovieDirector());
+			System.out.println();
 			System.out.println("Synopsis");
 			System.out.println(movie.getMovieSynopsis());
+			System.out.println();
 			System.out.println("Genre");
 			System.out.println(movie.getMovieGenre());
+			System.out.println();
 			System.out.println("Language");
 			System.out.println(movie.getMovieLanguage());
-			System.out.println("Rating");
+			System.out.println();
+			System.out.println("Classified Rating");
 			System.out.println(movie.getMovieClassifiedRating().getMovieClassifiedRating());
+			System.out.println();
 			System.out.println("Runtime");
 			System.out.println(movie.getMovieDurationInMins() + "mins");
+			System.out.println();
 			System.out.println("Opening");
 			System.out.println(movie.getMovieReleaseDateToString());
+			System.out.println();
 
 			if (movie.getMovieReviews().size() > 1) {
 				System.out.println("Movie Overall Rating : " + movie.getMovieOverallRatingOrNA());

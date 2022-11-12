@@ -217,7 +217,7 @@ public class MovieController {
 		
 		for(Movie m : moviesList)
 		{
-			if(m.getMovieTitle().contains(movieTitle.trim()))
+			if(m.getMovieTitle().toUpperCase().contains(movieTitle.trim().toUpperCase()))
 			{
 				moviesByMovieTitleList.add(m);
 			}
