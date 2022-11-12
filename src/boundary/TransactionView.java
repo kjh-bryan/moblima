@@ -87,6 +87,8 @@ public class TransactionView {
 		System.out.println("===============================");
 		System.out.println("Transaction ID : " + transactionId);
 		System.out.println("Cineplex : " + cineplex.getCineplexName());
+		System.out.println("Cinema Class: " + cinema.getCinemaClass().getCinemaType());
+		System.out.println("Type :" + movie.getMovieType());
 		System.out.println("Hall " + cinema.getHallNumber());
 		System.out.println("Movie : " +movie.getMovieTitle()) ;
 		StringBuilder sb = new StringBuilder();

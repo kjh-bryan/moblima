@@ -324,16 +324,28 @@ public class MovieController {
 				MovieType movieType = MovieType.valueOf(sc.next().trim());
 				if(movieId == updatedMovie.getMovieId())
 				{
-					pw.println(updatedMovie.getMovieId()+SEPARATOR+updatedMovie.getMovieTitle()+SEPARATOR+updatedMovie.getMovieShowingStatus()+SEPARATOR+updatedMovie.getMovieClassifiedRating()
-							+SEPARATOR+updatedMovie.getMovieReleaseDate().toString()+SEPARATOR+updatedMovie.getMovieEndDate().toString()+updatedMovie.getMovieSynopsis()+SEPARATOR
-							+updatedMovie.getMovieDirector()+SEPARATOR+updatedMovie.getMovieOverallRatingOrNA()+""+SEPARATOR+updatedMovie.getMovieGenre()+SEPARATOR+updatedMovie.getMovieDurationInMins()
-							+""+SEPARATOR+updatedMovie.getMovieLanguage()+SEPARATOR+updatedMovie.getMovieType());
+					pw.println(updatedMovie.getMovieId()+SEPARATOR+
+							updatedMovie.getMovieTitle()+SEPARATOR+
+							updatedMovie.getMovieShowingStatus()+SEPARATOR+
+							updatedMovie.getMovieClassifiedRating()+SEPARATOR+
+							updatedMovie.getMovieReleaseDate().toString()+SEPARATOR+
+							updatedMovie.getMovieEndDate().toString()+SEPARATOR
+							+updatedMovie.getMovieSynopsis()+SEPARATOR
+							+updatedMovie.getMovieDirector()+SEPARATOR+
+							updatedMovie.getMovieOverallRatingOrNA()+""+SEPARATOR+
+							updatedMovie.getMovieGenre()+SEPARATOR+
+							updatedMovie.getMovieDurationInMins()+""+SEPARATOR+
+							updatedMovie.getMovieLanguage()+SEPARATOR+
+							updatedMovie.getMovieType());
 				}
 				else
 				{
-					pw.println(movieId+SEPARATOR+movieTitle+SEPARATOR+movieShowingStatus+SEPARATOR+movieClassifiedRating
-							+SEPARATOR+movieStartDate.toString()+SEPARATOR+movieEndDate.toString()+movieSynopsis+SEPARATOR+movieDirector
-							+SEPARATOR+movieOverallRating+""+SEPARATOR+movieGenre+SEPARATOR+movieDurationInMins+""+SEPARATOR+movieLanguage+SEPARATOR+movieType);
+					pw.println(movieId+SEPARATOR+movieTitle+SEPARATOR+
+							movieShowingStatus+SEPARATOR+movieClassifiedRating+SEPARATOR+
+							movieStartDate.toString()+SEPARATOR+movieEndDate.toString()+SEPARATOR+
+							movieSynopsis+SEPARATOR+movieDirector+SEPARATOR+
+							movieOverallRating+""+SEPARATOR+movieGenre+SEPARATOR+
+							movieDurationInMins+""+SEPARATOR+movieLanguage+SEPARATOR+movieType);
 				
 				}
 				

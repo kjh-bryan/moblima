@@ -102,8 +102,10 @@ public class ViewMovieDetailView {
 			System.out.println(movie.getMovieReleaseDateToString());
 			System.out.println();
 
+			System.out.println("Movie Overall Rating : " + movie.getMovieOverallRatingOrNA());
+			System.out.println();
+			
 			if (movie.getMovieReviews().size() > 1) {
-				System.out.println("Movie Overall Rating : " + movie.getMovieOverallRatingOrNA());
 				System.out.println("=================================================");
 				System.out.println("==================== Reviews ====================");
 				for (Review r : movie.getMovieReviews()) {
