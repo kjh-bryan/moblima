@@ -332,7 +332,7 @@ public class MovieController {
 							updatedMovie.getMovieEndDate().toString()+SEPARATOR
 							+updatedMovie.getMovieSynopsis()+SEPARATOR
 							+updatedMovie.getMovieDirector()+SEPARATOR+
-							updatedMovie.getMovieOverallRatingOrNA()+""+SEPARATOR+
+							updatedMovie.getMovieOverallRating()+""+SEPARATOR+
 							updatedMovie.getMovieGenre()+SEPARATOR+
 							updatedMovie.getMovieDurationInMins()+""+SEPARATOR+
 							updatedMovie.getMovieLanguage()+SEPARATOR+
