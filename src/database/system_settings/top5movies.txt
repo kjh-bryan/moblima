@@ -1,2 +1,2 @@
-Filter By Ticket Sales|true
+Filter By Ticket Sales|false
 Filter by Movie Reviews|true

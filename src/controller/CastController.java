@@ -160,7 +160,7 @@ public class CastController {
 			{
 				int castId = Integer.parseInt(sc.next());
 				int movieId = Integer.parseInt(sc.next());
-				String castName = sc.next();
+				String castName = sc.next().trim();
 				if(movieId != deletedMovieId)
 				{
 					pw.println(castId+SEPARATOR+movieId+SEPARATOR+castName);

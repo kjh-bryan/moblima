@@ -84,9 +84,9 @@ public class CURMovieListingView {
 		System.out.println("Enter Movie Title: ");
 		String movieTitle = UserInputValidationController.validateStringFromUser();
 		int movieStatus = -1;
-		while(movieStatus < 0 || movieStatus > 2)
+		while(movieStatus < 0 || movieStatus > 3)
 		{
-			System.out.println("Enter Movie Showing Status (0 for Coming soon, 1 for Preview, 2 for Now Showing)");
+			System.out.println("Enter Movie Showing Status (0 for Coming soon, 1 for Preview, 2 for Now Showing, 3 for End Of Show)");
 			
 			movieStatus = UserInputValidationController.validateNumberFromUser();
 		}
@@ -104,6 +104,7 @@ public class CURMovieListingView {
 				break;
 			case 3:
 				movieShowingStatus = MovieShowingStatus.END_OF_SHOW;
+				break;
 		}
 		
 		System.out.println("Enter Movie duration in mins: ");
@@ -244,8 +245,7 @@ public class CURMovieListingView {
 		System.out.println("7: Movie Director");
 		System.out.println("8: Movie Classified Rating");
 		System.out.println("9: Movie Genre");
-		System.out.println("9: Movie Rating");
-		System.out.println("10: Movie Rating");
+		System.out.println("10: Movie Language");
 		System.out.println("0: Exit");
 
 		int option = UserInputValidationController.validateNumberFromUser();
@@ -261,9 +261,9 @@ public class CURMovieListingView {
 			case 2:
 				attributeToUpdate = "Movie Status";
 				int movieStatus = -1;
-				while(movieStatus < 0 || movieStatus > 2)
+				while(movieStatus < 0 || movieStatus > 3)
 				{
-					System.out.println("Enter new Movie Showing Status \n(0 for Coming soon, 1 for Preview, 2 for Now Showing)");
+					System.out.println("Enter new Movie Showing Status \n(0 for Coming soon, 1 for Preview, 2 for Now Showing, 3 for End Of Show)");
 					
 					movieStatus = UserInputValidationController.validateNumberFromUser();
 				}
@@ -281,6 +281,7 @@ public class CURMovieListingView {
 						break;
 					case 3:
 						movieShowingStatus = MovieShowingStatus.END_OF_SHOW;
+						break;
 				}
 				movie.setMovieShowingStatus(movieShowingStatus);
 				break;

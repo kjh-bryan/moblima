@@ -265,7 +265,7 @@ public class CURShowTimeView {
 	*/
 	public static void printAllMovies()
 	{
-		ArrayList<Movie> movieList = MovieController.getAllShowingMovie();
+		ArrayList<Movie> movieList = MovieController.getAllMovies();
 		if(movieList.isEmpty())
 		{
 			System.out.println("No movies available");
@@ -295,7 +295,7 @@ public class CURShowTimeView {
 	public static void printAllCinemaShowTime()
 	{
 		
-		ArrayList<Movie> movieList = MovieController.getAllShowingMovie();
+		ArrayList<Movie> movieList = MovieController.getAllMovies();
 		
 		for(Movie m : movieList)
 		{

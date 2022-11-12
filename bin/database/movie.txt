@@ -1,3 +1,5 @@
-1|Black Adam|NOW_SHOWING|PG13|2022-10-20|2022-11-20|In ancient Kahndaq..|Jaume Collet-Serra|-1|Action,Adventure,Fantasy|125|English|TWOD
-2|Hell hole|NOW_SHOWING|NC16|2022-10-27|2022-11-27|This is a tale about love, loss, suffering and karma...|Sam Loh|-1|Horror|92|Mandarin|THREED
+1|Black Panther:Wakanda Forever|END_OF_SHOW|PG13|2022-10-22|2022-11-22|Queen Ramonda, Shuri, M'Baku, Okoye and the Dora..|Ryan Coogler|-1|Action,Adventure|161|English|THREED
+2|ONE PIECE FILM RED|NOW_SHOWING|PG13|2022-09-29|2022-11-29|Uta - the most beloved singer in the world...|Goro Taniguchi|0|Anime|115|Japanese|TWOD
 3|Ajoomma|NOW_SHOWING|NC16|2022-10-27|2022-11-27|Auntie(Hong Huifang) is a middle-aged Singaporean woman..|He Shuming|-1|Drama|92|Mandarin, Korean, English|TWOD
+4|Black Adam|END_OF_SHOW|PG13|2022-10-20|2022-11-20|In ancient Kahndaq..|Jaume Collet-Serra|-1|Action,Adventure,Fantasy|125|English|TWOD
+5|Hell hole|NOW_SHOWING|NC16|2022-10-27|2022-11-27|This is a tale about love, loss suffering and karma..|Sam Loh|-1|Scary|92|Mandarin|THREED

@@ -142,7 +142,7 @@ public class SearchListMoviesView {
 			}
 			else
 			{
-				Movie movie = MovieController.getMovieByMovieId(movieId);
+				Movie movie = MovieController.getShowingMovieByMovieId(movieId);
 				return movie;
 			}
 		}

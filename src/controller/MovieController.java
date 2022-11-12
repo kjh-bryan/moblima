@@ -407,13 +407,9 @@ public class MovieController {
 				if(movieId != deletedMovieId)
 				{
 					pw.println(movieId+SEPARATOR+movieTitle+SEPARATOR+movieShowingStatus+SEPARATOR+movieClassifiedRating
-							+SEPARATOR+movieStartDate.toString()+SEPARATOR+movieEndDate.toString()+movieSynopsis+SEPARATOR+movieDirector
+							+SEPARATOR+movieStartDate.toString()+SEPARATOR+movieEndDate.toString()+SEPARATOR+movieSynopsis+SEPARATOR+movieDirector
 							+SEPARATOR+movieOverallRating+""+SEPARATOR+movieGenre+SEPARATOR+movieDurationInMins+""+SEPARATOR+movieLanguage+SEPARATOR+movieType);
 		
-				}
-				else
-				{
-					CastController.deleteCastsByMovieId(deletedMovieId);
 				}
 				
 			}
@@ -424,7 +420,11 @@ public class MovieController {
 			oldFile.delete();
 			File dump = new File(DATABASE_FILENAME);
 			newFile.renameTo(dump);
+			
+			//CastController.deleteCastsByMovieId(deletedMovieId);
+			
 			deleteSuccessful = true;
+			
 		}
 		catch(Exception e)
 		{

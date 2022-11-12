@@ -28,8 +28,8 @@ public class AdminView {
 			System.out.println("MOvie Booking and Listing Management Application - Admin Module");
 			System.out.println("Welcome, " + adminUser.getUsername());
 			System.out.println("---------------------------------------------------------");
-			System.out.println("1: Create/Update/Remove movie listing");
-			System.out.println("2: Create/Update/Remove cinema showtimes and movies to be shown");
+			System.out.println("1: Create/Update/Remove movie listing and movies to be shown");
+			System.out.println("2: Create/Update/Remove cinema showtimes");
 			System.out.println("3: Configure system settings");
 			System.out.println("4: Log out");
 			System.out.println();

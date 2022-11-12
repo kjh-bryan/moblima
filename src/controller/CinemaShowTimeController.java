@@ -113,7 +113,7 @@ public class CinemaShowTimeController {
 				String cinemaCode = sc.next();
 				int movieId = Integer.parseInt(sc.next());
 				LocalDateTime movieStartTime = LocalDateTime.parse(sc.next());
-				LocalDateTime movieEndTime = LocalDateTime.parse(sc.next());
+				LocalDateTime movieEndTime = LocalDateTime.parse(sc.next().trim());
 				
 				if(showTimeId == updatedCinemaShowTime.getShowTimeId())
 				{
@@ -166,18 +166,19 @@ public class CinemaShowTimeController {
 			
 			sc = new Scanner(new File(DATABASE_FILENAME));
 			sc.useDelimiter("[|\n]");
-			
+
+			int seatingLayoutToDelete = -1;
 			while(sc.hasNext())
 			{
 				int showTimeId = Integer.parseInt(sc.next());
 				String cinemaCode = sc.next();
 				int movieId = Integer.parseInt(sc.next());
 				LocalDateTime movieStartTime = LocalDateTime.parse(sc.next());
-				LocalDateTime movieEndTime = LocalDateTime.parse(sc.next());
+				LocalDateTime movieEndTime = LocalDateTime.parse(sc.next().trim());
 				
 				if(showTimeId == deletedShowTimeId)
 				{
-					SeatingLayoutController.deleteSeatingLayoutByShowTimeId(showTimeId);
+					seatingLayoutToDelete = showTimeId;
 				}
 				else
 				{
@@ -195,6 +196,8 @@ public class CinemaShowTimeController {
 			oldFile.delete();
 			File dump = new File(DATABASE_FILENAME);
 			newFile.renameTo(dump);
+
+			SeatingLayoutController.deleteSeatingLayoutByShowTimeId(seatingLayoutToDelete);
 		}
 		catch(Exception e)
 		{
@@ -356,17 +359,19 @@ public class CinemaShowTimeController {
 			@Override
 			public int compare(Object o1, Object o2)
 			{
-				String x1 = ((CinemaShowTime) o1).getCinemaCode();
-				String x2 = ((CinemaShowTime) o2).getCinemaCode();
-				int sComp = x1.compareTo(x2);
-				if(sComp!= 0)
-				{
-					return sComp;
-				}
 				
 				LocalDateTime ldt1 = ((CinemaShowTime) o1).getShowStartTime();
 				LocalDateTime ldt2 = ((CinemaShowTime) o2).getShowStartTime();
 				return ldt1.compareTo(ldt2);
+				
+
+//				String x1 = ((CinemaShowTime) o1).getCinemaCode();
+//				String x2 = ((CinemaShowTime) o2).getCinemaCode();
+//				int sComp = x1.compareTo(x2);
+//				if(sComp!= 0)
+//				{
+//					return sComp;
+//				}
 			}
 		});
 	}

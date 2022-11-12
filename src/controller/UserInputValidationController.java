@@ -461,14 +461,14 @@ public class UserInputValidationController {
 			}
 			else
 			{
-				LOGGER.log(Level.INFO, "DatabaseTableFile does not exist, create new file");
+				LOGGER.log(Level.FINE, "DatabaseTableFile does not exist, create new file");
 				databaseTableFile.createNewFile();
 				return true;
 			}
 		}catch(Exception e)
 		{
 			
-			LOGGER.log(Level.SEVERE, "createDatabaseTableFile exception occured : " + e.getLocalizedMessage());
+			LOGGER.log(Level.FINE, "createDatabaseTableFile exception occured : " + e.getLocalizedMessage());
 		}
 		return false;
 		

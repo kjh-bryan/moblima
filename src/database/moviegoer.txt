@@ -1,3 +1,3 @@
-675|alexleow|alexleow|Alex|92353425|alexleow@gmail.com|20
-644|alvinpoh|alvinpoh|Alvin|91254352|alvinpoh@gmail.com|61
-676|billyboy|password|billy|91234123|billypoh@gmail.com|77
+2|alvinpoh|alvinpoh|Alvin Poh|91253241|alvinpoh@gmail.com|56
+3|alexleow|alexleow|Alex leow|98241245|alexleow@gmail.com|19
+4|johntan|johntan|John Tan|91233534|johntan@gmail.com|34

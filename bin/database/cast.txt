@@ -1,28 +1,16 @@
-1|1|Dwayne Johnson
-2|1|Aldis Hodge
-3|1|Noah Centineo
-4|1|Sarah Shahi
-5|1|Marwan Kenzari
-6|1|Quintessa Swindell
-7|1|Mohammed Amer
-8|1|Bodhi Sabongui
-9|1|Pierce Brosnan
-10|2|Justin Cheung
-11|2|Hedwig Tam
-12|2|Jennifer Yu
-13|2|Lam Yiu Sing
-14|2|Raymond Chiu
-15|3|Hong Huifang
-16|3|Jung Dong-Hwan
-17|3|Kang Hyung Suk
-18|3|Yeo Jingoo
-19|-1|Noone
-19|-1|Test
-20|-1|Test2
-21|-1|Test
-22|-1|Test
-23|-1|Test2
-24|-1|Testtt
-25|-1|test
-26|-1|test
-27|-1|test
+1|1|Lupita Nyong'o
+2|1|Dani Gurira
+3|1|Angela Bassett
+4|1|Winston Duke
+5|1|Letitia Wright
+6|1|Florence Kasumba
+7|2|Ikue Otani
+8|2|Kaori Nazuka
+9|2|Mayumi Tanaka
+10|2|Akemi Okamura
+11|2|Kappei Yamaguchi
+12|3|Hong Huifang
+13|3|Jung Dong-Hwan
+14|3|Kang Hyung Suk
+15|3|Yeo Jingoo
+16|4|Dwayne Johnson17|5|ABC18|6|Hercules
